@@ -23,7 +23,8 @@ class ContactController extends Controller
      */
     public function create()
     {
-        //
+        $companies = Company::pluck('name','id');
+        return view('contact.create',compact('companies'));
     }
 
     /**
@@ -34,7 +35,16 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+          'first_name'=>'required',
+          'last_name'=>'required',
+          'email'=>'required',
+          'company_id'=>'required',
+        ]);
+
+        Contact::create($request->all());
+        return redirect()->route('contacts.index')
+          ->with('success','Contact saved');
     }
 
     /**
@@ -43,9 +53,9 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Contact $contact)//$id
     {
-        //
+        return view('contacts.show', compact('contact'));
     }
 
     /**
@@ -56,7 +66,9 @@ class ContactController extends Controller
      */
     public function edit($id)
     {
-        //
+        $companies = Company::pluck('name', 'id');
+
+        return view('contacts.edit', compact('contact', 'companies'));
     }
 
     /**
@@ -66,9 +78,17 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Contact $contact )//, $id
     {
-        //
+      $request->validate([
+          'first_name'=>'required',
+          'last_name'=>'required',
+          'email'=>'required',
+          'company_id'=>'required'
+      ]);
+
+      $contact->update($request->all());
+      return redirect('/contacts')->with('success', 'Contact Updated');
     }
 
     /**

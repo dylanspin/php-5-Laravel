@@ -10,7 +10,7 @@ class AlterContactsTable extends Migration
     {
       Schema::table('contacts',function(Blueprint $table){
         $table->unsignedBigInteger('company_id');
-        $table->=Foreign('company_id')
+        $table->Foreign('company_id')
                   ->references('id')->on('companies');
       });
     }
