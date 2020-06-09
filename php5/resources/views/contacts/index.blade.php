@@ -13,7 +13,18 @@
  <div>
     <a style="margin: 19px;" href="{{ route('contacts.create')}}" class="btn btn-primary">Contact toevoegen</a>
  </div>
+ <div class="row">
+     {!! Form::open(['method'=>'GET','url'=>'/contacts/','class'=>'navbar-form navbar-left','role'=>'search'])  !!}
+         <div class="input-group custom-search-form">
+       <input type="text" class="form-control" name="keyword" placeholder="Zoek...">
+       <span class="input-group-btn">
+           <button class="btn btn-default-sm" type="submit">
+               <i class="fa fa-search"><span class="glyphicon glyphicon-search"></span></i>
+           </button>
+       </span>
 
+     {!! Form::close() !!}
+   </div>
 <div class="row">
 <div class="col-sm-12">
     <h1 class="display-3">Contacten</h1>

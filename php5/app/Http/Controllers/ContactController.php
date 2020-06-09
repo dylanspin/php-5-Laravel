@@ -11,10 +11,17 @@ class ContactController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
+     public function index(Request $request)
+     {
+         $keyword = $request->keyword;
+         if (isset($keyword)){
+           $contacts = Contact::contactSearch($keyword);
+         } else {
+           $contacts = Contact::all();
+         }
+
+         return view('contacts.index', compact('contacts'));
+     }
 
     /**
      * Show the form for creating a new resource.

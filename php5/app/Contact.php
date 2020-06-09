@@ -20,4 +20,10 @@ class Contact extends Model
     public function company(){
       return $this->belongsTo(Company::class, 'company_id');
     }
+
+    public static function contactSearch($name) {
+       return Contact::where('first_name', 'LIKE', "%$name%")
+      ->orWhere('last_name', 'LIKE', "%$name%")->get();
+    }
+
 }
