@@ -11,14 +11,13 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <body>
       <div class="content">
-
           <!--header-->
           @if (Route::has('login'))
               <div class="top-right links">
-                  <a href="{{ url('/profile') }}">Settings</a>
-                  <a href="{{ url('/profile') }}">Agenda's</a>
-                  <a href="{{ url('/profile') }}">Booked</a>
-                  <a href="{{ url('/profile') }}">Message's</a>
+                  <a href="{{ url('/Settings') }}">Settings</a>
+                  <a href="{{ url('/Agenda') }}">Agenda's</a>
+                  <a href="{{ url('/Booked') }}">Booked</a>
+                  <a href="{{ url('/Message') }}">Message's</a>
                   <a href="{{ url('/profile') }}">Profile</a>
                   @auth
                       <a href="{{ url('/home') }}">Home</a>
@@ -34,7 +33,7 @@
 
 
           <div class="container">
-            <div class="row">
+            <!-- <div class="row">
               <div class="col-sm">
                 One of three columns
               </div>
@@ -45,7 +44,7 @@
                 One of three columns
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="introVid">
 
           </div>
