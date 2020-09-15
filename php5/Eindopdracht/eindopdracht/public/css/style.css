@@ -1,5 +1,5 @@
 html, body {
-    background-color: white;
+    background-color: #17171717;
     color: #636b6f;
     font-family: 'Nunito', sans-serif;
     font-weight: 200;
@@ -47,4 +47,11 @@ html, body {
 
 .m-b-md {
     margin-bottom: 30px;
+}
+
+
+.fullImage {
+  position: relative;
+  width: 100vw;
+  height: 20vh;
 }

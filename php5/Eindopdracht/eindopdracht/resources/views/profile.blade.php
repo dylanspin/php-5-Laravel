@@ -1,54 +1,35 @@
+@extends('layouts.app')
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Laravel</title>
-
-        <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
-        <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <title>Music Inc</title>
     <body>
-      <div class="content">
-          <!--header-->
-          @if (Route::has('login'))
-              <div class="top-right links">
-                  <a href="{{ url('/Settings') }}">Settings</a>
-                  <a href="{{ url('/Agenda') }}">Agenda's</a>
-                  <a href="{{ url('/Booked') }}">Booked</a>
-                  <a href="{{ url('/Message') }}">Message's</a>
-                  <a href="{{ url('/profile') }}">Profile</a>
-                  @auth
-                      <a href="{{ url('/home') }}">Home</a>
-                  @else
-                      <a href="{{ route('login') }}">Login</a>
 
-                      @if (Route::has('register'))
-                          <a href="{{ route('register') }}">Register</a>
-                      @endif
-                  @endauth
+    @section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-9 pt-5">
+                <h1>{{$user->name}}</h1>
+            </div>
+            <div class="d-flex">
+              <div class="pr-5">
+                  <h2>Test</h2>
               </div>
-          @endif
-
-
-          <div class="container">
-            <!-- <div class="row">
-              <div class="col-sm">
-                One of three columns
+              <div class="pr-5">
+                  <h2>Test</h2>
               </div>
-              <div class="col-sm">
-                One of three columns
-              </div>
-              <div class="col-sm">
-                One of three columns
+              <div class="pr-5">
+                  <h2>Test</h2>
               </div>
             </div>
-          </div> -->
-          <div class="introVid">
+        </div>
+    </div>
 
-          </div>
+    <div class="container">
 
-      </div>
+    </div>
+    @endsection
     </body>
 </html>

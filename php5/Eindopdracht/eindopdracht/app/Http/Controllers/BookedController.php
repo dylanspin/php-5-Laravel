@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ProfileController extends Controller
+class BookedController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -21,10 +21,8 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-     //$user
-    public function index($user)
+    public function index()
     {
-        $user = \App\User::findOrFail($user); //$user is wat er naar de profile/ word gezet voor verschillende accounts
-        return view('profile',['user' => $user]);
+        return view('booked');
     }
 }

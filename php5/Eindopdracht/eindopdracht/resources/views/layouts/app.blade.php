@@ -15,16 +15,17 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="shortcut icon" href="{{ asset('images/Logo.png') }}"><!--favicon-->
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md shadow-sm" style="background-color : #131313;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="/images/Logo.png" alt="" style="height : 40px;">
+                    <img src="/images/LogoWhite .png" alt="" style="height : 40px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -49,6 +50,21 @@
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item">
+                                <a href="{{ url('/settings') }}" class="nav-link">Settings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url('/agenda') }}" class="nav-link">Agenda's</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url('/booked') }}" class="nav-link">Booked</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url('/message') }}" class="nav-link">Message's</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ url('/profile/') }}" class="nav-link">Profile</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
@@ -64,6 +80,11 @@
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <div class="md-form active-purple-2">
+                                    <input class="form-control" type="text" placeholder="Search" aria-label="Search">
                                 </div>
                             </li>
                         @endguest

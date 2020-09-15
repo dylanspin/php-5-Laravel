@@ -23,8 +23,20 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/booked', 'BookedController@index')->name('booked');
 
 Auth::routes();
 
-Route::get('/profile', 'profileController@index')->name('profile');
+Route::get('/profile/{user}', 'profileController@index')->name('profile.show');
+
+Auth::routes();
+
+Route::get('/agenda', 'AgendaController@index')->name('agenda');
+
+Auth::routes();
+
+Route::get('/message', 'MessageController@index')->name('message');
+
+Auth::routes();
+
+Route::get('/settings', 'SettingsController@index')->name('settings');
