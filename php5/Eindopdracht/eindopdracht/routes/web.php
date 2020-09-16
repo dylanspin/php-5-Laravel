@@ -40,3 +40,7 @@ Route::get('/message', 'MessageController@index')->name('message');
 Auth::routes();
 
 Route::get('/settings', 'SettingsController@index')->name('settings');
+
+Auth::routes();
+
+Route::get('/search', 'SearchController@index')->name('search');

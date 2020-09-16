@@ -27,7 +27,7 @@
                 </div>
             @endif
             <div class="container text-center">
-              <div class="content">
+              <div class="content col">
                   <main role="main" class="inner cover">
                       <h1 class="cover-heading font-weight-bolder p-3">Welcome to Music Inc</h1>
                       <p class="lead">
@@ -38,10 +38,14 @@
                       <a href="https://github.com/dylanspin">GitHub</a>
                   </div>
               </div>
+
+              <!-- <div class="content col">
+                <img src="/images/Stock1.jpg" alt="" class="img-fluid mx-auto">
+              </div> -->
             </div>
 
-            <div class="container">
-            </div>
+            <!-- <div class="container">
+            </div> -->
             <!-- <div class="container">
                 <img src="/images/Stock1.png" alt="" style="height : 40px;">
             </div> -->

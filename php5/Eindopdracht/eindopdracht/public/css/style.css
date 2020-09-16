@@ -48,10 +48,3 @@ html, body {
 .m-b-md {
     margin-bottom: 30px;
 }
-
-
-.fullImage {
-  position: relative;
-  width: 100vw;
-  height: 20vh;
-}
