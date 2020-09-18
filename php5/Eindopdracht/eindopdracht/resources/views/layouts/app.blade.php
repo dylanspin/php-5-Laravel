@@ -15,7 +15,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link rel="shortcut icon" href="{{ asset('images/Logo.png') }}"><!--favicon-->
+    <link rel="shortcut icon" href="{{ asset('/images/Logo.png') }}"><!--favicon-->
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -24,7 +24,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md shadow-sm" style="background-color : #131313;">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand" href="{{ url('/home') }}">
                     <img src="/images/LogoWhite.png" alt="" style="height : 40px;">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -51,19 +51,19 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a href="{{ url('/settings') }}" class="nav-link">Settings</a>
+                                <a href="{{ url('/settings') }}" class="nav-link Link2">Settings</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('/agenda') }}" class="nav-link">Agenda's</a>
+                                <a href="{{ url('/agenda') }}" class="nav-link Link2">Agenda's</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('/booked') }}" class="nav-link">Booked</a>
+                                <a href="{{ url('/booked') }}" class="nav-link Link2">Booked</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('/message') }}" class="nav-link">Message's</a>
+                                <a href="{{ url('/message') }}" class="nav-link Link2">Message's</a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('/profile/') }}" class="nav-link">Profile</a>
+                                <a href="{{ url('/profile',Auth::user()->id)}}" class="nav-link Link2">Profile</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -92,10 +92,15 @@
                 </div>
             </div>
         </nav>
-
         <main class="py-4">
             @yield('content')
         </main>
     </div>
+
+    <footer class="footer">
+        <div class="container">
+            <span class="text-muted">© Copyright Music Inc</span>
+        </div>
+    </footer>
 </body>
 </html>

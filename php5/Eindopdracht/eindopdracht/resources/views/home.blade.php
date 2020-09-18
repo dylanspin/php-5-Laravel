@@ -20,4 +20,9 @@
         </div>
     </div>
 </div>
+<!-- <footer class="footer">
+    <div class="container">
+        <span class="text-muted">© Copyright Music Inc</span>
+    </div>
+</footer> -->
 @endsection

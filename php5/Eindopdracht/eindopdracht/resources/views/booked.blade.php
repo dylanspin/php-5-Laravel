@@ -7,15 +7,14 @@
         <title>Music Inc</title>
     <body>
 
-        @section('content')
-          <div class="container">
-              test booked
-          </div>
+    @section('content')
+    <div class="container">
+        Blank
+    </div>
 
-          <div class="container">
-
-          </div>
-        @endsections
-
+    <div class="container">
+      Blank
+    </div>
+    @endsection
     </body>
 </html>

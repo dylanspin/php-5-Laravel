@@ -448,7 +448,6 @@ h6,
   font-weight: 300;
   line-height: 1.2;
 }
-
 hr {
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -494,6 +493,16 @@ mark,
 .blockquote {
   margin-bottom: 1rem;
   font-size: 1.125rem;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+    background-color: #191919;
 }
 
 .blockquote-footer {
@@ -4453,11 +4462,20 @@ input[type=button].btn-block {
   padding: 0.5rem 1rem;
 }
 
-.nav-link:hover,
-.nav-link:focus {
+.Link2:hover,
+.Link2:focus {
+  display: inline-block;
+  border-bottom: 5px solid #272727;
+  display: inline-block;
   text-decoration: none;
+  color: #FAFAFA;
+  height: 36px;
 }
-
+.nav-link:hover,
+.nav-link:focus{
+  text-decoration: none;
+  color: #FAFAFA;
+}
 .nav-link.disabled {
   color: #6c757d;
   pointer-events: none;

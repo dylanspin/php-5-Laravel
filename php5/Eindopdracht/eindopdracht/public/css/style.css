@@ -1,5 +1,4 @@
 html, body {
-    background-color: #17171717;
     color: #636b6f;
     font-family: 'Nunito', sans-serif;
     font-weight: 200;
@@ -34,7 +33,6 @@ html, body {
 .title {
     font-size: 84px;
 }
-
 .links > a {
     color: #636b6f;
     padding: 0 25px;
@@ -47,4 +45,48 @@ html, body {
 
 .m-b-md {
     margin-bottom: 30px;
+}
+.shadowEffect{
+  text-shadow: 0.5px 0.5px black;
+}
+.buttonC{
+  font-size:14px;
+  border: 2px solid #1779C4;
+  padding: 5px;
+  padding-right: 30px;
+  /* border-radius: 5%; */
+  transition: 0.3s;
+}
+.buttonC:hover{
+    color: inherit;
+    box-shadow: 2px 2px 10px #219EFE;
+    transform: scale(1.55,1.55);
+}
+.imgVak{
+  position: relative;
+  height: 400px;
+  width: 300px;
+  filter: blur(2px);
+  transition: 0.6s;
+}
+.imgVak2{
+  position: relative;
+  height: 400px;
+  width: 632px;
+  filter: blur(2px);
+  transition: 0.3s;
+}
+.imgVak2:hover,
+.imgVak2:focus,
+.imgVak:hover,
+.imgVak:focus{
+  filter: blur(0px);
+}
+.imgFull{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.grayText{
+  color: #686868;
 }
