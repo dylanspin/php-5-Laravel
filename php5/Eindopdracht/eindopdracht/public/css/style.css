@@ -122,11 +122,13 @@ html, body {
   left: -34%;
   padding-bottom: 20px;
   font-size: 900;
+  text-transform:capitalize;
 }
 .profileImage{
   position: relative;
   height: 300px;
   width: 300px;
+  left: -30px;
 }
 .bar{
   position: relative;
@@ -162,5 +164,56 @@ html, body {
     color: inherit;
     box-shadow: 2px 1000px 1px #171717 inset;
     text-decoration: none;
-    transform: scale(1.55,1.55);
+    transform: scale(1.2,1.2);
+    animation: bg-animation 10s infinite;
+}
+
+.socialHolder{
+  position: relative;
+  display: inline-block;
+  height:300px;
+  width: auto;
+  left: -50px;
+}
+.social{
+  position: relative;
+  width: 50px;
+  height: 50px;
+}
+.icon{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  font-size: 36px;
+  text-align: center;
+  color: white !important;
+  transition: 0.3s;
+}
+
+.icon:hover{
+  text-decoration:none;
+  transform: scale(1.1,1.1);
+}
+
+.iconStar{
+  font-size: 40px;
+  margin: 5px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#DC2424), to(#4A569D));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: initial; /* reset Font Awesome's display:inline-block */
+}
+
+.small{
+  font-size: 30px;
+  margin: 4px;
+}
+
+.ReviewButton{
+  position: relative;
+  margin-top: 40px;
+  background: inherit;
+  color: white;
+  border: 2px solid white;
+  font-size: 15px;
 }
