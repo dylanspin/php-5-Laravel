@@ -19,10 +19,12 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+      <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md shadow-sm" style="background-color : #131313;">
+    <div id="app" style="position:relative;">
+      <!-- #131313; -->
+        <nav class="navbar navbar-expand-md shadow-sm" style="background:inherit; position:absolute; width:100%;">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/home') }}">
                     <img src="/images/LogoWhite.png" alt="" style="height : 40px;">
@@ -92,15 +94,9 @@
                 </div>
             </div>
         </nav>
-        <main class="py-4">
+        <main class="">
             @yield('content')
         </main>
     </div>
-
-    <footer class="footer">
-        <div class="container">
-            <span class="text-muted">© Copyright Music Inc</span>
-        </div>
-    </footer>
 </body>
 </html>

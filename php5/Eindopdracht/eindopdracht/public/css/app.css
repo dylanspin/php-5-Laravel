@@ -73,6 +73,7 @@ body {
   color: white;
   text-align: left;
   background-color: #191919;
+  overflow-x: hidden;
   /* #212529 */
 }
 
@@ -5528,9 +5529,9 @@ a.badge-dark.focus {
 }
 
 .jumbotron {
-  padding: 2rem 1rem;
+  padding: 2rem 0rem;
   margin-bottom: 2rem;
-  background-color: #e9ecef;
+  background-color: inherit;
   border-radius: 0.3rem;
 }
 

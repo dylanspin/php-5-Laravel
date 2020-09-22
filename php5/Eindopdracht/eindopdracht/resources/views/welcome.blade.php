@@ -47,19 +47,19 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-4">
-                        <h2 class="font-weight-bold">Easy to use</h2>
+                        <h2 class="font-weight-bold">Easy To Use</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In aliquet sapien et libero tempor, eu lacinia velit volutpat. Ut fermentum vulputate aliquam. In vitae massa lobortis, semper lectus a, ultricies ante.</p>
                         <p><a class="buttonC" href="#" role="button">View details &raquo;</a></p>
                     </div>
                     <div class="col-md-4">
-                        <h2 class="font-weight-bold">Most users</h2>
+                        <h2 class="font-weight-bold">World Wide</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In aliquet sapien et libero tempor, eu lacinia velit volutpat. Ut fermentum vulputate aliquam. In vitae massa lobortis, semper lectus a, ultricies ante.</p>
                         <p><a class="buttonC" href="#" role="button">View details &raquo;</a></p>
                     </div>
                     <div class="col-md-4">
-                        <h2 class="font-weight-bold">Customer service</h2>
+                        <h2 class="font-weight-bold">Customer Service</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In aliquet sapien et libero tempor, eu lacinia velit volutpat. Ut fermentum vulputate aliquam. In vitae massa lobortis, semper lectus a, ultricies ante.</p>
-                        <p><a class="buttonC" href="#" role="button">View details &raquo;</a></p>
+                        <p><a class="Rgbbutton" href="#" role="button">View details &raquo;</a></p>
                     </div>
                   </div>
             </div>

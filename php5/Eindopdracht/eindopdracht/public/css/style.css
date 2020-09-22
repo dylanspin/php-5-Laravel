@@ -90,3 +90,77 @@ html, body {
 .grayText{
   color: #686868;
 }
+.gradient{
+    background:linear-gradient(118deg, rgba(120, 2, 6,1) 0%, rgba(6, 17, 97,1) 100%);
+    background-size: 300%;
+    background-position: left;
+    animation: bg-animation 60s infinite;
+}
+@keyframes bg-animation {
+    0%{background-position:0% 87%}
+    50%{background-position:100% 14%}
+    100%{background-position:0% 87%}
+}
+
+.first{
+  position:relative;
+  top:40px;
+}
+.ProfileAbout{
+  position: relative;
+  left: -31%;
+  bottom: 0;
+  width: 150%;
+}
+.profileScore{
+  position: relative;
+  left: -28%;
+  width: 150%;
+}
+.profileName{
+  position: relative;
+  left: -34%;
+  padding-bottom: 20px;
+  font-size: 900;
+}
+.profileImage{
+  position: relative;
+  height: 300px;
+  width: 300px;
+}
+.bar{
+  position: relative;
+  width: 120%;
+  left: -10%;
+  top: -70px;
+  height: 100px;
+  background-color: #1D1D1D;
+  box-shadow: 5px 1px 5px 1px #080808;
+}
+
+.moreMT{
+  margin-top: 150px;
+}
+
+
+.Rgbbutton {
+  position: relative;
+  top: 20px;
+  padding: 1rem;
+  font-size: 1rem;
+  padding: .5rem 3rem;
+  color: white;
+  box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
+  border: solid 3px transparent;
+  background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), linear-gradient(101deg, #78e4ff, #ff48fa);
+  background-origin: border-box;
+  box-shadow: 2px 1000px 1px #171717 inset;
+  transition: 0.3s;
+}
+
+.Rgbbutton:hover{
+    color: inherit;
+    box-shadow: 2px 1000px 1px #171717 inset;
+    text-decoration: none;
+    transform: scale(1.55,1.55);
+}
