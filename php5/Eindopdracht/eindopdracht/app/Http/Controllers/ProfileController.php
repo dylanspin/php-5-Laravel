@@ -21,7 +21,7 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-     //$user
+
     public function index($user)
     {
         $user = \App\User::findOrFail($user); //$user is wat er naar de profile/ word gezet voor verschillende accounts

@@ -11,6 +11,7 @@ class SearchController extends Controller
      *
      * @return void
      */
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -24,5 +25,21 @@ class SearchController extends Controller
     public function index()
     {
         return view('search');
+    }
+
+    public function formSubmit(Request $req)
+    {
+        if($req)
+        {
+            $search = $req->input('Search');
+            return view('search',['search' => $search]);
+
+            $sql = "select * from users where name LIKE '%$search%'";
+            $results = \App\User::select($sql, [1]);
+            return View::share($results);
+
+        }else{
+          //moet nog iets zeggen geen search result
+        }
     }
 }
