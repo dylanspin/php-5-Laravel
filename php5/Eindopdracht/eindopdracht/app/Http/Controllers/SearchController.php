@@ -22,9 +22,16 @@ class SearchController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+
+
     public function index()
     {
         return view('search');
+    }
+
+    public function searchResults($s)
+    {
+
     }
 
     public function formSubmit(Request $req)
@@ -32,14 +39,12 @@ class SearchController extends Controller
         if($req)
         {
             $search = $req->input('Search');
-            return view('search',['search' => $search]);
-
-            $sql = "select * from users where name LIKE '%$search%'";
-            $results = \App\User::select($sql, [1]);
-            return View::share($results);
-
+            $results = \App\User::where('name', 'like', $search .'%')->get();
+            $amount = Count($results);
+            return view('search')->withDetails($search)->with('search',$search)->with('results',$results)->with('amount',$amount);
+            // return view('search',['search' => $search]);
         }else{
-          //moet nog iets zeggen geen search result
+            return view('search');
         }
     }
 }
