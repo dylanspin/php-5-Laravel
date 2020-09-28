@@ -236,10 +236,12 @@ html, body {
   top: -35px;
   border:none;
   margin-bottom: -140px;
+  background-color: #161616;
 }
 .setting{
   color: gray;
   font-size: 20px;
+  background: inherit;
   margin: 5px;
   transition: 0.3s;
 }
@@ -275,4 +277,43 @@ html, body {
   position: relative;
   width: 125px;
   height: 125px;
+}
+
+
+.reviewForm{
+    /* display: none; */
+    transform: scale(1,0);
+    height: auto;
+    transition: 0.3s;
+}
+
+.starButton{
+  border: none;
+  font-size: 40px;
+  margin: 5px;
+}
+.starButton:focus{
+
+}
+.unselected{
+  background: #0D0D0D;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: initial;
+}
+.selectedStar{
+  background: -webkit-gradient(linear, left top, left bottom, from(#DC2424), to(#4A569D));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: initial;
+}
+textarea{
+  background-color: #141414;
+  border: none;
+  padding: 10px;
+  font-size: 15px;
+  color: white;
+  outline: none;
+  resize: none;
+  overflow: auto;
 }

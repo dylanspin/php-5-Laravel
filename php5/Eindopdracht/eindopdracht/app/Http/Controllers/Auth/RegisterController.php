@@ -62,7 +62,7 @@ class RegisterController extends Controller
      *
      * @param  array  $data
      * @return \App\User
-     * @return \App\Profile
+     * @return \App\profile
      */
     protected function create(array $data)
     {
@@ -76,8 +76,9 @@ class RegisterController extends Controller
 
     private function createProfile()
     {
-        Profile::create([
-
+        profile::create([
+          'about' => "No user information",
+          'email' => ,
         ]);
     }
 }

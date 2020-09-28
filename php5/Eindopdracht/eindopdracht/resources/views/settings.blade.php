@@ -2,7 +2,7 @@
 
   @section('content')
     <div class="jumbotron first">
-        <div class="backgroundColor settings full-height">
+        <div class="settings full-height">
             <h1 class="sidebar-heading p-3 font-weight-bolder">Settings</h1>
             <div class="list-group list-group-flush pl-3">
                 <a href="#" class="backgroundColor setting">Profile</a>

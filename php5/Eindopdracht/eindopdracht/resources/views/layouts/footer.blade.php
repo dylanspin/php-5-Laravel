@@ -1,6 +1,6 @@
 
 <footer class="page-footer font-small blue">
-    <div class="container-fluid text-center text-md-left" style="background-color:#171717">
+    <div class="container-fluid text-center text-md-left" style="background-color:#161616">
         <div class="row pt-5 pb-5">
             <div class="col-md-6 mt-md-0 mt-3 pl-5">
                 <h3 class="font-weight-bold">Music Inc</h3>

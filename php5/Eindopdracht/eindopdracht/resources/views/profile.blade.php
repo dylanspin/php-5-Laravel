@@ -150,37 +150,51 @@
                   </div>
               </div>
           </div>
-
-          <div class="container pt-5 mt-5">
-              <div class="row">
-                  <div class="col">
-                    <h2 class="font-weight-bold">Reviews</h2>
-                    <h5 class="pt-2 grayText">Random review about this somthing more and more and some more Random Text About this Review</h5>
-                    <div class="rating pt-3"><!--Moet nog met php gedaan worden moet een score uit reken van 5 sterren-->
+      </div>
+  </div>
+  <div class="jumbotron" style="background-color:#171717; margin-bottom:-30px;">
+      <div class="container pt-5 mt-5">
+          <div class="row">
+              <div class="col">
+                <h2 class="font-weight-bold">Reviews</h2>
+                <h5 class="pt-2 grayText">Random review about this somthing more and more and some more Random Text About this Review</h5>
+                <div class="rating pt-3"><!--Moet nog met php gedaan worden moet een score uit reken van 5 sterren-->
+                    @for ($i = 0; $i < 5; $i++)
                         <i class="fa fa-star iconStar small" aria-hidden="true"></i>
-                        <i class="fa fa-star iconStar small" aria-hidden="true"></i>
-                        <i class="fa fa-star iconStar small" aria-hidden="true"></i>
-                        <i class="fa fa-star iconStar small" aria-hidden="true"></i>
-                    </div>
-                  </div>
-                  <div class="col pr-5 mr-5">
-                      <div class="well well-sm text-center">
-                          <h1 class="font-weight-bold">4.0</h1>
-                          <div class="rating"><!--Moet nog met php gedaan worden moet een score uit reken van 5 sterren-->
+                    @endfor
+                </div>
+              </div>
+              <div class="col pr-5 mr-5">
+                  <div class="well well-sm text-center">
+                      <h1 class="font-weight-bold">4.0</h1>
+                      <div class="rating"><!--Moet nog met php gedaan worden moet een score uit reken van 5 sterren-->
+                          @for ($i = 0; $i < 5; $i++)
                               <i class="fa fa-star iconStar" aria-hidden="true"></i>
-                              <i class="fa fa-star iconStar" aria-hidden="true"></i>
-                              <i class="fa fa-star iconStar" aria-hidden="true"></i>
-                              <i class="fa fa-star iconStar" aria-hidden="true"></i>
-                          </div>
-                          <div>
-                              <span class="glyphicon glyphicon-user"></span>1,050,008 total
-                          </div>
+                          @endfor
+                      </div>
+                      <div>
+                          <span class="glyphicon glyphicon-user"></span>1,050,008 total
                       </div>
                   </div>
               </div>
-              <button type="button" name="button" class="ReviewButton" id='review'>Write A Review</button>
+          </div>
+
+          <button type="button" name="button" class="ReviewButton" id='reviewButton' onclick="writeReview()">Write A Review</button>
+          <div class="reviewForm" id='reviewForm'>
+              <form class="pt-5" action="" method="post">
+                  <textarea type="text" name="review" placeholder="write a review" rows="4" cols="50"></textarea>
+                  <input type="hidden" name="stars" value="5" id='starHidden'>
+                  <div class="stars">
+                      @for ($i = 0; $i < 5; $i++)
+                          <button class="fa fa-star unselected starButton" type="button" id='star{{$i}}' onclick="setStar({{$i}})"></button>
+                      @endfor
+                  </div>
+                  <input type="submit" name="postReview" value="Pos" class=''>
+              </form>
           </div>
       </div>
   </div>
+
+
   @include('layouts.footer')
   @endsection
