@@ -42,19 +42,17 @@
                           </div>
                           <div class="color md-4 pr-5">
                               <h4>
-                                  Jobs Done : 1005
+                                  Jobs Done : {{$total}}
                               </h4>
                           </div>
                           <div class="color md-4 pr-5">
                               <h4>
-                                  Reliability : 89%
+                                  Reliability : {{$reli}}%
                               </h4>
                           </div>
                       </div>
                       <h5 class="ProfileAbout text-left">
-                          Ut convallis ipsum odio, vel fermentum neque pellentesque in. Duis lacinia, diam sit amet dictum facilisis,
-                          neque nisl iaculis mi, eget auctor lacus velit eget elit. Phasellus id vestibulum quam. In nec congue mauris,
-                          sed tristique ipsum. Aliquam vehicula accumsan placerat. Mauris vel sagittis dolor
+                          {{$information->about}}
                       </h5>
                   </div>
               </div>
