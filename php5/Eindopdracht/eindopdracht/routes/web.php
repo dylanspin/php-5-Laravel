@@ -46,6 +46,10 @@ Auth::routes();
 
 Route::post('/search','searchController@formSubmit')->name('search');//gets navBar input
 
+Auth::routes();
+
+Route::post('/review','ReviewController@formSubmit')->name('review');//gets navBar input
+
 // Auth::routes();
 //
 // Route::get('/search', 'SearchController@index')->name('search');

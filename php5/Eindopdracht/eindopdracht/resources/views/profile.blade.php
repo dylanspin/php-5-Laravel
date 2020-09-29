@@ -181,15 +181,17 @@
 
           <button type="button" name="button" class="ReviewButton" id='reviewButton' onclick="writeReview()">Write A Review</button>
           <div class="reviewForm" id='reviewForm'>
-              <form class="pt-5" action="" method="post">
+              <form class="pt-5" action="/review" method="POST">
+                  @csrf
                   <textarea type="text" name="review" placeholder="write a review" rows="4" cols="50"></textarea>
                   <input type="hidden" name="stars" value="5" id='starHidden'>
+                  <input type="hidden" name="pageId" value="{{$user->id}}" id='starHidden'>
                   <div class="stars">
                       @for ($i = 0; $i < 5; $i++)
                           <button class="fa fa-star unselected starButton" type="button" id='star{{$i}}' onclick="setStar({{$i}})"></button>
                       @endfor
                   </div>
-                  <input type="submit" name="postReview" value="Pos" class=''>
+                  <input type="submit" name="postReview" value="Post" class="btn  btn-outline-primary">
               </form>
           </div>
       </div>
