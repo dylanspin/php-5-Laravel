@@ -29,3 +29,10 @@ function setStar(num)
         document.getElementById('star'+i).className = "unselected " + standard;
     }
 }
+
+function stopPost()
+{
+    if ( window.history.replaceState ) {
+          window.history.replaceState( null, null, window.location.href );
+    }
+}

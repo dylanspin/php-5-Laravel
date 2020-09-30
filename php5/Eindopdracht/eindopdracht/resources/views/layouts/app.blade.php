@@ -86,7 +86,7 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <form class="md-form active-purple-2" action="search" method="POST">
+                                <form class="md-form active-purple-2" action="/search" method="POST">
                                     @csrf
                                     <input class="form-control" type="text" name="Search" placeholder="Search" aria-label="Search">
                                 </form>

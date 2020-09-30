@@ -22,31 +22,29 @@ class ReviewController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
-    function returnProfile()
-    {
-        $information = \App\profile::findOrFail($user);
-        $total = $information->completed + $information->failed;
-        $reli = round(100 / $total * $information->completed);
-        $user = \App\User::findOrFail($user); //$user is wat er naar de profile/ word gezet voor verschillende accounts
-        return view('profile')->withDetails($user)->with('information',$information)->with('user',$user)->with('total',$total)->with('reli',$reli);
-    }
-
     public function formSubmit(Request $req)
     {
     		try{
-      			$review = new review;
+      			$review = new \App\review;
             $review->review = $req['review'];
             $review->rating = $req['stars'];
       			$review->idUserPage = $req['pageId'];
-      			$review->idPoster = Auth::user()->id;
+      			$review->idPoster = auth()->user()->id;
       			$review->save();
-      			returnProfile();
+            return back();
     		}
     		catch(Exception $e){
-            returnProfile();
-    			// return redirect('profile')->with('failed',"operation failed");
+            return back();
     		}
 		}
+
+    //moet voor show all reviews
+    public function index($user)
+    {
+        $results = \App\review::where('id',$req['pageId'])->get();
+        $amount = Count($results);
+        return view('reviews')->with('results',$results)->with('returnId',$req['pageId'])->with('amount',$amount);
+    }
 
         // if($req)
         // {

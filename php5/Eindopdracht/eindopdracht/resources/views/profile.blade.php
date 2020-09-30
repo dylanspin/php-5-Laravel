@@ -157,7 +157,7 @@
           <div class="row">
               <div class="col">
                 <h2 class="font-weight-bold">Reviews</h2>
-                <h5 class="pt-2 grayText">Random review about this somthing more and more and some more Random Text About this Review</h5>
+                <h5 class="pt-2 grayText">{{$review}}</h5>
                 <div class="rating pt-3"><!--Moet nog met php gedaan worden moet een score uit reken van 5 sterren-->
                     @for ($i = 0; $i < 5; $i++)
                         <i class="fa fa-star iconStar small" aria-hidden="true"></i>
