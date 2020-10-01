@@ -42,9 +42,8 @@ class SearchController extends Controller
             $results = \App\User::where('name', 'like', $search .'%')->get();
             $amount = Count($results);
             return view('search')->withDetails($search)->with('search',$search)->with('results',$results)->with('amount',$amount);
-            // return view('search',['search' => $search]);
         }else{
-            return view('search');
+            return view('search')->with('amount',0);
         }
     }
 }

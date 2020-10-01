@@ -153,7 +153,7 @@
       </div>
   </div>
   <div class="jumbotron" style="background-color:#171717; margin-bottom:-30px;">
-      <div class="container pt-5 mt-5">
+      <div class="container pt-5 mt-5" style="">
           <div class="row">
               <div class="col">
                 <h2 class="font-weight-bold">Reviews</h2>
