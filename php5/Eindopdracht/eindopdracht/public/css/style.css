@@ -272,12 +272,10 @@ html, body {
   left: 0;
   top: 0;
 }
-.settingInput{
-  display: flex;
-
-}
 .label{
-  display: inline-block;
+  float: left;
+  margin-right: 20px;
+  display: block;
   width: 100px;
   text-align: left;
 }
@@ -351,4 +349,11 @@ textarea{
   outline: none;
   resize: none;
   overflow: auto;
+}
+
+.settingInput{
+  display: flex;
+  border: none;
+  font-size: 20px;
+  background-color: #141414;
 }

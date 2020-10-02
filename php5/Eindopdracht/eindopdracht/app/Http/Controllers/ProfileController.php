@@ -22,6 +22,24 @@ class ProfileController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
+
+    private function returnScore($userPage)
+    {
+        $review = \App\review::where('idUserPage',$userPage)->get();
+        $total = 0;
+        if(Count($review) > 0)
+        {
+            for($i=0; $i<Count($review); $i++)
+            {
+                $total += $review[$i]->rating;
+            }
+            $score = round($total/Count($review),0);
+            return $score;
+        }else{
+            return $total;
+        }
+    }
+
     private function returnRandomReview($userPage)
     {
         $review = \App\review::where('idUserPage',$userPage)->get();
@@ -35,6 +53,11 @@ class ProfileController extends Controller
         }
     }
 
+    private function returnTotal($userPage)
+    {
+        return Count(\App\review::where('idUserPage',$userPage)->get());
+    }
+
     public function index($id)
     {
         $information = \App\profile::findOrFail($id);
@@ -42,7 +65,6 @@ class ProfileController extends Controller
         $reli = round(100 / $total * $information->completed);
         $user = \App\User::findOrFail($id); //$user is wat er naar de profile/ word gezet voor verschillende accounts
         return view('profile')->withDetails($user)->with('information',$information)->with('user',$user)->with('total',$total)
-        ->with('reli',$reli)->with('review',$this->returnRandomReview($id));
-        // return view('profile',['user' => $user]);
+        ->with('reli',$reli)->with('review',$this->returnRandomReview($id))->with('score',$this->returnScore($id))->with('total',$this->returnTotal($id));
     }
 }

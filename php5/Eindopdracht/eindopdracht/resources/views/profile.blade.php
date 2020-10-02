@@ -153,7 +153,7 @@
       </div>
   </div>
   <div class="jumbotron" style="background-color:#171717; margin-bottom:-30px;">
-      <div class="container pt-5 mt-5" style="">
+      <div class="container pt-5 mt-5" style="height:auto; transition:0.3">
           <div class="row">
               <div class="col">
                 <h2 class="font-weight-bold">Reviews</h2>
@@ -166,14 +166,17 @@
               </div>
               <div class="col pr-5 mr-5">
                   <div class="well well-sm text-center">
-                      <h1 class="font-weight-bold">4.0</h1>
+                      <h1 class="font-weight-bold">{{$score}}</h1>
                       <div class="rating"><!--Moet nog met php gedaan worden moet een score uit reken van 5 sterren-->
-                          @for ($i = 0; $i < 5; $i++)
+                          @for ($i = 0; $i < $score; $i++)
                               <i class="fa fa-star iconStar" aria-hidden="true"></i>
+                          @endfor
+                          @for ($i = 0; $i < 5-$score; $i++)
+                              <i class="fa fa-star iconStar unselected" aria-hidden="true"></i>
                           @endfor
                       </div>
                       <div>
-                          <span class="glyphicon glyphicon-user"></span>1,050,008 total
+                          <span class="glyphicon glyphicon-user"></span>{{$total}} total
                       </div>
                   </div>
               </div>

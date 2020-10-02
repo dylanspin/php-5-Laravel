@@ -76,7 +76,7 @@ class RegisterController extends Controller
 
     private function createProfile()
     {
-        profile::create([
+        return profile::create([
           'about' => "No user information",
           'email' => ,
         ]);

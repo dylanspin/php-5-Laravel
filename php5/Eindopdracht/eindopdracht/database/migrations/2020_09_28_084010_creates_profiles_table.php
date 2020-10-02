@@ -16,6 +16,9 @@ class CreatesProfilesTable extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->text('about');
+            $table->smallInteger('font');
+            $table->char('gradient', 45);
+            $table->text('socialMedia');
             $table->smallInteger('completed');
             $table->smallInteger('failed');
             $table->mediumText('social');
