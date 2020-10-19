@@ -9,24 +9,13 @@
               <div class="row">
                   <div class="col pl-5">
                       <div class="socialHolder"><!--moet nog met php gedaan later als de instellingen zijn gedaan--->
-                          <div class="social">
-                            <a class="fa fa-instagram icon" href="https://github.com/dylanspin"></a>
-                          </div>
-                          <div class="social">
-                            <a class="fa fa-twitter icon" href="https://github.com/dylanspin"></a>
-                          </div>
-                          <div class="social">
-                            <a class="fa fa-facebook icon" href="https://github.com/dylanspin"></a>
-                          </div>
-                          <div class="social">
-                            <a class="fa fa-linkedin icon" href="https://github.com/dylanspin"></a>
-                          </div>
-                          <div class="social">
-                            <a class="fa fa-youtube-play icon" href="https://github.com/dylanspin"></a>
-                          </div>
-                          <div class="social">
-                            <a class="fa fa-music icon" href="https://github.com/dylanspin"></a>
-                          </div>
+                          @for ($i = 0; $i <= 5; $i++)
+                              @if (strlen($social[$i]) > 0)
+                                  <div class="social">
+                                      <a class="fa {{$icons[$i]}} icon" href="{{$social[$i]}}"></a>
+                                  </div>
+                              @endif
+                          @endfor
                       </div>
                       <div class="profileImage" style="display:inline-block;">
                           <img src="/images/e1.jpg" alt="evenements" class="imgFull rounded">

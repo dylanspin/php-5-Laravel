@@ -22,6 +22,7 @@ class ProfileController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
+    private $icons = ["fa fa-instagram","fa-twitter","fa-facebook","fa-linkedin","fa-youtube-play","fa-music"];
 
     private function returnScore($userPage)
     {
@@ -53,6 +54,17 @@ class ProfileController extends Controller
         }
     }
 
+    private function returnSocials($id)
+    {
+        $information = \App\profile::findOrFail($id);
+        if(strlen($information->social) < 1){
+            $socialLinks = ["","","","","",""];
+        }else{
+            $socialLinks = unserialize($information->social);
+        }
+        return $socialLinks;
+    }
+
     private function returnTotal($userPage)
     {
         return Count(\App\review::where('idUserPage',$userPage)->get());
@@ -65,6 +77,7 @@ class ProfileController extends Controller
         $reli = round(100 / $total * $information->completed);
         $user = \App\User::findOrFail($id); //$user is wat er naar de profile/ word gezet voor verschillende accounts
         return view('profile')->withDetails($user)->with('information',$information)->with('user',$user)->with('total',$total)
-        ->with('reli',$reli)->with('review',$this->returnRandomReview($id))->with('score',$this->returnScore($id))->with('total',$this->returnTotal($id));
+        ->with('reli',$reli)->with('review',$this->returnRandomReview($id))->with('score',$this->returnScore($id))
+        ->with('total',$this->returnTotal($id))->with('social',$this->returnSocials($id))->with('icons',$this->icons);
     }
 }

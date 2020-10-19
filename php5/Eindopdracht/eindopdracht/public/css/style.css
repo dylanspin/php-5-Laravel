@@ -241,6 +241,7 @@ html, body {
 .settings{
   position: relative;
   width: 300px;
+  height: 100%;
   left: -30px;
   top: -35px;
   border:none;
@@ -258,31 +259,33 @@ html, body {
 .setting:hover{
   text-decoration:none;
 }
-.SideOptions{
-  position: absolute;
-  left: 350px;
-  top: 0px;
-  height: 90%;
-}
 .OptionPage{
   display: none;
+  position: relative;
+  text-align: left;
 }
 .settingsForm{
   position: relative;
-  left: 0;
+  left : 0;
   top: 0;
-}
-.label{
-  float: left;
-  margin-right: 20px;
-  display: block;
-  width: 100px;
-  text-align: left;
+  width: 200%;
 }
 .saveButton{
   position: fixed;
   right: 5%;
   bottom: 10%;
+  z-index: 100;
+  color: white;
+  border: none;
+  font-size: 25px;
+  border-radius: 5px;
+  padding: 5px 20px 5px 20px;
+  transition: 0.2s;
+}
+
+
+.saveButton:hover{
+  transform: scale(1.1,1.1);
 }
 
 /*effect-underline*/
@@ -351,9 +354,26 @@ textarea{
   overflow: auto;
 }
 
+.settingIcon{
+  font-size: 30px;
+  color white;
+}
+
+.label{
+  float: left;
+  margin-right: 20px;
+  text-align: left;
+}
+.Logolabel{
+  float: left;
+  width: 50px;
+  display: block;
+}
+
 .settingInput{
-  display: flex;
   border: none;
   font-size: 20px;
-  background-color: #141414;
+  background-color: inherit;
+  display: block;
+  color: white;
 }
