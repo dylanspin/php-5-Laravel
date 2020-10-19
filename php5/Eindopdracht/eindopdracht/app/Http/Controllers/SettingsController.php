@@ -21,18 +21,17 @@ class SettingsController extends Controller
         if($req)
         {
             $user = auth()->user();
-            $socialLinksArray = [$req['Instagram'], $req['Twitter'], $req['Facebook'], $req['Linkedin'], $req['Youtube'], $req['Custom']];
 
+            $socialLinksArray = [$req['Instagram'], $req['Twitter'], $req['Facebook'], $req['Linkedin'], $req['Youtube'], $req['Custom']];
             $compresSocial = serialize($socialLinksArray);
 
             $settings = new \App\profile;
-            $settings->id = $user->id;
-            $settings->about = "test information";
-            $settings->social = $socialLinksArray;
-            $settings->update();
-            return view('settings');
+            $settings -> where('id', $user->id)->update(['about' => $req['about'],'social' => $compresSocial]);
+
+            return back();
+
         }else{
-            return view('settings');
+            return back();
         }
     }
 
@@ -41,15 +40,23 @@ class SettingsController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+
+    private function getSocial()
     {
-        $user = auth()->user();
-        $information = \App\profile::findOrFail($user->id);
+        $information = \App\profile::findOrFail(auth()->user()->id);
         if(strlen($information->social) < 1){
             $socialLinks = ["","","","","",""];
         }else{
             $socialLinks = unserialize($information->social);
         }
-        return view('settings')->with('social',$socialLinks);
+
+        return $socialLinks;
+    }
+
+    public function index()//task bar load
+    {
+        $information = \App\profile::findOrFail(auth()->user()->id);
+        $about = $information->about;
+        return view('settings')->with('social',$this->getSocial())->with('about',$about);
     }
 }

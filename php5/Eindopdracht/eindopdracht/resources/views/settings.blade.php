@@ -18,13 +18,13 @@
             <div class="col">
                 <div class="OptionPage" id='O1' style="display:block;">
                     <h1 class="p-3 font-weight-bolder">Profile Options</h1>
-                    <form class="settingsForm p-2 m-5" action="/settings" method="GET">
+                    <form class="settingsForm p-2 m-5" action="/settings/submit" method="GET">
                         @csrf
                         <h3 class="mt-2 mb-5 font-weight-bolder">profile information</h3>
                         <h5 class="label pb-2">
                             About :
                         </h5>
-                        <textarea name="about" rows="8" cols="80"></textarea>
+                        <textarea name="about" rows="8" cols="80">{{$about ?? ' '}}</textarea>
 
                         <h3 class="pt-3 mt-5 font-weight-bolder mb-5">Other social media Links</h3>
 
