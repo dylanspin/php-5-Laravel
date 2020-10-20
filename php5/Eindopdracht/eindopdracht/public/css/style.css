@@ -255,15 +255,32 @@ html, body {
   margin: 5px;
   transition: 0.3s;
 }
-.setting:focus,
-.setting:hover{
-  text-decoration:none;
+.setting:after {
+	content: '';
+  position: absolute;
+  left: 0;
+  display: inline-block;
+  height: 1em;
+  width: 100%;
+  border-bottom: 3px solid;
+  margin-top: 10px;
+  opacity: 0;
+	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+	transition: opacity 0.35s, transform 0.35s;
+	-webkit-transform: scale(0,1);
+	transform: scale(0,1);
+}
+
+.setting:hover:after {
+  opacity: 1;
+	-webkit-transform: scale(1);
+	transform: scale(1);
 }
 .OptionPage{
   display: none;
   position: relative;
   text-align: left;
-  min-height: 1000px;
+  min-height: 1200px;
 }
 .settingsForm{
   position: relative;
@@ -287,29 +304,7 @@ html, body {
 
 .saveButton:hover{
   transform: scale(1.1,1.1);
-}
-
-/*effect-underline*/
-.setting:after {
-	content: '';
-  position: absolute;
-  left: 0;
-  display: inline-block;
-  height: 1em;
-  width: 100%;
-  border-bottom: 3px solid;
-  margin-top: 10px;
-  opacity: 0;
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-	transition: opacity 0.35s, transform 0.35s;
-	-webkit-transform: scale(0,1);
-	transform: scale(0,1);
-}
-
-.setting:hover:after {
-  opacity: 1;
-	-webkit-transform: scale(1);
-	transform: scale(1);
+  filter: drop-shadow(10px 10px 10px #340B3C) drop-shadow(-10px -10px 10px #230b3c);
 }
 
 .cardImage{
@@ -377,4 +372,28 @@ textarea{
   background-color: inherit;
   display: block;
   color: white;
+}
+
+
+/*Product card*/
+
+.productCard{
+  float: right;
+  margin: 10px;
+  width: 200px;
+  height: 200px;
+  color: white;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+.productCard:hover{
+  transform: scale(1.05,1.05);
+  filter: drop-shadow(10px 10px 10px #340B3C) drop-shadow(-10px -10px 20px #230b3c);
+}
+
+.addProduct{
+  position: relative;
+  top: 11%;
+  text-align: center;
+  font-size: 100px;
 }

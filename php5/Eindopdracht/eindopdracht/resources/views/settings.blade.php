@@ -63,7 +63,26 @@
                 </div>
                 <div class="OptionPage" id='O2'>
                     <h1 class="sidebar-heading p-3 font-weight-bolder">Safety Options</h1>
-                    <form class="settingsForm p-2 m-5" action="/settings" method="post"></form>
+                    <form class="settingsForm p-2 m-5" action="/settings/submit2" method="GET">
+                        @csrf
+                        <h3 class="mt-2 mb-5 font-weight-bolder">Profile protection : </h3>
+                        <h5 class="pb-2">
+                            Change password :
+                        </h5>
+                        <div class="Logolabel pb-2" style="font-size:20px; color white; width:100px;">
+                            Old
+                        </div>
+                        <input type="password" name="Instagram" value="" placeholder="..." class="settingInput"><br>
+                        <div class="Logolabel pb-2" style="font-size:20px; color white; width:100px;">
+                            New
+                        </div>
+                        <input type="password" name="Instagram" value="" placeholder="..." class="settingInput"><br>
+                        <div class="Logolabel pb-2" style="font-size:20px; color white; width:100px;">
+                            Repeat
+                        </div>
+                        <input type="password" name="Instagram" value="" placeholder="..." class="settingInput"><br>
+                        <input type="submit" name="saveOptions" value="Save" class="gradient saveButton">
+                    </form>
                 </div>
                 <div class="OptionPage" id='O3'>
                     <h1 class="sidebar-heading p-3 font-weight-bolder">Personal Options</h1>
@@ -73,6 +92,11 @@
                 </div>
                 <div class="OptionPage" id='O5'>
                     <h1 class="sidebar-heading p-3 font-weight-bolder">Products/services Options</h1>
+                    <div class="productCard gradient">
+                        <div class="addProduct">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col col-lg-7"></div><!--Spacer-->

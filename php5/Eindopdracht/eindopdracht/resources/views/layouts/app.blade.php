@@ -55,7 +55,7 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a href="{{ url('/settings') }}" class="nav-link Link2">Settings</a>
+                                <a href="{{ url('/settings') }}" class="nav-link Link2">Page Content/Settings</a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ url('/agenda') }}" class="nav-link Link2">Agenda's</a>
