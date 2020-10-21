@@ -50,7 +50,9 @@ Auth::routes();
 
 Route::post('/review','ReviewController@formSubmit')->name('review');//gets navBar input
 
-Route::get('/settings/submit','SettingsController@formSubmit')->name('review');//gets navBar input
+Route::get('/settings/submit','SettingsController@formSubmit')->name('review');//gets form values profile info
+
+Route::get('/settings/submit3','SettingsController@formSubmitStyle')->name('review');//gets form values profile style
 
 // Auth::routes();
 //

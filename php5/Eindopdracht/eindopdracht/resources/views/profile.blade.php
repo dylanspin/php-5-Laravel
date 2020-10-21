@@ -3,7 +3,8 @@
   <!-- <h1>{{$user->name}}</h1> -->
   @section('content')
   <!-- style="background-color:red;" -->
-  <div class="gradient">
+
+  <div class="profileGradient" style="background:linear-gradient(118deg, {{$gradient[0] ?? ''}} 0%, {{$gradient[1] ?? ''}} 100%); background-size: 300%; background-position: left;">
       <div class="jumbotron first">
           <div class="container">
               <div class="row">
@@ -48,14 +49,14 @@
           </div>
       </div>
 
-      <div class="jumbotron" style="background-color:#191919;">
+      <div class="jumbotron" style="background-color:#171717;">
           <div class="bar"></div>
 
-          <div class="container">
+          <div class="container" style="background-color:#171717;">
               <h1 class="font-weight-bold">Services </h1>
               <div class="card-deck mb-5 text-center mt-5">
                   <div class="card box-shadow">
-                      <div class="card-header gradient">
+                      <div class="card-header profileGradient" style="background:linear-gradient(118deg, {{$gradient[0] ?? ''}} 0%, {{$gradient[1] ?? ''}} 100%); background-size: 300%; background-position: left;">
                           <h4 class="my-0 font-weight-normal">Free</h4>
                       </div>
                       <div class="card-body">
@@ -70,7 +71,7 @@
                       </div>
                   </div>
                   <div class="card box-shadow">
-                      <div class="card-header gradient">
+                      <div class="card-header profileGradient" style="background:linear-gradient(118deg, {{$gradient[0] ?? ''}} 0%, {{$gradient[1] ?? ''}} 100%); background-size: 300%; background-position: left;">
                           <h4 class="my-0 font-weight-normal">Free</h4>
                       </div>
                       <div class="card-body">
@@ -85,7 +86,7 @@
                       </div>
                   </div>
                   <div class="card box-shadow">
-                      <div class="card-header gradient">
+                      <div class="card-header profileGradient" style="background:linear-gradient(118deg, {{$gradient[0] ?? ''}} 0%, {{$gradient[1] ?? ''}} 100%); background-size: 300%; background-position: left;">
                           <h4 class="my-0 font-weight-normal">Free</h4>
                       </div>
                       <div class="card-body">
@@ -99,6 +100,25 @@
                           <button type="button" class="btn btn-lg btn-block btn-outline-primary">Contact</button>
                       </div>
                   </div>
+              </div>
+          </div>
+
+          <div class="bar moreMT"></div>
+
+          <div class="jumbotron" style="background-color:#171717;">
+              <div class="container">
+                  <h1 class="font-weight-bold">Video's</h1>
+                  <h2 class="mt-5">No video's yet</h2>
+                  <!--hier moet nog een function komen die checkt als er een video links is of meerdere en die dan de youtube vids laat zien--->
+                  <iframe width="820" height="415" class="ProfileVideo m-4"
+                      src="https://www.youtube.com/embed/tgbNymZ7vqY">
+                  </iframe>
+                  <!--<iframe width="820" height="415"  class="ProfileVideo m-4"
+                      src="https://www.youtube.com/embed/tgbNymZ7vqY">
+                  </iframe>
+                  <iframe width="820" height="415"  class="ProfileVideo m-4"
+                      src="https://www.youtube.com/embed/tgbNymZ7vqY">
+                  </iframe> -->
               </div>
           </div>
 
@@ -141,8 +161,9 @@
           </div>
       </div>
   </div>
-  <div class="jumbotron" style="background-color:#171717; margin-bottom:-30px;">
-      <div class="container pt-5 mt-5" style="height:auto; transition:0.3">
+
+  <div class="jumbotron" style="background-color:#171717; margin-bottom:-30px; margin-top:-33px; min-height:450px;">
+      <div class="container mt-5" style="height:auto; transition:0.3">
           <div class="row">
               <div class="col">
                 <h2 class="font-weight-bold">Reviews</h2>

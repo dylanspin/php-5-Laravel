@@ -54,6 +54,28 @@ class ProfileController extends Controller
         }
     }
 
+    private function getGradient()
+    {
+        $information = \App\profile::findOrFail(auth()->user()->id);
+        if(strlen($information->gradient) < 1){
+            $gradient = ["#780206","#061161"];
+        }else{
+            $gradient = unserialize($information->gradient);
+        }
+        return $gradient;
+    }
+
+    private function getHover()
+    {
+        $information = \App\profile::findOrFail(auth()->user()->id);
+        if(strlen($information->hover) < 1){
+            $hover = ["#340B3C","#230b3c"];
+        }else{
+            $hover = unserialize($information->hover);
+        }
+        return $hover;
+    }
+
     private function returnSocials($id)
     {
         $information = \App\profile::findOrFail($id);
@@ -78,6 +100,7 @@ class ProfileController extends Controller
         $user = \App\User::findOrFail($id); //$user is wat er naar de profile/ word gezet voor verschillende accounts
         return view('profile')->withDetails($user)->with('information',$information)->with('user',$user)->with('total',$total)
         ->with('reli',$reli)->with('review',$this->returnRandomReview($id))->with('score',$this->returnScore($id))
-        ->with('total',$this->returnTotal($id))->with('social',$this->returnSocials($id))->with('icons',$this->icons);
+        ->with('total',$this->returnTotal($id))->with('social',$this->returnSocials($id))->with('icons',$this->icons)
+        ->with('gradient',$this->getGradient())->with('hover',$this->getHover());
     }
 }

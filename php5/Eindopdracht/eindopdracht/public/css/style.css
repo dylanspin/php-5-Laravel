@@ -90,8 +90,12 @@ html, body {
 .grayText{
   color: #686868;
 }
+.profileGradient{
+    animation: bg-animation 60s infinite;
+}
+
 .gradient{
-    background:linear-gradient(118deg, rgba(120, 2, 6,1) 0%, rgba(6, 17, 97,1) 100%);
+    background:linear-gradient(118deg, #780206 0%, #061161 100%);
     background-size: 300%;
     background-position: left;
     animation: bg-animation 60s infinite;
@@ -129,6 +133,17 @@ html, body {
   height: 300px;
   width: 300px;
   left: -30px;
+}
+.ProfileVideo{
+  position: relative;
+  left: 10%;
+  border: none;
+  transition: 0.2s;
+}
+.ProfileVideo:focus,
+.ProfileVideo:hover{
+  transform: scale(1.05,1.05);
+  filter: drop-shadow(10px 10px 10px #340B3C) drop-shadow(-10px -10px 10px #230b3c);
 }
 .bar{
   position: relative;
@@ -301,7 +316,6 @@ html, body {
   transition: 0.2s;
 }
 
-
 .saveButton:hover{
   transform: scale(1.1,1.1);
   filter: drop-shadow(10px 10px 10px #340B3C) drop-shadow(-10px -10px 10px #230b3c);
@@ -396,4 +410,38 @@ textarea{
   top: 11%;
   text-align: center;
   font-size: 100px;
+}
+
+.ColorPicker{
+  border: none;
+  width: 100px;
+  height: 35px;
+  border-radius: 5px;
+}
+.fontOptions{
+  font-size: 15px;
+  padding: 5px;
+  color: white;
+  background-color: #161616;
+  border: none;
+}
+
+
+.gradientBar{
+  position: relative;
+  display: inline-block;
+  left: 40px;
+  top: 5px;
+  width: 300px;
+  height: 35px;
+}
+.imgInput{
+  float: left;
+}
+.currentImg{
+  position: relative;
+  /* margin-left: 70%; */
+  width: 300px;
+  height: 300px;
+  filter: drop-shadow(10px 10px 10px #340B3C) drop-shadow(-10px -10px 10px #230b3c);
 }

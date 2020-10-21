@@ -37,8 +37,6 @@ function stopPost()
     }
 }
 
-
-
 function openSettings(clicked)
 {
     // var num = clicked.charAt(1);
@@ -49,5 +47,22 @@ function openSettings(clicked)
         {
             document.getElementById('O'+i).style.display = "none";
         }
+    }
+}
+
+
+function setGradient(g)
+{
+    if(g)
+    {
+        var color1 = document.getElementById('G1').value;
+        var color2 = document.getElementById('G2').value;
+
+        document.getElementById('gradientBar').style.background = "linear-gradient(118deg,"+color1+" 0%,"+color2+" 100%)";
+    }else{
+      var color1 = document.getElementById('H1').value;
+      var color2 = document.getElementById('H2').value;
+
+      document.getElementById('HoverBar').style.background = "linear-gradient(118deg,"+color1+" 0%,"+color2+" 100%)";
     }
 }
