@@ -32,12 +32,12 @@
                           </div>
                           <div class="color md-4 pr-5">
                               <h4>
-                                  Jobs Done : {{$total}}
+                                  Jobs Done : {{$total ?? '0'}}
                               </h4>
                           </div>
                           <div class="color md-4 pr-5">
                               <h4>
-                                  Reliability : {{$reli}}%
+                                  Reliability : {{$reli ?? ''}}%
                               </h4>
                           </div>
                       </div>
@@ -111,14 +111,14 @@
                   <h2 class="mt-5">No video's yet</h2>
                   <!--hier moet nog een function komen die checkt als er een video links is of meerdere en die dan de youtube vids laat zien--->
                   <iframe width="820" height="415" class="ProfileVideo m-4"
-                      src="https://www.youtube.com/embed/tgbNymZ7vqY">
+                      src="https://www.youtube.com/embed/WKuaujIHBT4">
                   </iframe>
-                  <!--<iframe width="820" height="415"  class="ProfileVideo m-4"
+                  <iframe width="820" height="415"  class="ProfileVideo m-4"
                       src="https://www.youtube.com/embed/tgbNymZ7vqY">
                   </iframe>
                   <iframe width="820" height="415"  class="ProfileVideo m-4"
                       src="https://www.youtube.com/embed/tgbNymZ7vqY">
-                  </iframe> -->
+                  </iframe>
               </div>
           </div>
 

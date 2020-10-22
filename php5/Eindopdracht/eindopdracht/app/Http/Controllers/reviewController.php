@@ -38,6 +38,56 @@ class ReviewController extends Controller
     		}
 		}
 
+    public function formSubmitSettings(Request $req)
+    {
+        if($req)
+        {
+            $user = auth()->user();
+
+            // $req->validate([
+            //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            // ]);
+
+            $socialLinksArray = [$req['Instagram'], $req['Twitter'], $req['Facebook'], $req['Linkedin'], $req['Youtube'], $req['Custom']];
+            $compresSocial = serialize($socialLinksArray);
+
+            $this->UploadImage($req);
+            $settings = new \App\profile;
+            $settings -> where('id', $user->id)->update(['about' => $req['about'],'social' => $compresSocial]);
+            return back();
+
+        }else{
+            return back();
+        }
+    }
+
+    private function UploadImage(Request $req)
+    {
+         $settings = new \App\profile;
+         $id = auth()->user()->id;
+         $information = \App\profile::findOrFail($id);
+         $userInfo = \App\User::findOrFail($id);
+         $nameUser = $userInfo->name;
+
+         $req->validate([
+             'profileImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+         ]);
+
+         $destinationPath = 'publicImages/images/Profile/';
+         $file = $req->file('profileImage');
+         $file_name = $file->getClientOriginalName();
+         $nameImage = $nameUser.$file_name;
+         setcookie("myCookie", $nameUser, time() + 3600);
+         $oldImage = $information->image;
+         if (file_exists(public_path().$oldImage))
+         {
+           $file->delete($destinationPath,$oldImage);
+         }
+         $file->move($destinationPath , $file_name);
+         rename($destinationPath.$file_name,$destinationPath.$nameImage);
+         $settings -> where('id', $id)->update(['image' => $nameImage]);
+    }
+
     //moet voor show all reviews
     public function index($user)
     {

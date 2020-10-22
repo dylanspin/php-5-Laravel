@@ -76,9 +76,16 @@ class RegisterController extends Controller
 
     private function createProfile()
     {
-        return profile::create([
-          'about' => "No user information",
-          'email' => ,
-        ]);
+        $review = new \App\profile;
+        $review->about = "No user information";
+        $review->image = "";
+        $review->completed = 0;
+        $review->failed = 0;
+        $review->social = "";
+        $review->gradient = "";
+        $review->hover = "";
+        $review->font = 0;
+        $review->followers = "";
+        $review->save();
     }
 }

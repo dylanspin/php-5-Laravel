@@ -96,7 +96,12 @@ class ProfileController extends Controller
     {
         $information = \App\profile::findOrFail($id);
         $total = $information->completed + $information->failed;
-        $reli = round(100 / $total * $information->completed);
+        if($total * $information->completed != 0)
+        {
+            $reli = round(100 / $total * $information->completed);
+        }else{
+            $reli = 0;
+        }
         $user = \App\User::findOrFail($id); //$user is wat er naar de profile/ word gezet voor verschillende accounts
         return view('profile')->withDetails($user)->with('information',$information)->with('user',$user)->with('total',$total)
         ->with('reli',$reli)->with('review',$this->returnRandomReview($id))->with('score',$this->returnScore($id))

@@ -18,13 +18,13 @@
             <div class="col">
                 <div class="OptionPage" id='O1' style="display:block;">
                     <h1 class="p-3 font-weight-bolder">Profile Options</h1>
-                    <form class="settingsForm p-2 m-5" action="/settings/submit" method="GET">
+                    <form class="settingsForm p-2 m-5" action="/settings/submit" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <h3 class="pt-3 font-weight-bolder mb-4">Profile Picture </h3>
                         <div class="row">
                             <div class="col col-lg-7">
-                                <input type="file" name="profileImg" class="mb-5 imgInput" value="">
+                                <input type="file" name="profileImage" class="mb-5 imgInput" value="" accept="image/*">
                             </div>
                             <div class="col">
                                 <div class="currentImg rounded">
@@ -68,6 +68,7 @@
                         </div>
                         <input type="text" name="Custom" value="" placeholder="Custom" class="settingInput"><br>
                         <input type="submit" name="saveOptions" value="Save" class="gradient saveButton">
+
                     </form>
                 </div>
                 <div class="OptionPage" id='O2'>

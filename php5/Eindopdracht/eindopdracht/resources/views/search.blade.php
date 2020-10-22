@@ -13,7 +13,7 @@
             <div class="container full-height">
               @if($amount > 0)
                   @for ($i = 0; $i < $amount; $i++)
-                      <a href="" class="card m-4 search" style="background-color:#171717;">
+                      <a href="{{url('/profile',$results[$i]->id)}}" class="card m-4 search" style="background-color:#171717;">
                           <h3 class="card-header grayText">
                             {{$results[$i]->name ?? 'Nothing'}}<!--naam profile-->
                           </h3>
@@ -45,9 +45,10 @@
                                 </div>
                                 <div class="col pr-5 md-4">
                                    <h5>
-                                       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                      {{$info[$i] ?? 'No user information'}}
+                                       <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                        In sagittis ac ante non tempus. Proin rhoncus urna vel lectus tincidunt
-                                       feugiat. Ut convallis mauris vitae magna auctor aliquet
+                                       feugiat. Ut convallis mauris vitae magna auctor aliquet -->
                                    </h5>
                                 </div>
                             </div>

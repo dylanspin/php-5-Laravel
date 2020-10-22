@@ -29,9 +29,16 @@ class SearchController extends Controller
         return view('search');
     }
 
-    public function searchResults($s)
+    private function searchResults($result)
     {
-
+        $aboutArray = array();
+        for($i=0; $i<Count($result); $i++)
+        {
+            $information = \App\profile::findOrFail($result[$i]->id);
+            array_push($aboutArray,$information->about);
+        }
+        
+        return $aboutArray;
     }
 
     public function formSubmit(Request $req)
@@ -41,7 +48,9 @@ class SearchController extends Controller
             $search = $req->input('Search');
             $results = \App\User::where('name', 'like', $search .'%')->get();
             $amount = Count($results);
-            return view('search')->withDetails($search)->with('search',$search)->with('results',$results)->with('amount',$amount);
+            $about = $this->searchResults($results);
+            return view('search')->withDetails($search)->with('search',$search)->with('results',$results)->with('amount',$amount)
+            ->with('info',$about);
         }else{
             return view('search')->with('amount',0);
         }

@@ -16,6 +16,7 @@ class CreatesProfilesTable extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->text('about');
+            $table->text('image');
             $table->text('socialMedia');
             $table->text('gradient');
             $table->text('hover');
