@@ -66,3 +66,16 @@ function setGradient(g)
       document.getElementById('HoverBar').style.background = "linear-gradient(118deg,"+color1+" 0%,"+color2+" 100%)";
     }
 }
+
+function closeAdd()
+{
+    document.getElementById('list').style.height = "0";
+    document.getElementById('holder').style.display = "none";
+}
+
+function addProduct()
+{
+    document.getElementById('list').style.height = "85vh";
+    document.getElementById('holder').style.display = "block";
+   // document.getElementById('list').style.width = "40vw";
+}

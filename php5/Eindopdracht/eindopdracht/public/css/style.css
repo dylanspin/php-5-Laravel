@@ -445,3 +445,96 @@ textarea{
   height: 300px;
   filter: drop-shadow(10px 10px 10px #340B3C) drop-shadow(-10px -10px 10px #230b3c);
 }
+
+/*Products*/
+.productInputList{
+  position: fixed;
+  top: 10vh;
+  left: 30vw;
+  z-index: 100;
+  width: 40vw;
+  height: 0;
+  background: #161616;
+  border-radius: 1%;
+  transition: 0.3s;
+}
+.close{
+  position: absolute;
+  width: 8%;
+  height: 8%;
+  right: 2%;
+  top: 2%;
+  font-size: 5vh;
+  transition: 0.2s;
+  color: white;
+}
+.close:hover{
+  transform: scale(1.05,1.05);
+  color: white;
+}
+.holder{
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.inputs{
+  position: relative;
+  top: 10%;
+  left: 10%;
+}
+.Label2{
+  position: relative;
+  float: left;
+  width: 11%;
+  height: 6vh;
+  font-size: 6vh;
+  display: block
+}
+.productInput{
+  position: flex;
+  display: inline;
+  height: 6vh;
+  width: 50%;
+  border: none;
+  margin-bottom: 2vh;
+}
+.Icon{
+  position: absolute;
+}
+
+.selectSetting{
+  position: relative;
+  display: inline-block;
+  margin-right: 3vw;
+  width: 2vw;
+  height: 2vw;
+  border-radius: 2%;
+  transition: 0.2s;
+}
+.selectSetting:hover{
+  transform: scale(1.1,1.1);
+  filter: drop-shadow(10px 10px 10px #340B3C) drop-shadow(-10px -10px 10px #230b3c);
+}
+.setSlot{
+    background: white;
+}
+.productAbout{
+  width: 60%;
+}
+.Spacer{
+  position: relative;
+  height: 4vh;
+  width: 100%;
+}
+.uploadProduct{
+  position: relative;
+  left: 4%;
+  bottom: 13%;
+  border: none;
+  color: white;
+  font-size: 4vh;
+  background: inherit;
+}

@@ -82,15 +82,15 @@
                         <div class="Logolabel pb-2" style="font-size:20px; color white; width:100px;">
                             Old
                         </div>
-                        <input type="password" name="Instagram" value="" placeholder="..." class="settingInput"><br>
+                        <input type="password" name="password" value="" placeholder="..." class="settingInput"><br>
                         <div class="Logolabel pb-2" style="font-size:20px; color white; width:100px;">
                             New
                         </div>
-                        <input type="password" name="Instagram" value="" placeholder="..." class="settingInput"><br>
+                        <input type="password" name="password2" value="" placeholder="..." class="settingInput"><br>
                         <div class="Logolabel pb-2" style="font-size:20px; color white; width:100px;">
                             Repeat
                         </div>
-                        <input type="password" name="Instagram" value="" placeholder="..." class="settingInput"><br>
+                        <input type="password" name="password3" value="" placeholder="..." class="settingInput"><br>
                         <input type="submit" name="saveOptions" value="Save" class="gradient saveButton">
                     </form>
                 </div>
@@ -123,8 +123,52 @@
                 <div class="OptionPage" id='O5'>
                     <h1 class="sidebar-heading p-3 font-weight-bolder">Products/services Options</h1>
                     <div class="productCard gradient">
-                        <div class="addProduct">
+                        <div class="addProduct" onclick="addProduct()">
                             <i class="fa fa-plus" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="productInputList" id='list'>
+                        <div id='holder'class="holder">
+                            <div class="close fa fa-times" onclick="closeAdd()"></div>
+                            <form class="inputs" action="index.html" method="post">
+                                <label for="exampleInputEmail1">Email address</label>
+                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                                <!-- <div class="Label2 pb-2" style="width:25%">
+                                    <h3>Hour Price</h3>
+                                </div>
+                                <div class="">
+                                    <div class="selectSetting gradient">
+
+                                    </div>
+                                    <div class="selectSetting setSlot">
+
+                                    </div>
+                                </div><br>
+
+                                <div class="" style="width:45%">
+                                    <h3>Product Information</h3>
+                                </div>
+                                <textarea class="productAbout" name="about" rows="8" cols="80"></textarea><br>
+
+                                <div class="Spacer"></div>
+
+                                <div class="Label2 pb-2">
+                                    <div class="fa fa-music input Icon"></div>
+                                </div>
+                                <input type="text" name="Custom" value="" placeholder="Custom" class="productInput"><br>
+                                <div class="Label2 pb-2">
+                                    <div class="fa fa-youtube-play input Icon"></div>
+                                </div>
+                                <input type="text" name="youtubeLink" value="" placeholder="youtube link" class="productInput"><br>
+                                <div class="Label2 pb-2">
+                                    <div class="fa fa-picture-o input Icon"></div>
+                                </div>
+                                <input type="file" name="image" value="" placeholder="Custom" class="productInput"><br>
+                                <input type="submit" name="saveOptions" value="Save" class="gradient saveButton">
+                                <button type="submit" name="button" class="uploadProduct">
+                                    <i class="fa fa-upload" aria-hidden="true"></i>
+                                </button> -->
+                            </form>
                         </div>
                     </div>
                 </div>
