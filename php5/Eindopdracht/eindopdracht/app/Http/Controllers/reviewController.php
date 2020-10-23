@@ -21,6 +21,13 @@ class ReviewController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+     //moet voor show all reviews
+    public function index($user)
+    {
+        $results = \App\review::where('id',$req['pageId'])->get();
+        $amount = Count($results);
+        return view('reviews')->with('results',$results)->with('returnId',$req['pageId'])->with('amount',$amount);
+    }
 
     public function formSubmit(Request $req)
     {
@@ -38,6 +45,8 @@ class ReviewController extends Controller
     		}
 		}
 
+
+    //Settings functions
     public function formSubmitSettings(Request $req)
     {
         if($req)
@@ -66,8 +75,6 @@ class ReviewController extends Controller
          $settings = new \App\profile;
          $id = auth()->user()->id;
          $information = \App\profile::findOrFail($id);
-         $userInfo = \App\User::findOrFail($id);
-         $nameUser = $userInfo->name;
 
          $req->validate([
              'profileImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -75,36 +82,44 @@ class ReviewController extends Controller
 
          $destinationPath = 'publicImages/images/Profile/';
          $file = $req->file('profileImage');
-         $file_name = $file->getClientOriginalName();
-         $nameImage = $nameUser.$file_name;
-         setcookie("myCookie", $nameUser, time() + 3600);
+         $file_name =  time().'.'.$req->file('profileImage')->extension();
+
          $oldImage = $information->image;
-         if (file_exists(public_path().$oldImage))
+         if (file_exists($destinationPath.$oldImage))
          {
-           $file->delete($destinationPath,$oldImage);
+            unlink($destinationPath.$oldImage);
          }
-         $file->move($destinationPath , $file_name);
-         rename($destinationPath.$file_name,$destinationPath.$nameImage);
-         $settings -> where('id', $id)->update(['image' => $nameImage]);
+         $file->move($destinationPath,$file_name);
+         $settings -> where('id', $id)->update(['image' => $file_name]);
     }
 
-    //moet voor show all reviews
-    public function index($user)
+
+    public function formSubmitStyle(Request $req)
     {
-        $results = \App\review::where('id',$req['pageId'])->get();
-        $amount = Count($results);
-        return view('reviews')->with('results',$results)->with('returnId',$req['pageId'])->with('amount',$amount);
+        if($req)
+        {
+            $user = auth()->user();
+
+            $gradientArray = [$req['gradient1'], $req['gradient2']];
+            $compresGradient = serialize($gradientArray);
+
+            $hoverArray = [$req['hover1'], $req['hover2']];
+            $compresHover = serialize($hoverArray);
+            if($req['font'])
+            {
+                $font = $req['font'];
+            }else{
+                $font = 0;
+            }
+
+            $settings = new \App\profile;
+            $settings -> where('id', $user->id)->update(['gradient' => $compresGradient, 'hover' => $compresHover, 'font' => $font]);
+
+            return back();
+        }else{
+            return back();
+        }
     }
 
-        // if($req)
-        // {
-        //     $review = $req->input('review');
-        //     $stars = $req->input('stars');
-        //     echo " Stars : ".$stars." Review : ".$review;
-        //     //moet nog alle andere reviews van deze user pakken en er moet een thank you message staan voor de review ook moet er
-        //     //een return button zijn naar de profile waar je nu de reviews van bekijkt. wat ik dan ook kan gaan gebruiken voor de search
-        //     return view('reviews');
-        // }else{
-        //     returnProfile();
-        // }
+
 }

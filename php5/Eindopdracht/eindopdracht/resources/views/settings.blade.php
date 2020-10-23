@@ -28,7 +28,7 @@
                             </div>
                             <div class="col">
                                 <div class="currentImg rounded">
-                                    <img src="/images/e1.jpg" alt="evenements" class="imgFull rounded">
+                                    <img src="publicImages/images/Profile/{{$info->image}}" alt="evenements" class="imgFull rounded">
                                 </div>
                             </div>
                         </div>

@@ -19,7 +19,11 @@
                           @endfor
                       </div>
                       <div class="profileImage" style="display:inline-block;">
-                          <img src="/images/e1.jpg" alt="evenements" class="imgFull rounded">
+                          @if (strlen($information->image) > 0)
+                              <img src="/publicImages/images/Profile/{{$information->image}}" alt="evenements" class="imgFull rounded">
+                          @else
+                              <img src="/images/noUser.jpg" alt="evenements" class="imgFull rounded">
+                          @endguest
                       </div>
                   </div>
                   <div class="col md-8 pr-5">
@@ -42,7 +46,7 @@
                           </div>
                       </div>
                       <h5 class="ProfileAbout text-left">
-                          {{$information->about}}
+                          {{$information->about ?? 'No information'}}
                       </h5>
                   </div>
               </div>
@@ -129,7 +133,7 @@
               <div class="row pt-5 pl">
                   <div class="column md-3 p-3">
                       <div class="imgVak">
-                          <img src="/images/e1.jpg" alt="evenements" class="imgFull">
+                          <img src="/images/e5.jpg" alt="evenements" class="imgFull">
                       </div>
                   </div>
                   <div class="column md-3 p-3">
@@ -149,7 +153,7 @@
                   </div>
                   <div class="column md-3 p-3">
                       <div class="imgVak">
-                          <img src="/images/e4.jpg" alt="evenements" class="imgFull">
+                          <img src="/images/e6.jpg" alt="evenements" class="imgFull">
                       </div>
                   </div>
                   <div class="column md-3 p-3">

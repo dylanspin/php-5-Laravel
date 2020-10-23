@@ -53,23 +53,23 @@
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
-                        @else
-                            <li class="nav-item">
-                                <a href="{{ url('/settings') }}" class="nav-link Link2">Page Content/Settings</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('/agenda') }}" class="nav-link Link2">Agenda's</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('/booked') }}" class="nav-link Link2">Booked</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('/message') }}" class="nav-link Link2">Message's</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ url('/profile',Auth::user()->id)}}" class="nav-link Link2">Profile</a>
-                            </li>
-                            <li class="nav-item dropdown">
+                            @else
+                                <li class="nav-item">
+                                    <a href="{{ url('/settings') }}" class="nav-link Link2">Page Content/Settings</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('/agenda') }}" class="nav-link Link2">Agenda's</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('/booked') }}" class="nav-link Link2">Booked</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('/message') }}" class="nav-link Link2">Message's</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ url('/profile',Auth::user()->id)}}" class="nav-link Link2">Profile</a>
+                                </li>
+                                <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
