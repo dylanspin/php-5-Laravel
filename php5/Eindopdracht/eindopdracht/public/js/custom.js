@@ -2,6 +2,7 @@
 
 var formBool = false;//review form
 var standard = "fa fa-star starButton"; //star buttons
+var types = ["Hour","Set","Discus"];
 
 function writeReview()
 {
@@ -75,7 +76,30 @@ function closeAdd()
 
 function addProduct()
 {
-    document.getElementById('list').style.height = "85vh";
+    document.getElementById('list').style.height = "820px";
     document.getElementById('holder').style.display = "block";
    // document.getElementById('list').style.width = "40vw";
+}
+
+function setSelect(num)
+{
+    if(num == 1)
+    {
+        document.getElementById('hour').style.display = "block";
+    }else{
+        document.getElementById('hour').style.display = "none";
+    }
+    for(var i=1; i<=3; i++)
+    {
+        if(i == num)
+        {
+            document.getElementById(i).classList.add('gradient');
+            document.getElementById(i).classList.remove('setSlot');
+        }else{
+            document.getElementById(i).classList.add('setSlot');
+            document.getElementById(i).classList.remove('gradient');
+        }
+    }
+    document.getElementById('setValue').innerHTML = "<h3>"+types[num-1]+" Price</h3>";
+    document.getElementById('select').value = num;
 }

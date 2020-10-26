@@ -53,10 +53,6 @@ class ReviewController extends Controller
         {
             $user = auth()->user();
 
-            // $req->validate([
-            //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            // ]);
-
             $socialLinksArray = [$req['Instagram'], $req['Twitter'], $req['Facebook'], $req['Linkedin'], $req['Youtube'], $req['Custom']];
             $compresSocial = serialize($socialLinksArray);
 
@@ -105,6 +101,7 @@ class ReviewController extends Controller
 
             $hoverArray = [$req['hover1'], $req['hover2']];
             $compresHover = serialize($hoverArray);
+
             if($req['font'])
             {
                 $font = $req['font'];
@@ -119,6 +116,68 @@ class ReviewController extends Controller
         }else{
             return back();
         }
+    }
+
+    public function submitProduct(Request $req)
+    {
+        if($req)
+        {
+            $id = auth()->user()->id;
+            $products = new \App\bandproduct;
+            $selected = $req['selected'];
+            $imageName = $this->UploadProductImage($req);
+            if(!empty($req['youtubeProduct']))
+            {
+              $vid = $req['youtubeProduct'];
+            }else{
+              $vid = " ";
+            }
+            if($selected == 1)
+            {
+                $products->price = $req['hourPrice'];
+            }else{
+                $products->price = 0;
+            }
+            if(!empty($req['productAbout']))
+            {
+              $products->postText = $req['productAbout'];
+            }else{
+              $products->postText = " ";
+            }
+            $products->vidLink = $vid;
+            if($imageName != 0)
+            {
+                $products->imgName = $imageName;
+            }else{
+                $products->imgName = 0;
+            }
+            $products->basePrice = $req['basePrice'];
+            $products->type = $selected;
+            $products->idPoster = $id;
+            $products->save();
+
+            return back();
+        }else{
+            return back();
+        }
+    }
+
+
+    private function UploadProductImage(Request $req)
+    {
+         $id = auth()->user()->id;
+
+         $req->validate([
+             'productImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+         ]);
+
+         $destinationPath = 'publicImages/images/Products/';
+         $file = $req->file('productImage');
+         $file_name =  time().'.'.$req->file('productImage')->extension();
+
+         $file->move($destinationPath,$file_name);
+
+         return $file_name;
     }
 
 

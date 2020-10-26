@@ -20,7 +20,6 @@
                     <h1 class="p-3 font-weight-bolder">Profile Options</h1>
                     <form class="settingsForm p-2 m-5" action="/settings/submit" method="POST" enctype="multipart/form-data">
                         @csrf
-
                         <h3 class="pt-3 font-weight-bolder mb-4">Profile Picture </h3>
                         <div class="row">
                             <div class="col col-lg-7">
@@ -130,25 +129,37 @@
                     <div class="productInputList" id='list'>
                         <div id='holder'class="holder">
                             <div class="close fa fa-times" onclick="closeAdd()"></div>
-                            <form class="inputs" action="index.html" method="post">
-                                <label for="exampleInputEmail1">Email address</label>
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                                <!-- <div class="Label2 pb-2" style="width:25%">
+                            <form class="inputs" action="/settings/product" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="Label2 pb-2" style="width:25%" id='setValue' >
                                     <h3>Hour Price</h3>
                                 </div>
                                 <div class="">
-                                    <div class="selectSetting gradient">
+                                    <div class="selectSetting gradient" id='1' onclick="setSelect(1)">
 
                                     </div>
-                                    <div class="selectSetting setSlot">
+                                    <div class="selectSetting setSlot" id='2' onclick="setSelect(2)">
+
+                                    </div>
+                                    <div class="selectSetting setSlot" id='3' onclick="setSelect(3)">
 
                                     </div>
                                 </div><br>
-
+                                <input type="hidden" name="selected" value="1" id='select'>
+                                <div id='hour'>
+                                    <div class="Label2 pb-2" style="width:25%" id='hour1'>
+                                        <h3>Hour Price</h3>
+                                    </div>
+                                    <input type="text" name="basePrice" value="" placeholder="Base Price" class="productInput" required><br>
+                                </div>
+                                <div class="Label2 pb-2" style="width:25%">
+                                    <h3>Base Price</h3>
+                                </div>
+                                <input type="text" name="hourPrice" value="" placeholder="Base Price" class="productInput" required><br>
                                 <div class="" style="width:45%">
                                     <h3>Product Information</h3>
                                 </div>
-                                <textarea class="productAbout" name="about" rows="8" cols="80"></textarea><br>
+                                <textarea class="productAbout" name="productAbout" rows="8" cols="80" required></textarea><br>
 
                                 <div class="Spacer"></div>
 
@@ -156,18 +167,27 @@
                                     <div class="fa fa-music input Icon"></div>
                                 </div>
                                 <input type="text" name="Custom" value="" placeholder="Custom" class="productInput"><br>
+
                                 <div class="Label2 pb-2">
                                     <div class="fa fa-youtube-play input Icon"></div>
                                 </div>
-                                <input type="text" name="youtubeLink" value="" placeholder="youtube link" class="productInput"><br>
+                                <input type="text" name="youtubeProduct" value="" placeholder="youtube link" class="productInput"><br>
+
                                 <div class="Label2 pb-2">
                                     <div class="fa fa-picture-o input Icon"></div>
                                 </div>
-                                <input type="file" name="image" value="" placeholder="Custom" class="productInput"><br>
-                                <input type="submit" name="saveOptions" value="Save" class="gradient saveButton">
-                                <button type="submit" name="button" class="uploadProduct">
-                                    <i class="fa fa-upload" aria-hidden="true"></i>
-                                </button> -->
+                                <input type="file" name="productImage" value="" placeholder="Custom" class="productInput" accept="image/*"><br>
+
+                                <div class="row">
+                                  <div class="col col-lg-7">
+
+                                  </div>
+                                    <div class="col">
+                                        <button type="submit" name="button" class="uploadProduct">
+                                            <h3>Upload</h3>
+                                        </button>
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div>
