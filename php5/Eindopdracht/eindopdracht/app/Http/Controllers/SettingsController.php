@@ -55,15 +55,17 @@ class SettingsController extends Controller
         }else{
             $hover = unserialize($information->hover);
         }
-        
+
         return $hover;
     }
 
     public function index()//task bar load
     {
-        $information = \App\profile::findOrFail(auth()->user()->id);
+        $id = auth()->user()->id;
+        $products = \App\bandproduct::where('idPoster',$id)->get();
+        $information = \App\profile::findOrFail($id);
         $about = $information->about;
         return view('settings')->with('social',$this->getSocial())->with('about',$about)->with('gradient',$this->getGradient())
-        ->with('hover',$this->getHover())->with('info',$information);
+        ->with('hover',$this->getHover())->with('info',$information)->with('products',$products);
     }
 }

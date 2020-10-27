@@ -125,7 +125,18 @@ class ReviewController extends Controller
             $id = auth()->user()->id;
             $products = new \App\bandproduct;
             $selected = $req['selected'];
-            $imageName = $this->UploadProductImage($req);
+            if(!empty($req['productName']))
+            {
+                $products->productName = $req['productName'];
+            }else{
+                $products->productName = "No Name";
+            }
+            if(!empty($req['productImage']))
+            {
+                $imageName = $this->UploadProductImage($req);
+            }else{
+                $imageName = "0";
+            }
             if(!empty($req['youtubeProduct']))
             {
               $vid = $req['youtubeProduct'];
@@ -151,7 +162,13 @@ class ReviewController extends Controller
             }else{
                 $products->imgName = 0;
             }
-            $products->basePrice = $req['basePrice'];
+
+            if(!empty($req['basePrice']))
+            {
+                $products->basePrice = $req['basePrice'];
+            }else{
+                $products->basePrice = 0;
+            }
             $products->type = $selected;
             $products->idPoster = $id;
             $products->save();

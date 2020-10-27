@@ -37,7 +37,7 @@ class SearchController extends Controller
             $information = \App\profile::findOrFail($result[$i]->id);
             array_push($aboutArray,$information->about);
         }
-        
+
         return $aboutArray;
     }
 

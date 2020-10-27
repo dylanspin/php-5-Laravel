@@ -61,8 +61,8 @@ function setGradient(g)
 
         document.getElementById('gradientBar').style.background = "linear-gradient(118deg,"+color1+" 0%,"+color2+" 100%)";
     }else{
-      var color1 = document.getElementById('H1').value;
-      var color2 = document.getElementById('H2').value;
+      var color1 = document.getElementById('G3').value;
+      var color2 = document.getElementById('G4').value;
 
       document.getElementById('HoverBar').style.background = "linear-gradient(118deg,"+color1+" 0%,"+color2+" 100%)";
     }
@@ -76,7 +76,7 @@ function closeAdd()
 
 function addProduct()
 {
-    document.getElementById('list').style.height = "820px";
+    document.getElementById('list').style.height = "980px";
     document.getElementById('holder').style.display = "block";
    // document.getElementById('list').style.width = "40vw";
 }
@@ -102,4 +102,10 @@ function setSelect(num)
     }
     document.getElementById('setValue').innerHTML = "<h3>"+types[num-1]+" Price</h3>";
     document.getElementById('select').value = num;
+}
+
+
+function activateInput(num)
+{
+    document.getElementById('G'+num).click();
 }

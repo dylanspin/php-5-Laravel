@@ -15,17 +15,17 @@
                  </div>
                </div>
             </div>
-            <div class="col">
+            <div class="col col-lg-7">
                 <div class="OptionPage" id='O1' style="display:block;">
                     <h1 class="p-3 font-weight-bolder">Profile Options</h1>
                     <form class="settingsForm p-2 m-5" action="/settings/submit" method="POST" enctype="multipart/form-data">
                         @csrf
                         <h3 class="pt-3 font-weight-bolder mb-4">Profile Picture </h3>
                         <div class="row">
-                            <div class="col col-lg-7">
+                            <div class="col col-lg-2">
                                 <input type="file" name="profileImage" class="mb-5 imgInput" value="" accept="image/*">
                             </div>
-                            <div class="col">
+                            <div class="col ml-5 ">
                                 <div class="currentImg rounded">
                                     <img src="publicImages/images/Profile/{{$info->image}}" alt="evenements" class="imgFull rounded">
                                 </div>
@@ -98,13 +98,21 @@
                     <form class="settingsForm p-2 m-5" action="/settings/submit3" method="GET">
                       @csrf
                       <h3 class="pt-3 font-weight-bolder mb-3">Profile gradient colors :</h3>
-                      <input type="color" name="gradient1" class="ColorPicker" value="{{$gradient[0] ?? ''}}" id="G1" onchange="setGradient(true)">
-                      <input type="color" name="gradient2" class="ColorPicker" value="{{$gradient[1] ?? ''}}" id="G2" onchange="setGradient(true)">
+                      <div class="colorPick" onclick="activateInput(1)" style="background:{{$gradient[0] ?? ''}}">
+                          <input type="color" id="G1" name="gradient1" class="ColorPicker" value="{{$gradient[0] ?? ''}}" onchange="setGradient(true)">
+                      </div>
+                      <div class="colorPick" onclick="activateInput(2)" style="background:{{$gradient[1] ?? ''}}">
+                        <input type="color" id="G2" name="gradient2" class="ColorPicker" value="{{$gradient[1] ?? ''}}" onchange="setGradient(true)">
+                      </div>
                       <div class="gradientBar gradient"id="gradientBar" style="background:linear-gradient(118deg, {{$gradient[0] ?? ''}} 0%, {{$gradient[1] ?? ''}} 100%); background-size: 300%; background-position: left;"></div>
 
                       <h3 class="pt-3 font-weight-bolder mb-3">Profile hover gradient colors :</h3>
-                      <input type="color" name="hover1" class="ColorPicker" value="{{$hover[0] ?? ''}}" id="H1" onchange="setGradient(false)">
-                      <input type="color" name="hover2" class="ColorPicker" value="{{$hover[1] ?? ''}}" id="H2" onchange="setGradient(false)">
+                      <div class="colorPick" onclick="activateInput(3)" style="background:{{$hover[0] ?? ''}}">
+                          <input type="color" id='G3' name="hover1" class="ColorPicker" value="{{$hover[0] ?? ''}}" onchange="setGradient(false)">
+                      </div>
+                      <div class="colorPick" onclick="activateInput(4)" style="background:{{$hover[1] ?? ''}}">
+                          <input type="color" id='G4' name="hover2" class="ColorPicker" value="{{$hover[1] ?? ''}}" onchange="setGradient(false)">
+                      </div>
                       <div class="gradientBar gradient" id="HoverBar" style="background:linear-gradient(118deg, {{$hover[0] ?? ''}} 0%, {{$hover[1] ?? ''}} 100%); background-size: 300%; background-position: left;"></div>
 
                       <h3 class="pt-3 mt-5 font-weight-bolder mb-3">Profile font</h3>
@@ -119,18 +127,46 @@
                 <div class="OptionPage" id='O4'>
                     <h1 class="sidebar-heading p-3 font-weight-bolder">Privacy Options</h1>
                 </div>
-                <div class="OptionPage" id='O5'>
+                <div class="OptionPage" id='O5' style="width:125%;">
                     <h1 class="sidebar-heading p-3 font-weight-bolder">Products/services Options</h1>
                     <div class="productCard gradient">
                         <div class="addProduct" onclick="addProduct()">
                             <i class="fa fa-plus" aria-hidden="true"></i>
                         </div>
                     </div>
+                    @for ($i = 0; $i < Count($products); $i++)
+                        @if(strlen($products[$i]->imgName) > 2)
+                            <div class="productCard">
+                              <div class="productImage rounded">
+                                <img src="publicImages/images/Products/{{$products[$i]->imgName}}" alt="Product" class="imgFull">
+                                <div class="productName" onclick="">
+                                    {{$products[$i]->productName}}
+                                </div>
+                                <div class="productPrice font-weight-bolder">
+                                    $ {{$products[$i]->basePrice}}
+                                </div>
+                              </div>
+                            </div>
+                        @else
+                            <div class="productCard gradient">
+                                <div class="productName" onclick="">
+                                    {{$products[$i]->productName}}
+                                </div>
+                                <div class="productPrice font-weight-bolder">
+                                    $ {{$products[$i]->basePrice}}
+                                </div>
+                            </div>
+                        @endguest
+                    @endfor
                     <div class="productInputList" id='list'>
                         <div id='holder'class="holder">
                             <div class="close fa fa-times" onclick="closeAdd()"></div>
                             <form class="inputs" action="/settings/product" method="POST" enctype="multipart/form-data">
                                 @csrf
+                                <div class="Label2 pb-2" style="width:25%">
+                                    <h3>Product Name</h3>
+                                </div>
+                                <input type="text" name="productName" value="" placeholder="Product Name" class="productInput mb-5" maxlength="40" required><br>
                                 <div class="Label2 pb-2" style="width:25%" id='setValue' >
                                     <h3>Hour Price</h3>
                                 </div>
@@ -150,12 +186,12 @@
                                     <div class="Label2 pb-2" style="width:25%" id='hour1'>
                                         <h3>Hour Price</h3>
                                     </div>
-                                    <input type="text" name="basePrice" value="" placeholder="Base Price" class="productInput" required><br>
+                                    <input type="number" name="basePrice" value="" placeholder="Base Price" class="productInput"><br>
                                 </div>
                                 <div class="Label2 pb-2" style="width:25%">
                                     <h3>Base Price</h3>
                                 </div>
-                                <input type="text" name="hourPrice" value="" placeholder="Base Price" class="productInput" required><br>
+                                <input type="number" name="hourPrice" value="" placeholder="Base Price" class="productInput mb-5" required><br>
                                 <div class="" style="width:45%">
                                     <h3>Product Information</h3>
                                 </div>
@@ -193,7 +229,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col col-lg-7"></div><!--Spacer-->
+            <div class="col"></div><!--Spacer-->
         </div>
     </div>
   @include('layouts.footer')
