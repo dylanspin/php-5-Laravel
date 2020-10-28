@@ -139,21 +139,15 @@
                             <div class="productCard">
                               <div class="productImage rounded">
                                 <img src="publicImages/images/Products/{{$products[$i]->imgName}}" alt="Product" class="imgFull">
-                                <div class="productName" onclick="">
+                                <div class="productName text-uppercase" onclick="">
                                     {{$products[$i]->productName}}
-                                </div>
-                                <div class="productPrice font-weight-bolder">
-                                    $ {{$products[$i]->basePrice}}
                                 </div>
                               </div>
                             </div>
                         @else
                             <div class="productCard gradient">
-                                <div class="productName" onclick="">
+                                <div class="productName text-uppercase" onclick="">
                                     {{$products[$i]->productName}}
-                                </div>
-                                <div class="productPrice font-weight-bolder">
-                                    $ {{$products[$i]->basePrice}}
                                 </div>
                             </div>
                         @endguest

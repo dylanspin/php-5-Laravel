@@ -92,8 +92,17 @@ class ProfileController extends Controller
         return Count(\App\review::where('idUserPage',$userPage)->get());
     }
 
+
+    private function returnProducts($id)
+    {
+        $products = \App\bandproduct::where('idPoster',$id)->get();
+        return $products;
+    }
+
     public function index($id)
     {
+        $products = \App\bandproduct::where('idPoster',$id)->get();
+        $productLength = Count($products);
         $information = \App\profile::findOrFail($id);
         $total = $information->completed + $information->failed;
         if($total * $information->completed != 0)
@@ -106,6 +115,7 @@ class ProfileController extends Controller
         return view('profile')->withDetails($user)->with('information',$information)->with('user',$user)->with('total',$total)
         ->with('reli',$reli)->with('review',$this->returnRandomReview($id))->with('score',$this->returnScore($id))
         ->with('total',$this->returnTotal($id))->with('social',$this->returnSocials($id))->with('icons',$this->icons)
-        ->with('gradient',$this->getGradient())->with('hover',$this->getHover());
+        ->with('gradient',$this->getGradient())->with('hover',$this->getHover())->with('products',$products)
+        ->with('productAmount',$productLength);
     }
 }

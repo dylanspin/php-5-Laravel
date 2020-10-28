@@ -56,55 +56,30 @@
       <div class="jumbotron" style="background-color:#171717;">
           <div class="bar"></div>
 
-          <div class="container" style="background-color:#171717;">
-              <h1 class="font-weight-bold">Services </h1>
-              <div class="card-deck mb-5 text-center mt-5">
-                  <div class="card box-shadow">
-                      <div class="card-header profileGradient" style="background:linear-gradient(118deg, {{$gradient[0] ?? ''}} 0%, {{$gradient[1] ?? ''}} 100%); background-size: 300%; background-position: left;">
-                          <h4 class="my-0 font-weight-normal">Free</h4>
-                      </div>
-                      <div class="card-body">
-                          <h1 class="card-title pricing-card-title">$0</h1>
-                          <ul class="list-unstyled mt-3 mb-4">
-                              <li>10 users included</li>
-                              <li>2 GB of storage</li>
-                              <li>Email support</li>
-                              <li>Help center access</li>
-                          </ul>
-                          <button type="button" class="btn btn-lg btn-block btn-outline-primary">Contact</button>
-                      </div>
-                  </div>
-                  <div class="card box-shadow">
-                      <div class="card-header profileGradient" style="background:linear-gradient(118deg, {{$gradient[0] ?? ''}} 0%, {{$gradient[1] ?? ''}} 100%); background-size: 300%; background-position: left;">
-                          <h4 class="my-0 font-weight-normal">Free</h4>
-                      </div>
-                      <div class="card-body">
-                          <h1 class="card-title pricing-card-title">$0</h1>
-                          <ul class="list-unstyled mt-3 mb-4">
-                              <li>10 users included</li>
-                              <li>2 GB of storage</li>
-                              <li>Email support</li>
-                              <li>Help center access</li>
-                          </ul>
-                          <button type="button" class="btn btn-lg btn-block btn-outline-primary">Contact</button>
+          <div style="text-align:center">
+              <h1 class="font-weight-bold mb-5">Services </h1>
+              @for ($i = 0; $i < $productAmount; $i++)
+                  <div class="col col-lg-3 cardss">
+                      <div class="card box-shadow productC">
+                          <div class="card-header profileGradient" style="background:linear-gradient(118deg, {{$gradient[0] ?? ''}} 0%, {{$gradient[1] ?? ''}} 100%); background-size: 300%; background-position: left;">
+                              <h4 class="my-0 font-weight-normal">{{$products[$i]->productName ?? 'No Name'}}</h4>
+                          </div>
+                          <div class="card-body">
+                              <h1 class="card-title pricing-card-title">${{$products[$i]->basePrice ?? 'No Name'}}</h1>
+                              <ul class="list-unstyled mt-3 mb-4">
+                                  @if($products[$i]->type == 1)
+                                    <h5 style="color:white;">Per hour : ${{$products[$i]->price}}</h5>
+                                  @endguest
+                                  @if($products[$i]->type == 3)
+                                    <h5 style="color:white;">Price can be discused</h5>
+                                  @endguest
+                                  <div class="productInfo">{{$products[$i]->postText}}</div>
+                              </ul>
+                          </div>
                       </div>
                   </div>
-                  <div class="card box-shadow">
-                      <div class="card-header profileGradient" style="background:linear-gradient(118deg, {{$gradient[0] ?? ''}} 0%, {{$gradient[1] ?? ''}} 100%); background-size: 300%; background-position: left;">
-                          <h4 class="my-0 font-weight-normal">Free</h4>
-                      </div>
-                      <div class="card-body">
-                          <h1 class="card-title pricing-card-title">$0</h1>
-                          <ul class="list-unstyled mt-3 mb-4">
-                              <li>10 users included</li>
-                              <li>2 GB of storage</li>
-                              <li>Email support</li>
-                              <li>Help center access</li>
-                          </ul>
-                          <button type="button" class="btn btn-lg btn-block btn-outline-primary">Contact</button>
-                      </div>
-                  </div>
-              </div>
+               @endfor
+              <!-- </div> -->
           </div>
 
           <div class="bar moreMT"></div>
