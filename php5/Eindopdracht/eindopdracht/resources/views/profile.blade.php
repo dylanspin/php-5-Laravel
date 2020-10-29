@@ -58,28 +58,44 @@
 
           <div style="text-align:center">
               <h1 class="font-weight-bold mb-5">Services </h1>
-              @for ($i = 0; $i < $productAmount; $i++)
-                  <div class="col col-lg-3 cardss">
-                      <div class="card box-shadow productC">
-                          <div class="card-header profileGradient" style="background:linear-gradient(118deg, {{$gradient[0] ?? ''}} 0%, {{$gradient[1] ?? ''}} 100%); background-size: 300%; background-position: left;">
-                              <h4 class="my-0 font-weight-normal">{{$products[$i]->productName ?? 'No Name'}}</h4>
-                          </div>
-                          <div class="card-body">
-                              <h1 class="card-title pricing-card-title">${{$products[$i]->basePrice ?? 'No Name'}}</h1>
-                              <ul class="list-unstyled mt-3 mb-4">
-                                  @if($products[$i]->type == 1)
-                                    <h5 style="color:white;">Per hour : ${{$products[$i]->price}}</h5>
-                                  @endguest
-                                  @if($products[$i]->type == 3)
-                                    <h5 style="color:white;">Price can be discused</h5>
-                                  @endguest
-                                  <div class="productInfo">{{$products[$i]->postText}}</div>
-                              </ul>
+              @if($productAmount > 0)
+                  @for ($i = 0; $i < $productAmount; $i++)
+                      <div class="col col-lg-3 cardss">
+                          <div class="card box-shadow productC" onclick="showProduct({{$i}})">
+                              <div class="card-header profileGradient" style="background:linear-gradient(118deg, {{$gradient[0] ?? ''}} 0%, {{$gradient[1] ?? ''}} 100%); background-size: 300%; background-position: left;">
+                                  <h4 class="my-0 font-weight-normal">{{$products[$i]->productName ?? 'No Name'}}</h4>
+                              </div>
+                              <div class="card-body">
+                                  <h1 class="card-title pricing-card-title">${{$products[$i]->basePrice ?? 'No Name'}}</h1>
+                                  <ul class="list-unstyled mt-3 mb-4">
+                                      @if($products[$i]->type == 1)
+                                          <h5 style="color:white;">Per hour : ${{$products[$i]->price}}</h5>
+                                      @endguest
+                                      @if($products[$i]->type == 3)
+                                          <h5 style="color:white;">Price can be discused</h5>
+                                      @endguest
+                                      <div class="productInfo">{{$products[$i]->postText}}</div>
+                                  </ul>
+                              </div>
                           </div>
                       </div>
+                   @endfor
+              @else
+                  <h2 class="mt-5">No Services yet</h2>
+              @endguest
+              <div class="ShowCard">
+                  <div class="topGradient profileGradient mb-4" id='nameProduct' style="background:linear-gradient(118deg, {{$gradient[0] ?? ''}} 0%, {{$gradient[1] ?? ''}} 100%); background-size: 300%; background-position: left;">
+                      <h1 class="text-center">Een test naam</h1>
                   </div>
-               @endfor
-              <!-- </div> -->
+                  <h2 class="productKop">Information :</h2>
+                  <div class="cardabout">
+                    {{$products[0]->postText}}
+                  </div>
+                  <h4>Base Price</h4>
+                  <h1 class="mb-3">$0</h1>
+
+                  <h1 class="">$100 <small class="text-muted">/ Hour</small></h1>
+              </div>
           </div>
 
           <div class="bar moreMT"></div>
@@ -89,15 +105,10 @@
                   <h1 class="font-weight-bold">Video's</h1>
                   <h2 class="mt-5">No video's yet</h2>
                   <!--hier moet nog een function komen die checkt als er een video links is of meerdere en die dan de youtube vids laat zien--->
-                  <iframe width="820" height="415" class="ProfileVideo m-4"
+                  <!-- <iframe width="820" height="415" class="ProfileVideo m-4"
                       src="https://www.youtube.com/embed/WKuaujIHBT4">
-                  </iframe>
-                  <iframe width="820" height="415"  class="ProfileVideo m-4"
-                      src="https://www.youtube.com/embed/tgbNymZ7vqY">
-                  </iframe>
-                  <iframe width="820" height="415"  class="ProfileVideo m-4"
-                      src="https://www.youtube.com/embed/tgbNymZ7vqY">
-                  </iframe>
+                  </iframe> -->
+
               </div>
           </div>
 

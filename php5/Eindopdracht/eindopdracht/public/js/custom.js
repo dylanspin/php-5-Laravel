@@ -109,3 +109,9 @@ function activateInput(num)
 {
     document.getElementById('G'+num).click();
 }
+
+
+function showProduct(int)
+{
+  
+}
