@@ -55,6 +55,9 @@
                             @endif
                             @else
                                 <li class="nav-item">
+                                    <a href="{{ url('/band') }}" class="nav-link Link2">Band  </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="{{ url('/settings') }}" class="nav-link Link2">Page Content/Settings</a>
                                 </li>
                                 <li class="nav-item">

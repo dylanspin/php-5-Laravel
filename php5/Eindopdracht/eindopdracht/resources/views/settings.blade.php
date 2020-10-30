@@ -136,16 +136,16 @@
                     </div>
                     @for ($i = 0; $i < Count($products); $i++)
                         @if(strlen($products[$i]->imgName) > 2)
-                            <div class="productCard">
-                              <div class="productImage rounded">
-                                <img src="publicImages/images/Products/{{$products[$i]->imgName}}" alt="Product" class="imgFull">
-                                <div class="productName text-uppercase" onclick="">
-                                    {{$products[$i]->productName}}
+                            <div class="productCard productGradient">
+                                <div class="productImage rounded">
+                                    <img src="publicImages/images/Products/{{$products[$i]->imgName}}" alt="Product" class="imgFull">
+                                    <div class="productName text-uppercase" onclick="">
+                                        {{$products[$i]->productName}}
+                                    </div>
                                 </div>
-                              </div>
                             </div>
                         @else
-                            <div class="productCard gradient">
+                            <div class="productCard productGradient">
                                 <div class="productName text-uppercase" onclick="">
                                     {{$products[$i]->productName}}
                                 </div>

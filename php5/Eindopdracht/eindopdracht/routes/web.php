@@ -44,9 +44,16 @@ Route::get('/settings', 'SettingsController@index')->name('settings');
 
 Auth::routes();
 
+Route::get('/band','BandController@index')->name('band');
+
+Auth::routes();
+
+
 Route::post('/search','searchController@formSubmit')->name('search');//gets navBar input
 
 Auth::routes();
+
+Route::post('/band/create','BandController@createBand')->name('band');//gets navBar input
 
 Route::post('/review','ReviewController@formSubmit')->name('review');//gets navBar input
 

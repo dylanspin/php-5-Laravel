@@ -63,18 +63,18 @@
                       <div class="col col-lg-3 cardss">
                           <div class="card box-shadow productC" onclick="showProduct({{$i}})">
                               <div class="card-header profileGradient" style="background:linear-gradient(118deg, {{$gradient[0] ?? ''}} 0%, {{$gradient[1] ?? ''}} 100%); background-size: 300%; background-position: left;">
-                                  <h4 class="my-0 font-weight-normal">{{$products[$i]->productName ?? 'No Name'}}</h4>
+                                  <h4 class="my-0 font-weight-normal"  id='nameCard{{$i}}'>{{$products[$i]->productName ?? 'No Name'}}</h4>
                               </div>
                               <div class="card-body">
-                                  <h1 class="card-title pricing-card-title">${{$products[$i]->basePrice ?? 'No Name'}}</h1>
+                                  <h1 class="card-title pricing-card-title"  id='price{{$i}}'>${{$products[$i]->basePrice ?? 'No Name'}}</h1>
                                   <ul class="list-unstyled mt-3 mb-4">
                                       @if($products[$i]->type == 1)
-                                          <h5 style="color:white;">Per hour : ${{$products[$i]->price}}</h5>
+                                          <h5 style="color:white;" id='hourPrice{{$i}}'>Per hour : ${{$products[$i]->price}}</h5>
                                       @endguest
                                       @if($products[$i]->type == 3)
                                           <h5 style="color:white;">Price can be discused</h5>
                                       @endguest
-                                      <div class="productInfo">{{$products[$i]->postText}}</div>
+                                      <div class="productInfo" id='aboutCard{{$i}}'>{{$products[$i]->postText}}</div>
                                   </ul>
                               </div>
                           </div>
@@ -83,18 +83,26 @@
               @else
                   <h2 class="mt-5">No Services yet</h2>
               @endguest
-              <div class="ShowCard">
-                  <div class="topGradient profileGradient mb-4" id='nameProduct' style="background:linear-gradient(118deg, {{$gradient[0] ?? ''}} 0%, {{$gradient[1] ?? ''}} 100%); background-size: 300%; background-position: left;">
-                      <h1 class="text-center">Een test naam</h1>
-                  </div>
-                  <h2 class="productKop">Information :</h2>
-                  <div class="cardabout">
-                    {{$products[0]->postText}}
-                  </div>
-                  <h4>Base Price</h4>
-                  <h1 class="mb-3">$0</h1>
 
-                  <h1 class="">$100 <small class="text-muted">/ Hour</small></h1>
+              <div class="ShowCard" id='card'>
+                  <div class="holder" id='holder'>
+                      <div class="topGradient profileGradient mb-4" id='nameProduct' style="background:linear-gradient(118deg, {{$gradient[0] ?? ''}} 0%, {{$gradient[1] ?? ''}} 100%); background-size: 300%; background-position: left;">
+                          <h1 class="text-center" id='setName'>Een test naam</h1>
+                          <div class="closeCard" onclick="closeCard()">
+                              <i class="fa fa-times" aria-hidden="true"></i>
+                          </div>
+                      </div>
+                      <h2 class="productKop">Information :</h2>
+                      <div class="cardabout" id='setAbout'>
+                        <!--About information set with js-->
+                      </div>
+                      <h4>Base Price</h4>
+                      <h3 class="mb-3" id='setPrice'>$0</h3>
+                      <h3 class="" id='setHour'>$100 <small class="text-muted">/ Hour</small></h3>
+                      <form class="" action="" method="post">
+                        <button type="submit" name="contact" class="contactButton">Order</button>
+                      </form>
+                  </div>
               </div>
           </div>
 

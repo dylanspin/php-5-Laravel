@@ -86,6 +86,7 @@ class RegisterController extends Controller
         $review->hover = "";
         $review->font = 0;
         $review->followers = "";
+        $review->bands = "";
         $review->save();
     }
 }

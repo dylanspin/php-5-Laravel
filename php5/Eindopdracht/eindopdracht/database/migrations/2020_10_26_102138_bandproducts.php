@@ -13,18 +13,18 @@ class Bandproducts extends Migration
      */
     public function up()
     {
-      Schema::create('bandproducts', function (Blueprint $table) {
-          $table->id();
-          $table->char('productName', 200);
-          $table->text('postText');
-          $table->text('vidLink');
-          $table->text('imgName');
-          $table->bigInteger('price');
-          $table->bigInteger('basePrice');
-          $table->smallInteger('type');
-          $table->bigInteger('idPoster');
-          $table->timestamps();
-      });
+        Schema::create('bandproducts', function (Blueprint $table) {
+            $table->id();
+            $table->char('productName', 200);
+            $table->text('postText');
+            $table->text('vidLink');
+            $table->text('imgName');
+            $table->bigInteger('price');
+            $table->bigInteger('basePrice');
+            $table->smallInteger('type');
+            $table->bigInteger('idPoster');
+            $table->timestamps();
+        });
     }
 
     /**

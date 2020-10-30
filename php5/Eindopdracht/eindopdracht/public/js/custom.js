@@ -110,8 +110,21 @@ function activateInput(num)
     document.getElementById('G'+num).click();
 }
 
+function closeCard()
+{
+    document.getElementById('card').style.height = "0px";
+    document.getElementById('holder').style.display = "none";
+}
 
 function showProduct(int)
 {
-  
+    document.getElementById('card').style.height = "600px";
+    document.getElementById('holder').style.display = "block";
+    // alert(int);
+
+    //sets information of popup
+    document.getElementById('setName').innerHTML = document.getElementById('nameCard'+int).innerHTML;
+    document.getElementById('setPrice').innerHTML = document.getElementById('price'+int).innerHTML;
+    document.getElementById('setHour').innerHTML = document.getElementById('hourPrice'+int).innerHTML;
+    document.getElementById('setAbout').innerHTML = document.getElementById('aboutCard'+int).innerHTML;
 }

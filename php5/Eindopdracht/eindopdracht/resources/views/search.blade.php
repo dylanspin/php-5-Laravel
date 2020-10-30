@@ -46,9 +46,6 @@
                                 <div class="col pr-5 md-4">
                                    <h5>
                                       {{$info[$i] ?? 'No user information'}}
-                                       <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                       In sagittis ac ante non tempus. Proin rhoncus urna vel lectus tincidunt
-                                       feugiat. Ut convallis mauris vitae magna auctor aliquet -->
                                    </h5>
                                 </div>
                             </div>

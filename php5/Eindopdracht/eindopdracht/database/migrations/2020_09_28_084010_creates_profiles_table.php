@@ -25,6 +25,7 @@ class CreatesProfilesTable extends Migration
             $table->smallInteger('failed');
             $table->mediumText('social');
             $table->longText('followers');
+            $table->text('bands');
             $table->timestamps();
         });
     }

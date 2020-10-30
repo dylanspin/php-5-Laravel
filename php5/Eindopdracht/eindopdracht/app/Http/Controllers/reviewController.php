@@ -95,7 +95,7 @@ class ReviewController extends Controller
         if($req)
         {
             $user = auth()->user();
-
+            
             $gradientArray = [$req['gradient1'], $req['gradient2']];
             $compresGradient = serialize($gradientArray);
 

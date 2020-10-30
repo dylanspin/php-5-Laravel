@@ -394,11 +394,16 @@ textarea{
   position: relative;
   justify-content: center;
   align-items: center;
-  height: 50%;
+  height: 100%;
   overflow: hidden;
   padding: 4%;
   font-size: 30px;
+  font-weight: 900;
+  background: -webkit-linear-gradient(#780206, #061161);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
+
 .productCard{
   display: inline-block;
   float: left;
@@ -408,6 +413,12 @@ textarea{
   color: white;
   border-radius: 10px;
   transition: 0.3s;
+}
+.productGradient{
+  background: rgb(31,31,31);
+  background: -moz-linear-gradient(354deg, rgba(31,31,31,1) 0%, rgba(0,0,0,1) 100%);
+  background: -webkit-linear-gradient(354deg, rgba(31,31,31,1) 0%, rgba(0,0,0,1) 100%);
+  background: linear-gradient(354deg, rgba(31,31,31,1) 0%, rgba(0,0,0,1) 100%);
 }
 .productCard:hover{
   transform: scale(1.05,1.05);
@@ -514,6 +525,7 @@ textarea{
 }
 .holder{
   position: relative;
+  transition: 0.3s;
   left: 0;
   top: 0;
   width: 100%;
@@ -599,10 +611,12 @@ textarea{
 
 .ShowCard{
   position: fixed;
-  left: 30%;
+  display: block;
+  left: 33%;
   top: 5%;
-  width: 600px;
-  height: 700px;
+  width: 500px;
+  height: 0px;
+  transition: 0.3s;
   background: white;
   z-index: 100;
   border-radius: 23px 23px 0px 0px;
@@ -619,7 +633,7 @@ textarea{
   top: 0;
   left: 0;
   width: 100%;
-  height: 100px;
+  height: 75px;
   border-radius: 20px 20px 0px 0px;
 }
 
@@ -629,7 +643,7 @@ textarea{
   position: relative;
   width: 90%;
   left: 5%;
-  height: 270px;
+  height: 240px;
   font-size: 20px;
   text-align: left;
   padding: 10px 20px 20px 20px;
@@ -643,7 +657,54 @@ textarea{
   padding: 0px 0px 10px 20px;
   text-align: left;
 }
-.contactButton
-{
-  
+.contactButton{
+  position: relative;
+  top: 10px;
+  border: none;
+  font-size: 30px;
+  color: white;
+  width: 50%;
+  background: #191919;
+  box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);
+  transition: 0.3s;
+}
+.contactButton:hover{
+  box-shadow: none;
+  transform: scale(1.05,1.05);
+}
+.closeCard{
+  position: absolute;
+  right: 2%;
+  top: 8%;
+  color: white;
+  font-size: 40px;
+  transition: 0.3s;
+}
+.closeCard:hover{
+  transform: scale(1.05,1.05);
+}
+.BandInput{
+  font-size: 20px;
+  padding: 10px;
+  font-weight: 600;
+  border-radius: 5px;
+  width: 300px;
+  border: 1px solid #171717;
+  box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);
+}
+.create{
+  color: white;
+  font-size: 20px;
+  padding: 10px 40px;
+  font-weight: 600;
+  margin-left: 30px;
+  border-radius: 5px;
+  border: none;
+  background: #171717;
+  box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);
+  transition: 0.3s;
+}
+.create:hover{
+  box-shadow: none;
+  transform: scale(1.05,1.05);
 }
