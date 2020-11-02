@@ -3,8 +3,7 @@
   <!-- <h1>{{$user->name}}</h1> -->
   @section('content')
   <!-- style="background-color:red;" -->
-
-  <div class="profileGradient" style="background:linear-gradient(118deg, {{$gradient[0] ?? ''}} 0%, {{$gradient[1] ?? ''}} 100%); background-size: 300%; background-position: left;">
+  <div class="profileGradient" style="background:linear-gradient(118deg, {{$gradient[0] ?? ''}} 0%, {{$gradient[1] ?? ''}} 100%);background-size: 300%; background-position: left;">
       <div class="jumbotron first">
           <div class="container">
               <div class="row">

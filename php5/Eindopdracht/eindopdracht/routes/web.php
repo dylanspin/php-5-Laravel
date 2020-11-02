@@ -24,15 +24,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::get('/booked', 'BookedController@index')->name('booked');
-
-Auth::routes();
-
 Route::get('/profile/{user}', 'profileController@index')->name('profile.show');
-
-Auth::routes();
-
-Route::get('/agenda', 'AgendaController@index')->name('agenda');
 
 Auth::routes();
 
@@ -47,7 +39,6 @@ Auth::routes();
 Route::get('/band','BandController@index')->name('band');
 
 Auth::routes();
-
 
 Route::post('/search','searchController@formSubmit')->name('search');//gets navBar input
 

@@ -59,11 +59,15 @@ function setGradient(g)
         var color1 = document.getElementById('G1').value;
         var color2 = document.getElementById('G2').value;
 
+        document.getElementById('D1').style.background = color1;
+        document.getElementById('D2').style.background = color2;
         document.getElementById('gradientBar').style.background = "linear-gradient(118deg,"+color1+" 0%,"+color2+" 100%)";
     }else{
       var color1 = document.getElementById('G3').value;
       var color2 = document.getElementById('G4').value;
 
+      document.getElementById('D3').style.background = color1;
+      document.getElementById('D4').style.background = color2;
       document.getElementById('HoverBar').style.background = "linear-gradient(118deg,"+color1+" 0%,"+color2+" 100%)";
     }
 }
@@ -120,11 +124,24 @@ function showProduct(int)
 {
     document.getElementById('card').style.height = "600px";
     document.getElementById('holder').style.display = "block";
-    // alert(int);
 
     //sets information of popup
     document.getElementById('setName').innerHTML = document.getElementById('nameCard'+int).innerHTML;
     document.getElementById('setPrice').innerHTML = document.getElementById('price'+int).innerHTML;
     document.getElementById('setHour').innerHTML = document.getElementById('hourPrice'+int).innerHTML;
     document.getElementById('setAbout').innerHTML = document.getElementById('aboutCard'+int).innerHTML;
+}
+
+
+function setBand(int)
+{
+    document.getElementById('bandId').value = int; //sets hidden value of Id of profile bands list
+    document.getElementById('bandManger').style.display = "block";
+    document.getElementById('selectBand').style.display = "none";
+}
+
+function goToSelect()
+{
+    document.getElementById('bandManger').style.display = "none";
+    document.getElementById('selectBand').style.display = "block";
 }

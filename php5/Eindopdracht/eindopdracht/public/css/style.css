@@ -708,3 +708,45 @@ textarea{
   box-shadow: none;
   transform: scale(1.05,1.05);
 }
+.selectBand{
+  position: relative;
+  width: 350px;
+  height: 400px;
+  margin: 25px;
+  display: inline-block;
+  background: #141414;
+  border-radius: 5px;
+  transition: 0.3s;
+  box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);
+}
+
+.selectBand:hover{
+  transform: scale(1.05,1.05);
+  /* box-shadow: 0px 0px 10px rgba(0,0,0,0.5); */
+  box-shadow: none;
+}
+.bandNaam{
+  padding-top: 20px;
+  color: white;
+  text-transform:uppercase;
+  width: 100%;
+  font-size: 30px;
+  height: auto;
+}
+.bandImage{
+  position: absolute;
+  left: 10%;
+  top: 30%;
+  width: 80%;
+  height: 60%;
+}
+.NewBand{
+  position: absolute;
+  top: 30%;
+  left: 0%;
+}
+
+.posCreate{
+  margin-top: 150px;
+  margin-left: 150px;
+}

@@ -15,6 +15,8 @@ class CreatesProfilesTable extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('ProfileId');
+            $table->bigInteger('BandId');
             $table->text('about');
             $table->text('image');
             $table->text('socialMedia');
@@ -24,7 +26,6 @@ class CreatesProfilesTable extends Migration
             $table->smallInteger('completed');
             $table->smallInteger('failed');
             $table->mediumText('social');
-            $table->longText('followers');
             $table->text('bands');
             $table->timestamps();
         });

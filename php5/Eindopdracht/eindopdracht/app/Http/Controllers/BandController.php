@@ -70,18 +70,18 @@ class BandController extends Controller
 
     private function getBandInfo($bandIDs)
     {
-        $bands = \App\band::where('id',$bandIDs)->get();
         $bandInformation = array();
+        // $bandInformation = \App\band::where('id',$bandIDs[0])->get();
+
         for($i=0; $i<Count($bandIDs); $i++)
         {
-            if(Count($bandInformation) > 1)
+            if(Count($bandIDs) > 1)
             {
-                array_push($bandInformation,  [\App\band::where('id',$bandIDs[$i])->get()]);
+                array_push($bandInformation,[\App\band::where('id',$bandIDs[$i])->get()]);
             }else{
                 $bandInformation = [\App\band::where('id',$bandIDs[$i])->get()];
             }
         }
-        // dd($bandInformation[0]);
         return $bandInformation;
     }
 
@@ -92,13 +92,16 @@ class BandController extends Controller
         if(strlen($information->bands) > 0)
         {
             $bandIDs = unserialize($information->bands);
+            // $bandInformation = \App\band::where('id',$bandIDs[0])->get();
             $bandInformation = $this->getBandInfo($bandIDs);
+
             $hasBand = true;
         }else{
             $bandInformation = null;
             $hasBand = false;
         }
-        return view('band')->with('has',$hasBand)->with('bands',$bandInformation);
+        // dd($bandInformation);
+        return view('band')->with('has',$hasBand)->with('bands',$bandInformation)->with('Ids',$bandIDs);
     }
 
     //for booking a band or product

@@ -61,12 +61,6 @@
                                     <a href="{{ url('/settings') }}" class="nav-link Link2">Page Content/Settings</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('/agenda') }}" class="nav-link Link2">Agenda's</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ url('/booked') }}" class="nav-link Link2">Booked</a>
-                                </li>
-                                <li class="nav-item">
                                     <a href="{{ url('/message') }}" class="nav-link Link2">Message's</a>
                                 </li>
                                 <li class="nav-item">

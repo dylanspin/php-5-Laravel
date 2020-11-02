@@ -44,6 +44,6 @@
         </div>
     </div>
     <div class="footer-copyright text-center py-3" style="background-color:#0D0D0D;">© 2020 Copyright:
-      <a href="">Music Inc</a>
+      <a href="" class="mr-5">Music Inc</a>  Styling done by Dylan Spin
     </div>
 </footer>
