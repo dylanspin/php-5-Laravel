@@ -85,6 +85,58 @@ class BandController extends Controller
         return $bandInformation;
     }
 
+    private function getBandNames($bandIDs)
+    {
+        $bandNames = array();
+        // $bandInformation = \App\band::where('id',$bandIDs[0])->get();
+
+        for($i=0; $i<Count($bandIDs); $i++)
+        {
+            if(Count($bandIDs) > 1)
+            {
+                $information = \App\band::where('id',$bandIDs[$i])->get();
+                $list = unserialize($information[0]->members);
+                $tempArray = array();
+                for($b=0; $b<Count($list); $b++)
+                {
+                    if(Count($list) > 1)
+                    {
+                        $name = $user = \App\User::findOrFail($list[$b])->name;
+                        array_push($tempArray,$name);
+                    }else{
+                        $tempArray = [\App\User::findOrFail($list[$b])->name];
+                    }
+                }
+                array_push($bandNames,$tempArray);
+            }else{
+                $information = \App\band::where('id',$bandIDs[$i])->get();
+                $bandNames = [unserialize($information[0]->members)];
+            }
+        }
+
+        return $bandNames;
+    }
+
+    private function getBandPerms($bandIDs)
+    {
+        $bandPerms = array();
+
+        for($i=0; $i<Count($bandIDs); $i++)
+        {
+            if(Count($bandIDs) > 1)
+            {
+                $information = \App\band::where('id',$bandIDs[$i])->get();
+                array_push($bandPerms,unserialize($information[0]->memberPer));
+            }else{
+                $information = \App\band::where('id',$bandIDs[$i])->get();
+                $bandPerms = [unserialize($information[0]->memberPer)];
+            }
+        }
+
+        return $bandPerms;
+    }
+
+
     public function index()
     {
         $id = auth()->user()->id;
@@ -94,19 +146,16 @@ class BandController extends Controller
             $bandIDs = unserialize($information->bands);
             // $bandInformation = \App\band::where('id',$bandIDs[0])->get();
             $bandInformation = $this->getBandInfo($bandIDs);
-
+            $members = $this->getBandNames($bandIDs);
+            $perms = $this->getBandPerms($bandIDs);
             $hasBand = true;
         }else{
             $bandInformation = null;
             $hasBand = false;
         }
-        // dd($bandInformation);
-        return view('band')->with('has',$hasBand)->with('bands',$bandInformation)->with('Ids',$bandIDs);
+
+        return view('band')->with('has',$hasBand)->with('bands',$bandInformation)->with('Ids',$bandIDs)->with('perms',$perms)
+        ->with('members',$members);
     }
 
-    //for booking a band or product
-    public function book($productId)
-    {
-        return view('band')->with('information',$information);
-    }
 }

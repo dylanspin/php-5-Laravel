@@ -106,15 +106,6 @@
                       </div>
                       <div class="gradientBar gradient"id="gradientBar" style="background:linear-gradient(118deg, {{$gradient[0] ?? ''}} 0%, {{$gradient[1] ?? ''}} 100%); background-size: 300%; background-position: left;"></div>
 
-                      <h3 class="pt-3 font-weight-bolder mb-3">Profile hover gradient colors :</h3>
-                      <div class="colorPick" onclick="activateInput(3)" style="background:{{$hover[0] ?? ''}}" id="D3">
-                          <input type="color" id='G3' name="hover1" class="ColorPicker" value="{{$hover[0] ?? ''}}" onchange="setGradient(false)">
-                      </div>
-                      <div class="colorPick" onclick="activateInput(4)" style="background:{{$hover[1] ?? ''}}" id="D4">
-                          <input type="color" id='G4' name="hover2" class="ColorPicker" value="{{$hover[1] ?? ''}}" onchange="setGradient(false)">
-                      </div>
-                      <div class="gradientBar gradient" id="HoverBar" style="background:linear-gradient(118deg, {{$hover[0] ?? ''}} 0%, {{$hover[1] ?? ''}} 100%); background-size: 300%; background-position: left;"></div>
-
                       <h3 class="pt-3 mt-5 font-weight-bolder mb-3">Profile font</h3>
                       <select name='font' class="fontOptions">
                         <option value='' class="fontOptions">hier moet die er nu is</option>

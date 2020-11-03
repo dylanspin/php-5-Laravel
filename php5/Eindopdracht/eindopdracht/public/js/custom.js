@@ -132,16 +132,18 @@ function showProduct(int)
     document.getElementById('setAbout').innerHTML = document.getElementById('aboutCard'+int).innerHTML;
 }
 
-
 function setBand(int)
 {
     document.getElementById('bandId').value = int; //sets hidden value of Id of profile bands list
     document.getElementById('bandManger').style.display = "block";
     document.getElementById('selectBand').style.display = "none";
+    document.getElementById('H'+int).style.display = "block";
 }
 
 function goToSelect()
 {
+    var deselect = document.getElementById('bandId').value;
+    document.getElementById('H'+deselect).style.display = "none";
     document.getElementById('bandManger').style.display = "none";
     document.getElementById('selectBand').style.display = "block";
 }

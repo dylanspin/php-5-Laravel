@@ -12,7 +12,7 @@
                                 {{$bands[$i][0][0]->bandName ?? 'No name'}}
                             </div>
                             @if (strlen($bands[$i][0][0]->bandName) > 1)
-                                <img src="publicImages/images/Products/1603708349.jpeg" alt="Product" class="bandImage">
+                                <img src="images/noUser.jpg" alt="Product" class="bandImage">
                             @else
                                 <img src="publicImages/images/Products/1603708349.jpeg" alt="Product" class="bandImage">
                             @endif
@@ -54,9 +54,42 @@
                         </div>
                         <div class="OptionPage" id='O2'>
                             <h1 class="p-3 font-weight-bolder">Style Options</h1>
+                            <h3 class="pt-3 font-weight-bolder mb-3">Profile gradient colors :</h3>
+                            <div class="colorPick" onclick="activateInput(1)" style="background:{{$gradient[0] ?? ''}}" id="D1">
+                                <input type="color" id="G1" name="gradient1" class="ColorPicker" value="{{$gradient[0] ?? ''}}" onchange="setGradient(true)">
+                            </div>
+                            <div class="colorPick" onclick="activateInput(2)" style="background:{{$gradient[1] ?? ''}}" id="D2">
+                              <input type="color" id="G2" name="gradient2" class="ColorPicker" value="{{$gradient[1] ?? ''}}" onchange="setGradient(true)">
+                            </div>
+                            <div class="gradientBar gradient"id="gradientBar" style="background:linear-gradient(118deg, {{$gradient[0] ?? ''}} 0%, {{$gradient[1] ?? ''}} 100%); background-size: 300%; background-position: left;"></div>
                         </div>
                         <div class="OptionPage" id='O3'>
                             <h1 class="p-3 font-weight-bolder">Band Member</h1>
+                            @for ($i = 0; $i < Count($Ids); $i++)
+                                <div class="holder" id="H{{$i}}" style="display:none">
+                                    @for ($b = 0; $b < Count($members[$i]); $b++)
+                                        <div class="BandMember">
+                                            <div class="memberName gradient">
+                                                {{$members[$i][$b]}}
+                                            </div>
+                                            <select name='font' class="fontOptions setPerm">
+                                                <option value='' class="fontOptions">Owner</option>
+                                                <option value='' class="fontOptions">Admin</option>
+                                                <option value='' class="fontOptions">Can invite</option>
+                                                <option value='' class="fontOptions">Member</option>
+                                            </select>
+                                            <div class="setPerm kick">
+                                              Delete Member
+                                            </div>
+                                        </div>
+                                    @endfor
+                                </div>
+                            @endfor
+                            <div class="BandMember">
+                                <input type="text" name="Username" value="" placeholder="Username" class="BandInput inviteInput" minlength="2">
+                                <input type="submit" name="" value="Invite" class="setPerm kick invite">
+                            </div>
+
                         </div>
                         <div class="OptionPage" id='O4'>
                             <h1 class="p-3 font-weight-bolder">Products/services</h1>
