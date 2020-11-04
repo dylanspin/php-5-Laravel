@@ -11,10 +11,12 @@
                             <div class="bandNaam">
                                 {{$bands[$i][0][0]->bandName ?? 'No name'}}
                             </div>
-                            @if (strlen($bands[$i][0][0]->bandName) > 1)
-                                <img src="images/noUser.jpg" alt="Product" class="bandImage">
-                            @else
-                                <img src="publicImages/images/Products/1603708349.jpeg" alt="Product" class="bandImage">
+                            @if ($bands[$i][0][0] != null)
+                                @if (strlen($bands[$i][0][0]->bandName) > 1)
+                                    <img src="images/noUser.jpg" alt="Product" class="bandImage">
+                                @else
+                                    <img src="publicImages/images/Products/1603708349.jpeg" alt="Product" class="bandImage">
+                                @endif
                             @endif
                         </div>
                     @endfor
@@ -55,13 +57,17 @@
                         <div class="OptionPage" id='O2'>
                             <h1 class="p-3 font-weight-bolder">Style Options</h1>
                             <h3 class="pt-3 font-weight-bolder mb-3">Profile gradient colors :</h3>
-                            <div class="colorPick" onclick="activateInput(1)" style="background:{{$gradient[0] ?? ''}}" id="D1">
-                                <input type="color" id="G1" name="gradient1" class="ColorPicker" value="{{$gradient[0] ?? ''}}" onchange="setGradient(true)">
-                            </div>
-                            <div class="colorPick" onclick="activateInput(2)" style="background:{{$gradient[1] ?? ''}}" id="D2">
-                              <input type="color" id="G2" name="gradient2" class="ColorPicker" value="{{$gradient[1] ?? ''}}" onchange="setGradient(true)">
-                            </div>
-                            <div class="gradientBar gradient"id="gradientBar" style="background:linear-gradient(118deg, {{$gradient[0] ?? ''}} 0%, {{$gradient[1] ?? ''}} 100%); background-size: 300%; background-position: left;"></div>
+                            @for ($b = 0; $b < Count($Ids); $b++)
+                                <div class="holder" id="G{{$b}}" style="display:none">
+                                    <div class="colorPick" onclick="activateInput(1)" style="background:{{$gradients[$b][0] ?? ''}}" id="D1">
+                                        <input type="color" id="G1" name="gradient1" class="ColorPicker" value="{{$gradient[0] ?? ''}}" onchange="setGradient(true)">
+                                    </div>
+                                    <div class="colorPick" onclick="activateInput(2)" style="background:{{$gradients[$b][1] ?? ''}}" id="D2">
+                                      <input type="color" id="G2" name="gradient2" class="ColorPicker" value="{{$gradient[1] ?? ''}}" onchange="setGradient(true)">
+                                    </div>
+                                    <div class="gradientBar gradient"id="gradientBar" style="background:linear-gradient(118deg, {{$gradients[$b][0] ?? ''}} 0%, {{$gradients[$b][1] ?? ''}} 100%); background-size: 300%; background-position: left;"></div>
+                                </div>
+                            @endfor
                         </div>
                         <div class="OptionPage" id='O3'>
                             <h1 class="p-3 font-weight-bolder">Band Member</h1>
@@ -92,7 +98,104 @@
 
                         </div>
                         <div class="OptionPage" id='O4'>
-                            <h1 class="p-3 font-weight-bolder">Products/services</h1>
+                          <h1 class="sidebar-heading p-3 font-weight-bolder">Products/services Options</h1>
+                          <div class="productCard gradient">
+                              <div class="addProduct" onclick="addProduct()">
+                                  <i class="fa fa-plus" aria-hidden="true"></i>
+                              </div>
+                          </div>
+                          @for ($b = 0; $b < Count($Ids); $b++)
+                              <div id="P{{$b}}" style="display:none">
+                                  @for ($i = 0; $i < Count($products[$b]); $i++)
+                                      @if(strlen($products[$b][$i]->imgName) > 2)
+                                          <div class="productCard productGradient">
+                                              <div class="productImage rounded">
+                                                  <img src="publicImages/images/Products/{{$products[$i]->imgName}}" alt="Product" class="imgFull">
+                                                  <div class="productName text-uppercase" onclick="">
+                                                      {{$products[$b][$i]->productName ?? ''}}
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      @else
+                                          <div class="productCard productGradient">
+                                              <div class="productName text-uppercase" onclick="">
+                                                  {{$products[$b][$i]->productName ?? ''}}
+                                              </div>
+                                          </div>
+                                      @endguest
+                                  @endfor
+                              </div>
+                          @endfor
+                          <div class="productInputList" id='list'>
+                              <div id='holder'class="holder">
+                                  <div class="close fa fa-times" onclick="closeAdd()"></div>
+                                  <form class="inputs" action="/bands/product" method="POST" enctype="multipart/form-data">
+                                      @csrf
+                                      <div class="Label2 pb-2" style="width:25%">
+                                          <h3>Product Name</h3>
+                                      </div>
+                                      <input type="text" name="productName" value="" placeholder="Product Name" class="productInput mb-5" maxlength="40" required><br>
+                                      <div class="Label2 pb-2" style="width:25%" id='setValue' >
+                                          <h3>Hour Price</h3>
+                                      </div>
+                                      <div class="">
+                                          <div class="selectSetting gradient" id='1' onclick="setSelect(1)">
+
+                                          </div>
+                                          <div class="selectSetting setSlot" id='2' onclick="setSelect(2)">
+
+                                          </div>
+                                          <div class="selectSetting setSlot" id='3' onclick="setSelect(3)">
+
+                                          </div>
+                                      </div><br>
+                                      <input type="hidden" name="selected" value="1" id='select'>
+                                      <input type="hidden" name="BandId" value="" id='setBand'>
+                                      <div id='hour'>
+                                          <div class="Label2 pb-2" style="width:25%" id='hour1'>
+                                              <h3>Hour Price</h3>
+                                          </div>
+                                          <input type="number" name="basePrice" value="" placeholder="Base Price" class="productInput"><br>
+                                      </div>
+                                      <div class="Label2 pb-2" style="width:25%">
+                                          <h3>Base Price</h3>
+                                      </div>
+                                      <input type="number" name="hourPrice" value="" placeholder="Base Price" class="productInput mb-5" required><br>
+                                      <div class="" style="width:45%">
+                                          <h3>Product Information</h3>
+                                      </div>
+                                      <textarea class="productAbout" name="productAbout" rows="8" cols="80" required></textarea><br>
+
+                                      <div class="Spacer"></div>
+
+                                      <div class="Label2 pb-2">
+                                          <div class="fa fa-music input Icon"></div>
+                                      </div>
+                                      <input type="text" name="Custom" value="" placeholder="Custom" class="productInput"><br>
+
+                                      <div class="Label2 pb-2">
+                                          <div class="fa fa-youtube-play input Icon"></div>
+                                      </div>
+                                      <input type="text" name="youtubeProduct" value="" placeholder="youtube link" class="productInput"><br>
+
+                                      <div class="Label2 pb-2">
+                                          <div class="fa fa-picture-o input Icon"></div>
+                                      </div>
+                                      <input type="file" name="productImage" value="" placeholder="Custom" class="productInput" accept="image/*"><br>
+
+                                      <div class="row">
+                                        <div class="col col-lg-7">
+
+                                        </div>
+                                          <div class="col">
+                                              <button type="submit" name="button" class="uploadProduct">
+                                                  <h3>Upload</h3>
+                                              </button>
+                                          </div>
+                                      </div>
+                                  </form>
+                              </div>
+                          </div>
                         </div>
                         <div class="OptionPage" id='O5'>
                             <h1 class="p-3 font-weight-bolder">Songs</h1>

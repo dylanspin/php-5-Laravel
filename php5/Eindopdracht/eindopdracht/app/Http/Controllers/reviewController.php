@@ -95,7 +95,7 @@ class ReviewController extends Controller
         if($req)
         {
             $user = auth()->user();
-            
+
             $gradientArray = [$req['gradient1'], $req['gradient2']];
             $compresGradient = serialize($gradientArray);
 
@@ -117,68 +117,6 @@ class ReviewController extends Controller
             return back();
         }
     }
-
-    public function submitProduct(Request $req)
-    {
-        if($req)
-        {
-            $id = auth()->user()->id;
-            $products = new \App\bandproduct;
-            $selected = $req['selected'];
-            if(!empty($req['productName']))
-            {
-                $products->productName = $req['productName'];
-            }else{
-                $products->productName = "No Name";
-            }
-            if(!empty($req['productImage']))
-            {
-                $imageName = $this->UploadProductImage($req);
-            }else{
-                $imageName = "0";
-            }
-            if(!empty($req['youtubeProduct']))
-            {
-              $vid = $req['youtubeProduct'];
-            }else{
-              $vid = " ";
-            }
-            if($selected == 1)
-            {
-                $products->price = $req['hourPrice'];
-            }else{
-                $products->price = 0;
-            }
-            if(!empty($req['productAbout']))
-            {
-              $products->postText = $req['productAbout'];
-            }else{
-              $products->postText = " ";
-            }
-            $products->vidLink = $vid;
-            if($imageName != 0)
-            {
-                $products->imgName = $imageName;
-            }else{
-                $products->imgName = 0;
-            }
-
-            if(!empty($req['basePrice']))
-            {
-                $products->basePrice = $req['basePrice'];
-            }else{
-                $products->basePrice = 0;
-            }
-            $products->type = $selected;
-            $products->idPoster = $id;
-            $products->save();
-
-            return back();
-        }else{
-            return back();
-        }
-    }
-
 
     private function UploadProductImage(Request $req)
     {

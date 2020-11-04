@@ -47,18 +47,6 @@ class SettingsController extends Controller
         return $gradient;
     }
 
-    private function getHover()
-    {
-        $information = \App\profile::findOrFail(auth()->user()->id);
-        if(strlen($information->hover) < 1){
-            $hover = ["#340B3C","#230b3c"];
-        }else{
-            $hover = unserialize($information->hover);
-        }
-
-        return $hover;
-    }
-
     public function index()//task bar load
     {
         $id = auth()->user()->id;
@@ -66,6 +54,6 @@ class SettingsController extends Controller
         $information = \App\profile::findOrFail($id);
         $about = $information->about;
         return view('settings')->with('social',$this->getSocial())->with('about',$about)->with('gradient',$this->getGradient())
-        ->with('hover',$this->getHover())->with('info',$information)->with('products',$products);
+        ->with('info',$information)->with('products',$products);
     }
 }

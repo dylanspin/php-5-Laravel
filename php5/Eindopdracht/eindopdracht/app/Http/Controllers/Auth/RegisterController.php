@@ -67,11 +67,13 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $this->createProfile();
-        return User::create([
+        $created =  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        return $created;
     }
 
     private function createProfile()
@@ -79,13 +81,9 @@ class RegisterController extends Controller
         $review = new \App\profile;
         $review->about = "No user information";
         $review->image = "";
-        $review->completed = 0;
-        $review->failed = 0;
         $review->social = "";
         $review->gradient = "";
-        $review->hover = "";
         $review->font = 0;
-        $review->followers = "";
         $review->bands = "";
         $review->save();
     }

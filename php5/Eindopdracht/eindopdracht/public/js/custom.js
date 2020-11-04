@@ -54,22 +54,12 @@ function openSettings(clicked)
 
 function setGradient(g)
 {
-    if(g)
-    {
-        var color1 = document.getElementById('G1').value;
-        var color2 = document.getElementById('G2').value;
+      var color1 = document.getElementById('G1').value;
+      var color2 = document.getElementById('G2').value;
 
-        document.getElementById('D1').style.background = color1;
-        document.getElementById('D2').style.background = color2;
-        document.getElementById('gradientBar').style.background = "linear-gradient(118deg,"+color1+" 0%,"+color2+" 100%)";
-    }else{
-      var color1 = document.getElementById('G3').value;
-      var color2 = document.getElementById('G4').value;
-
-      document.getElementById('D3').style.background = color1;
-      document.getElementById('D4').style.background = color2;
-      document.getElementById('HoverBar').style.background = "linear-gradient(118deg,"+color1+" 0%,"+color2+" 100%)";
-    }
+      document.getElementById('D1').style.background = color1;
+      document.getElementById('D2').style.background = color2;
+      document.getElementById('gradientBar').style.background = "linear-gradient(118deg,"+color1+" 0%,"+color2+" 100%)";
 }
 
 function closeAdd()
@@ -135,15 +125,20 @@ function showProduct(int)
 function setBand(int)
 {
     document.getElementById('bandId').value = int; //sets hidden value of Id of profile bands list
+    document.getElementById('setBand').value = int;
     document.getElementById('bandManger').style.display = "block";
     document.getElementById('selectBand').style.display = "none";
     document.getElementById('H'+int).style.display = "block";
+    document.getElementById('P'+int).style.display = "block";
+    document.getElementById('G'+int).style.display = "block";
 }
 
 function goToSelect()
 {
     var deselect = document.getElementById('bandId').value;
     document.getElementById('H'+deselect).style.display = "none";
+    document.getElementById('P'+deselect).style.display = "none";
+    document.getElementById('G'+deselect).style.display = "none";
     document.getElementById('bandManger').style.display = "none";
     document.getElementById('selectBand').style.display = "block";
 }

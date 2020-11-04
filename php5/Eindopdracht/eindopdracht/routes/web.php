@@ -50,7 +50,7 @@ Route::post('/review','ReviewController@formSubmit')->name('review');//gets navB
 
 Route::post('/settings/submit','ReviewController@formSubmitSettings')->name('settings');//gets form values profile info
 
-Route::post('/settings/product','ReviewController@submitProduct')->name('settings');
+Route::post('/bands/product','BandController@submitProduct')->name('settings');
 
 Route::get('/settings/submit3','ReviewController@formSubmitStyle')->name('settings');//gets form values profile style
 

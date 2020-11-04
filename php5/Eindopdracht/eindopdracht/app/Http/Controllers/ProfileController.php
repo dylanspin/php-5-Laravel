@@ -54,9 +54,9 @@ class ProfileController extends Controller
         }
     }
 
-    private function getGradient()
+    private function getGradient($id)
     {
-        $information = \App\profile::findOrFail(auth()->user()->id);
+        $information = \App\profile::findOrFail($id);
         if(strlen($information->gradient) < 1){
             $gradient = ["#780206","#061161"];
         }else{
@@ -65,20 +65,10 @@ class ProfileController extends Controller
         return $gradient;
     }
 
-    private function getHover()
-    {
-        $information = \App\profile::findOrFail(auth()->user()->id);
-        if(strlen($information->hover) < 1){
-            $hover = ["#340B3C","#230b3c"];
-        }else{
-            $hover = unserialize($information->hover);
-        }
-        return $hover;
-    }
-
     private function returnSocials($id)
     {
         $information = \App\profile::findOrFail($id);
+  
         if(strlen($information->social) < 1){
             $socialLinks = ["","","","","",""];
         }else{
@@ -104,7 +94,7 @@ class ProfileController extends Controller
         $products = \App\bandproduct::where('idPoster',$id)->get();
         $productLength = Count($products);
         $information = \App\profile::findOrFail($id);
-        
+
         $total = $information->completed + $information->failed;
         if($total * $information->completed != 0)
         {
@@ -112,12 +102,11 @@ class ProfileController extends Controller
         }else{
             $reli = 0;
         }
-
         $user = \App\User::findOrFail($id);
         return view('profile')->withDetails($user)->with('information',$information)->with('user',$user)->with('total',$total)
         ->with('reli',$reli)->with('review',$this->returnRandomReview($id))->with('score',$this->returnScore($id))
         ->with('total',$this->returnTotal($id))->with('social',$this->returnSocials($id))->with('icons',$this->icons)
-        ->with('gradient',$this->getGradient())->with('hover',$this->getHover())->with('products',$products)
+        ->with('gradient',$this->getGradient($id))->with('products',$products)
         ->with('productAmount',$productLength);
     }
 }
