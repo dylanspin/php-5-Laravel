@@ -201,7 +201,6 @@
 
                                 <div class="row">
                                   <div class="col col-lg-7">
-
                                   </div>
                                     <div class="col">
                                         <button type="submit" name="button" class="uploadProduct">

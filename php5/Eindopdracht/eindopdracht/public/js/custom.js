@@ -124,7 +124,8 @@ function showProduct(int)
 
 function setBand(int)
 {
-    document.getElementById('bandId').value = int; //sets hidden value of Id of profile bands list
+    document.getElementById('InviteBand').value = int;//sets hidden value of Id of profile bands list
+    document.getElementById('bandId').value = int;
     document.getElementById('setBand').value = int;
     document.getElementById('bandManger').style.display = "block";
     document.getElementById('selectBand').style.display = "none";
@@ -141,4 +142,15 @@ function goToSelect()
     document.getElementById('G'+deselect).style.display = "none";
     document.getElementById('bandManger').style.display = "none";
     document.getElementById('selectBand').style.display = "block";
+}
+
+function setGradientBand(g,b)
+{
+      var color1 = document.getElementById(b+'G1').value;
+      var color2 = document.getElementById(b+'G2').value;
+
+
+      document.getElementById('b+D1').style.background = color1;
+      document.getElementById('b+D2').style.background = color2;
+      document.getElementById('gradientBar').style.background = "linear-gradient(118deg,"+color1+" 0%,"+color2+" 100%)";
 }

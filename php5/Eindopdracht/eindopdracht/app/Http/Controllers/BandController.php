@@ -59,7 +59,7 @@ class BandController extends Controller
                 $band->save();
                 $idset = $band->id;
                 $this->setNewBands($information,$idset,$id);
-                $this->createBandProfile();
+                $this->createBandProfile($idset);
                 return back();
             }else{
                   return back();
@@ -69,7 +69,46 @@ class BandController extends Controller
         }
     }
 
-    private function createBandProfile()
+    public function invite(Request $req)
+    {
+        if($req)
+        {
+            $id = auth()->user()->id;
+            $information = \App\profile::findOrFail($id);
+            $bandIDs = unserialize($information->bands);
+            $bandId = $bandIDs[$req['setBandM']];
+            $username = $req['Username'];
+            $userFind = \App\User::where('name',$username)->get();
+            // dd($userFind);
+            // setcookie("count", $userFind[0]->id);
+            if(empty($userFind))
+            {
+                setcookie("count", $userFind[0]->id);
+                if($userFind[0]->id != $id)
+                {
+                    $send = new \App\message;
+                    $send->type = 0;
+                    $review->bandId = $bandId;
+                    $review->sendId = $id;
+                    $review->recieve = $userFind[0]->id;
+                    $review->save();
+                }
+            }else{
+                setcookie("count", "no");
+            }
+            // $_COOKIE["idSend"] = count($userFind);
+            // if(Count($userFind))
+            // {
+            //     $sendId = $userFind[0]->id;
+            //     $_COOKIE["idSend"] = $sendId;
+            // }
+            return back();
+        }else{
+            return back();
+        }
+    }
+
+    private function createBandProfile($setID)
     {
         $review = new \App\bandprofile;
         $review->about = "No user information";
@@ -77,6 +116,7 @@ class BandController extends Controller
         $review->social = "";
         $review->gradient = "";
         $review->font = 0;
+        $review->id = $setID;
         $review->songTexts = "";
         $review->save();
     }
@@ -196,13 +236,13 @@ class BandController extends Controller
                 $bandProfile = [\App\bandprofile::where('id',$bandIDs[$i])->get()];
             }
         }
+
         return $bandProfile;
     }
 
     private function getBandNames($bandIDs)
     {
         $bandNames = array();
-        // $bandInformation = \App\band::where('id',$bandIDs[0])->get();
 
         for($i=0; $i<Count($bandIDs); $i++)
         {
@@ -253,27 +293,31 @@ class BandController extends Controller
     private function getBandGradients($bandIDs)
     {
         $bandGradients = array();
-
+        // $information = \App\bandprofile::findOrFail($bandIDs[0]);
         for($i=0; $i<Count($bandIDs); $i++)
         {
             if(Count($bandIDs) > 0)
             {
+                // $information = \App\bandprofile::findOrFail($bandIDs[$i]);
+                // echo $bandIDs[$i]." ";
                 $information = \App\bandprofile::where('id',$bandIDs[$i])->get();
-                // if(strlen($information[0]->gradient) < 1){
-                //     $gradient = ["#780206","#061161"];
-                // }else{
-                //     $gradient = unserialize($information->gradient);
-                // }
-                $gradient = ["#780206","#061161"];
+                // dd($information);
+                // dd($information);
+                if(strlen($information[0]->gradient) < 1){
+                    $gradient = ["#780206","#061161"];
+                }else{
+                    $gradient = unserialize($information->gradient);
+                }
+                // $gradient = ["#780206","#061161"];
                 array_push($bandGradients,$gradient);
             }else{
                 $information = \App\bandprofile::where('id',$bandIDs[$i])->get();
-                // if(strlen($information[0]->gradient) < 1){
-                //     $gradient = ["#780206","#061161"];
-                // }else{
-                //     $gradient = unserialize($information->gradient);
-                // }
-                $gradient = ["#780206","#061161"];
+                if(strlen($information[0]->gradient) < 1){
+                    $gradient = ["#780206","#061161"];
+                }else{
+                    $gradient = unserialize($information->gradient);
+                }
+                // $gradient = ["#780206","#061161"];
                 $bandGradients = [$gradient];
             }
         }

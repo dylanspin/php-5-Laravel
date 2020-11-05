@@ -61,7 +61,7 @@
                                     <a href="{{ url('/settings') }}" class="nav-link Link2">Page Content/Settings</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ url('/message') }}" class="nav-link Link2">Message's</a>
+                                    <a href="{{ url('/message') }}" class="nav-link Link2">Messages</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{ url('/profile',Auth::user()->id)}}" class="nav-link Link2">Profile</a>

@@ -32,7 +32,6 @@
                     </div>
                 </div>
             </div>
-            <input type="hidden" name="band" value="0" id='bandId'>
             <div class="jumbotron first" style="margin-bottom:-60px; display:none;" id='bandManger'>
                 <div class="row">
                     <div class="col">
@@ -57,17 +56,22 @@
                         <div class="OptionPage" id='O2'>
                             <h1 class="p-3 font-weight-bolder">Style Options</h1>
                             <h3 class="pt-3 font-weight-bolder mb-3">Profile gradient colors :</h3>
-                            @for ($b = 0; $b < Count($Ids); $b++)
-                                <div class="holder" id="G{{$b}}" style="display:none">
-                                    <div class="colorPick" onclick="activateInput(1)" style="background:{{$gradients[$b][0] ?? ''}}" id="D1">
-                                        <input type="color" id="G1" name="gradient1" class="ColorPicker" value="{{$gradient[0] ?? ''}}" onchange="setGradient(true)">
+                            <form class="settingsForm p-2 m-5" action="/band/setGradient" method="GET">
+                                @csrf
+                                <input type="hidden" name="slot" value="" id='bandId'>
+                                @for ($b=0; $b < Count($Ids); $b++)
+                                    <div class="holder" id="G{{$b}}" style="display:none">
+                                        <div class="colorPick" onclick="activateInput(1)" style="background:{{$gradients[$b][0] ?? '#780206'}}" id="{{$b}}D1">
+                                            <input type="color" id="{{$b}}G1" name="gradient1" class="ColorPicker" value="{{$gradient[$b][0] ?? '#780206'}}" onchange="setGradient(true)">
+                                        </div>
+                                        <div class="colorPick" onclick="activateInput(2)" style="background:{{$gradients[$b][1] ?? '#061161'}}" id="{{$b}}D2">
+                                            <input type="color" id="{{$b}}G2" name="gradient2" class="ColorPicker" value="{{$gradient[$b][1] ?? '#061161'}}" onchange="setGradient(true)">
+                                        </div>
+                                        <div class="gradientBar gradient"id="gradientBar" style="background:linear-gradient(118deg, {{$gradients[$b][0] ?? ''}} 0%, {{$gradients[$b][1] ?? ''}} 100%); background-size: 300%; background-position: left;"></div>
                                     </div>
-                                    <div class="colorPick" onclick="activateInput(2)" style="background:{{$gradients[$b][1] ?? ''}}" id="D2">
-                                      <input type="color" id="G2" name="gradient2" class="ColorPicker" value="{{$gradient[1] ?? ''}}" onchange="setGradient(true)">
-                                    </div>
-                                    <div class="gradientBar gradient"id="gradientBar" style="background:linear-gradient(118deg, {{$gradients[$b][0] ?? ''}} 0%, {{$gradients[$b][1] ?? ''}} 100%); background-size: 300%; background-position: left;"></div>
-                                </div>
-                            @endfor
+                                @endfor
+                                <input type="submit" name="saveOptions" value="Save" class="gradient saveButton">
+                            </form>
                         </div>
                         <div class="OptionPage" id='O3'>
                             <h1 class="p-3 font-weight-bolder">Band Member</h1>
@@ -91,11 +95,14 @@
                                     @endfor
                                 </div>
                             @endfor
-                            <div class="BandMember">
-                                <input type="text" name="Username" value="" placeholder="Username" class="BandInput inviteInput" minlength="2">
-                                <input type="submit" name="" value="Invite" class="setPerm kick invite">
-                            </div>
-
+                            <form class="" action="/band/Invite" method="POST">
+                                @csrf
+                                <input type="hidden" name="setBandM" value="" id='InviteBand'>
+                                <div class="BandMember">
+                                    <input type="text" name="Username" value="" placeholder="Username" class="BandInput inviteInput" minlength="2">
+                                    <input type="submit" name="" value="Invite" class="setPerm kick invite">
+                                </div>
+                            </form>
                         </div>
                         <div class="OptionPage" id='O4'>
                           <h1 class="sidebar-heading p-3 font-weight-bolder">Products/services Options</h1>
@@ -149,7 +156,7 @@
 
                                           </div>
                                       </div><br>
-                                      <input type="hidden" name="selected" value="1" id='select'>
+                                      <input type="hidden" name="selected" value="1" id='F'>
                                       <input type="hidden" name="BandId" value="" id='setBand'>
                                       <div id='hour'>
                                           <div class="Label2 pb-2" style="width:25%" id='hour1'>

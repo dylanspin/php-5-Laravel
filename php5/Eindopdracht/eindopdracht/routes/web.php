@@ -44,9 +44,11 @@ Route::post('/search','searchController@formSubmit')->name('search');//gets navB
 
 Auth::routes();
 
-Route::post('/band/create','BandController@createBand')->name('band');//gets navBar input
+Route::post('/band/Invite','BandController@invite')->name('band');//invites person
 
-Route::post('/review','ReviewController@formSubmit')->name('review');//gets navBar input
+Route::post('/band/create','BandController@createBand')->name('band');//creates new band
+
+Route::post('/review','ReviewController@formSubmit')->name('review');//creates new review
 
 Route::post('/settings/submit','ReviewController@formSubmitSettings')->name('settings');//gets form values profile info
 
