@@ -3,6 +3,7 @@
 var formBool = false;//review form
 var standard = "fa fa-star starButton"; //star buttons
 var types = ["Hour","Set","Discus"];
+var selected = [];
 
 function writeReview()
 {
@@ -124,7 +125,6 @@ function showProduct(int)
 
 function setBand(int)
 {
-    document.getElementById('InviteBand').value = int;//sets hidden value of Id of profile bands list
     document.getElementById('bandId').value = int;
     document.getElementById('setBand').value = int;
     document.getElementById('bandManger').style.display = "block";
@@ -149,8 +149,35 @@ function setGradientBand(g,b)
       var color1 = document.getElementById(b+'G1').value;
       var color2 = document.getElementById(b+'G2').value;
 
-
       document.getElementById('b+D1').style.background = color1;
       document.getElementById('b+D2').style.background = color2;
       document.getElementById('gradientBar').style.background = "linear-gradient(118deg,"+color1+" 0%,"+color2+" 100%)";
+}
+
+function inviteList(id)
+{
+    document.getElementById('bandList').style.display = "block";
+    document.getElementById('HiddenId').value = id;
+}
+function closeInviteList()
+{
+    document.getElementById('bandList').style.display = "none";
+}
+
+function SelectBand(bandId)
+{
+    if(selected.includes(bandId))
+    {
+        document.getElementById('S'+bandId).innerHTML = "Select";
+        var slot = selected.indexOf(bandId);
+        selected.splice(slot,1);
+    }else{
+        document.getElementById('S'+bandId).innerHTML = "DeSelect";
+        selected.push(bandId);
+    }
+    // var json = JSON.stringify(selected)
+    var s = JSON.stringify(selected);
+    document.getElementById('bandList').value = s;
+    var values = document.getElementById('bandList').value;
+    // alert(values);
 }

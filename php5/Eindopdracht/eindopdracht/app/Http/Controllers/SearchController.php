@@ -40,17 +40,55 @@ class SearchController extends Controller
 
         return $aboutArray;
     }
+    private function getBandIds()
+    {
+        $id = auth()->user()->id;
+        $information = \App\profile::findOrFail($id);
+        $bandIDs = unserialize($information->bands);
+        if(!empty($bandIDs))
+        {
+            return $bandIDs;
+        }else{
+            return null;
+        }
+    }
+
+    private function getBandInfo($bandIDs)
+    {
+        $bandInformation = array();
+        // $bandInformation = \App\band::where('id',$bandIDs[0])->get();
+
+        for($i=0; $i<Count($bandIDs); $i++)
+        {
+            if(Count($bandIDs) > 0)
+            {
+                array_push($bandInformation,[\App\band::where('id',$bandIDs[$i])->get()]);
+            }else{
+                $bandInformation = [\App\band::where('id',$bandIDs[$i])->get()];
+            }
+        }
+        return $bandInformation;
+    }
+
 
     public function formSubmit(Request $req)
     {
         if($req)
         {
+            $bandIds = $this->getBandIds();
+            if($bandIds != null)
+            {
+                $bandInfo = $this->getBandInfo($bandIds);
+            }else{
+                $bandInfo = null;
+            }
+            // dd($bandInfo);
             $search = $req->input('Search');
             $results = \App\User::where('name', 'like', $search .'%')->get();
             $amount = Count($results);
             $about = $this->searchResults($results);
             return view('search')->withDetails($search)->with('search',$search)->with('results',$results)->with('amount',$amount)
-            ->with('info',$about);
+            ->with('info',$about)->with('bandId',$bandIds)->with('bandInfo',$bandInfo);
         }else{
             return view('search')->with('amount',0);
         }

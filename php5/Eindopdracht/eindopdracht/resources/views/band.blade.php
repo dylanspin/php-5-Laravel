@@ -95,12 +95,11 @@
                                     @endfor
                                 </div>
                             @endfor
-                            <form class="" action="/band/Invite" method="POST">
+                            <form class="" action="/search" method="POST">
                                 @csrf
-                                <input type="hidden" name="setBandM" value="" id='InviteBand'>
                                 <div class="BandMember">
-                                    <input type="text" name="Username" value="" placeholder="Username" class="BandInput inviteInput" minlength="2">
-                                    <input type="submit" name="" value="Invite" class="setPerm kick invite">
+                                    <input type="text" name="Search" value="" placeholder="Username" class="BandInput inviteInput" minlength="2">
+                                    <input type="submit" name="" value="Search" class="setPerm kick invite">
                                 </div>
                             </form>
                         </div>

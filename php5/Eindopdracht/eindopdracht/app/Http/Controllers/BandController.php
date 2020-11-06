@@ -73,38 +73,13 @@ class BandController extends Controller
     {
         if($req)
         {
-            $id = auth()->user()->id;
-            $information = \App\profile::findOrFail($id);
-            $bandIDs = unserialize($information->bands);
-            $bandId = $bandIDs[$req['setBandM']];
-            $username = $req['Username'];
-            $userFind = \App\User::where('name',$username)->get();
-            // dd($userFind);
-            // setcookie("count", $userFind[0]->id);
-            if(empty($userFind))
-            {
-                setcookie("count", $userFind[0]->id);
-                if($userFind[0]->id != $id)
-                {
-                    $send = new \App\message;
-                    $send->type = 0;
-                    $review->bandId = $bandId;
-                    $review->sendId = $id;
-                    $review->recieve = $userFind[0]->id;
-                    $review->save();
-                }
-            }else{
-                setcookie("count", "no");
-            }
-            // $_COOKIE["idSend"] = count($userFind);
-            // if(Count($userFind))
-            // {
-            //     $sendId = $userFind[0]->id;
-            //     $_COOKIE["idSend"] = $sendId;
-            // }
-            return back();
+            $idInvite = $req['inviteId'];
+            // $invitelist = explode(',',$req['list']);
+            $invitelist = json_decode($req['list'], true);
+            setcookie("testCoockie",Count($invitelist));
+            // return back();
         }else{
-            return back();
+            // return back();
         }
     }
 
