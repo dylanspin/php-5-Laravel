@@ -8,29 +8,28 @@
             </div>
             <div class="bar moreMT" style="height:50px; margin-bottom:-130px;"></div>
         </div>
+
         <div class="bandList gradient" id='bandList'>
           <div class="close fa fa-times" onclick="closeInviteList()"></div>
-            <div class="selectBands">
-              @if($bandId != null)
-                  @for ($i = 0; $i < Count($bandId); $i++)
-                      <div class="bandSelect">
-                          <div class="selectName">
-                            {{$bandInfo[$i][0][0]->bandName ?? 'No name'}}
-                          </div>
-                          <div class="selectButton" onclick="SelectBand({{$bandId[$i]}})" id='S{{$bandId[$i]}}'>
-                              Select
-                          </div>
-                      </div>
-                  @endfor
-              @endif
+            <div class="selectBands" >
+                  <input type="hidden" id='Amount' value='{{Count($bandId)}}' style="display:none;">
+                  @if($bandId != null)
+                      @for ($i = 0; $i < Count($bandId); $i++)
+                          <form class="bandSelect"  action="/band/Invite" method="POST">
+                              @csrf
+                              <div class="selectName">
+                                  {{$bandInfo[$i][0][0]->bandName ?? 'No name'}}
+                              </div>
+                              <input type="hidden" name="inviteId" value="" id='{{$i}}Hidden'>
+                              <button type="submit" class="selectButton" name="bandId" value="{{$bandId[$i]}}">
+                                  Invite
+                              </button>
+                          </form>
+                      @endfor
+                  @endif
             </div>
-            <form class="sendForm" action="/band/Invite" method="POST">
-                @csrf
-                <input type="hidden" name="inviteId" value="" id='HiddenId'>
-                <input type="hidden" name="list" value="" id='bandList'>
-                <input type="submit" name="sendInvite" value="sendInvite" class="sendInvite">
-            </form>
         </div>
+
         <div class="jumbotron" style="background-color:#191919;">
             <!--moet met php later gedaan worden -->
             <div class="container full-height">

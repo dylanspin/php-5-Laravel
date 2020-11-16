@@ -19,6 +19,28 @@
     <link rel="shortcut icon" href="{{ asset('/images/Logo.png') }}"><!--favicon-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    @if (isset($information))
+        @if ($information ?? ''->font == 1)
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+            <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Display:wght@700&display=swap" rel="stylesheet">
+        @elseif ($information ?? ''->font == 2)
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+            <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+        @elseif ($information ?? ''->font == 3)
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+            <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+        @elseif ($information ?? ''->font == 4)
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+            <link href="https://fonts.googleapis.com/css2?family=Modak&display=swap" rel="stylesheet">
+        @elseif ($information ?? ''->font == 5)
+            <link rel="preconnect" href="https://fonts.gstatic.com">
+            <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+        @elseif ($information ?? ''->font == 6)
+          <link rel="preconnect" href="https://fonts.gstatic.com">
+          <link href="https://fonts.googleapis.com/css2?family=Montserrat+Subrayada&display=swap" rel="stylesheet">
+        @endguest
+    @endguest
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">

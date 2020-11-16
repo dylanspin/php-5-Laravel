@@ -32,6 +32,10 @@ class SearchController extends Controller
     private function searchResults($result)
     {
         $aboutArray = array();
+        if(!empty($_COOKIE["testCoockie"]))
+        {
+          echo $_COOKIE["testCoockie"];
+        }
         for($i=0; $i<Count($result); $i++)
         {
             $information = \App\profile::findOrFail($result[$i]->id);

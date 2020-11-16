@@ -21,7 +21,6 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-
     private $icons = ["fa fa-instagram","fa-twitter","fa-facebook","fa-linkedin","fa-youtube-play","fa-music"];
 
     private function returnScore($userPage)
@@ -68,7 +67,7 @@ class ProfileController extends Controller
     private function returnSocials($id)
     {
         $information = \App\profile::findOrFail($id);
-  
+
         if(strlen($information->social) < 1){
             $socialLinks = ["","","","","",""];
         }else{
@@ -106,7 +105,28 @@ class ProfileController extends Controller
         return view('profile')->withDetails($user)->with('information',$information)->with('user',$user)->with('total',$total)
         ->with('reli',$reli)->with('review',$this->returnRandomReview($id))->with('score',$this->returnScore($id))
         ->with('total',$this->returnTotal($id))->with('social',$this->returnSocials($id))->with('icons',$this->icons)
+        ->with('gradient',$this->getGradient($id))->with('products',$products)->with('productAmount',$productLength)
+        ->with('isband',false);
+    }
+
+    public function showBand($id)//deze moet aangepast worden dat die band dingen laat zien
+    {
+        $products = \App\bandproduct::where('idPoster',$id)->get();
+        $productLength = Count($products);
+        $information = \App\profile::findOrFail($id);
+
+        $total = $information->completed + $information->failed;
+        if($total * $information->completed != 0)
+        {
+            $reli = round(100 / $total * $information->completed);
+        }else{
+            $reli = 0;
+        }
+        $user = \App\User::findOrFail($id);
+        return view('profile')->withDetails($user)->with('information',$information)->with('user',$user)->with('total',$total)
+        ->with('reli',$reli)->with('review',$this->returnRandomReview($id))->with('score',$this->returnScore($id))
+        ->with('total',$this->returnTotal($id))->with('social',$this->returnSocials($id))->with('icons',$this->icons)
         ->with('gradient',$this->getGradient($id))->with('products',$products)
-        ->with('productAmount',$productLength);
+        ->with('productAmount',$productLength)->with('isband',true);
     }
 }

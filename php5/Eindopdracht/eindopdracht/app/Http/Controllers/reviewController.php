@@ -99,9 +99,6 @@ class ReviewController extends Controller
             $gradientArray = [$req['gradient1'], $req['gradient2']];
             $compresGradient = serialize($gradientArray);
 
-            $hoverArray = [$req['hover1'], $req['hover2']];
-            $compresHover = serialize($hoverArray);
-
             if($req['font'])
             {
                 $font = $req['font'];
@@ -110,7 +107,7 @@ class ReviewController extends Controller
             }
 
             $settings = new \App\profile;
-            $settings -> where('id', $user->id)->update(['gradient' => $compresGradient, 'hover' => $compresHover, 'font' => $font]);
+            $settings -> where('id', $user->id)->update(['gradient' => $compresGradient, 'font' => $font]);
 
             return back();
         }else{

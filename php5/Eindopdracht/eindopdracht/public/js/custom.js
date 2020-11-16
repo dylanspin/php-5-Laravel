@@ -130,6 +130,7 @@ function setBand(int)
     document.getElementById('bandManger').style.display = "block";
     document.getElementById('selectBand').style.display = "none";
     document.getElementById('H'+int).style.display = "block";
+    document.getElementById('h'+int).style.display = "block";
     document.getElementById('P'+int).style.display = "block";
     document.getElementById('G'+int).style.display = "block";
 }
@@ -138,6 +139,7 @@ function goToSelect()
 {
     var deselect = document.getElementById('bandId').value;
     document.getElementById('H'+deselect).style.display = "none";
+    document.getElementById('h'+deselect).style.display = "none";
     document.getElementById('P'+deselect).style.display = "none";
     document.getElementById('G'+deselect).style.display = "none";
     document.getElementById('bandManger').style.display = "none";
@@ -157,27 +159,18 @@ function setGradientBand(g,b)
 function inviteList(id)
 {
     document.getElementById('bandList').style.display = "block";
-    document.getElementById('HiddenId').value = id;
+    setAll(id);
 }
 function closeInviteList()
 {
     document.getElementById('bandList').style.display = "none";
 }
 
-function SelectBand(bandId)
+function setAll(setId)
 {
-    if(selected.includes(bandId))
+    var length = document.getElementById('Amount').value;
+    for(var i=0; i<length; i++)
     {
-        document.getElementById('S'+bandId).innerHTML = "Select";
-        var slot = selected.indexOf(bandId);
-        selected.splice(slot,1);
-    }else{
-        document.getElementById('S'+bandId).innerHTML = "DeSelect";
-        selected.push(bandId);
+        document.getElementById(i+'Hidden').value = setId;
     }
-    // var json = JSON.stringify(selected)
-    var s = JSON.stringify(selected);
-    document.getElementById('bandList').value = s;
-    var values = document.getElementById('bandList').value;
-    // alert(values);
 }

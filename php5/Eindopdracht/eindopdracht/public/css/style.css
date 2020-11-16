@@ -5,6 +5,28 @@ html, body {
     height: 100vh;
     margin: 0;
 }
+.F0{
+  font-family: 'Nunito', sans-serif;
+  font-weight: 200;
+}
+.F1{
+  font-family: 'Big Shoulders Stencil Display', cursive;
+}
+.F2{
+  font-family: 'Lato', sans-serif;
+}
+.F3{
+  font-family: 'Merriweather', serif;
+}
+.F4{
+  font-family: 'Modak', cursive;
+}
+.F5{
+  font-family: 'Lobster', cursive;
+}
+.F6{
+  font-family: 'Montserrat Subrayada', sans-serif;
+}
 
 .full-height {
     height: 100vh;
@@ -66,21 +88,19 @@ html, body {
   position: relative;
   height: 400px;
   width: 300px;
-  filter: blur(2px);
   transition: 0.6s;
 }
 .imgVak2{
   position: relative;
   height: 400px;
   width: 632px;
-  filter: blur(2px);
   transition: 0.3s;
 }
 .imgVak2:hover,
 .imgVak2:focus,
 .imgVak:hover,
 .imgVak:focus{
-  filter: blur(0px);
+  filter: blur(2px);
 }
 .imgFull{
   position: absolute;
@@ -715,11 +735,18 @@ textarea{
   box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);
 }
 
-.selectBand:hover , .kick:hover , .searchInvite:hover , .selectButton:hover , .sendInvite:hover{
+.selectBand:hover , .kick:hover , .searchInvite:hover , .selectButton:hover , .sendInvite:hover , .memberCard:hover{
   transform: scale(1.05,1.05);
   /* box-shadow: 0px 0px 10px rgba(0,0,0,0.5); */
   box-shadow: none;
 }
+
+.memberCard{
+  width: 250px;
+  height: 400px;
+  margin: 25px;
+}
+
 .bandNaam{
   padding-top: 20px;
   color: white;
@@ -809,6 +836,7 @@ textarea{
 }
 .bandList{
   position: fixed;
+  display: none;
   top: 5%;
   left: 27%;
   z-index: 100;
@@ -827,7 +855,7 @@ textarea{
 }
 .selectBands{
   position: relative;
-  height: 70%;
+  height: 90%;
   overflow-y: scroll;
   overflow-x: hidden;
   width: 100%;
@@ -852,6 +880,8 @@ textarea{
   box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);
   width: 100px;
   cursor: default;
+  border: none;
+  color: white;
 }
 .sendForm{
   position: relative;
@@ -871,4 +901,85 @@ textarea{
   border: none;
   left: 10%;
   top: 45%;
+}
+.Melding{
+  position: fixed;
+  padding-top: 15px;
+  left: 0;
+  top: 0;
+  z-index: 1001;
+  width: 100vw;
+  height: 100px;
+  overflow: hidden;
+  color: #171717;
+  transition: 0.3s;
+  text-align: center;
+  font-size: 40px;
+  font-weight: 600;
+}
+.Leave{
+  position: relative;
+  background: #FA1616;
+  font-size: 25px;
+  font-weight: 600;
+  padding: 5px 25px;
+  border-radius: 2px;
+  border: none;
+  color: white;
+  transition: 0.3s;
+}
+
+.Leave:hover{
+  transform: scale(1.05,1.05);
+}
+
+.message{
+  position: relative;
+  margin: 15px;
+  width: 700px;
+  height: 75px;
+  background: #171717;
+  box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);
+  border-radius: 5px;
+  color: white;
+}
+
+.Mtext{
+  position: relative;
+  display: inline-block;
+  width: 75%;
+  height: 100%;
+  font-size: 30px;
+  padding-left: 20px;
+}
+.Mbox{
+  position: relative;
+  display: inline-block;
+  margin: 10px;
+  width: 50px;
+  height: 50px;
+  font-size: 40px;
+  padding: 4px;
+  top: 5px;
+  text-align: center;
+  transition: 0.3s;
+  border-radius: 10px;
+  border: none;
+  color: white;
+}
+.Mbox:hover{
+  transform: scale(1.05,1.05);
+}
+.Accept{
+  background-color: #1EFE44;
+}
+.dont{
+  background: #FA1616;
+}
+.Mremove{
+  left: 75px;
+}
+.declineForm{
+  position: relative;
+  display: inline-block;
 }

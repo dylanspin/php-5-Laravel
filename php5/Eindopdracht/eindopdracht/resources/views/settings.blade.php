@@ -108,8 +108,12 @@
 
                       <h3 class="pt-3 mt-5 font-weight-bolder mb-3">Profile font</h3>
                       <select name='font' class="fontOptions">
-                        <option value='' class="fontOptions">hier moet die er nu is</option>
                         <option value='0' class="fontOptions">Nunito</option>
+                        <option value='1' class="fontOptions">Stencil</option>
+                        <option value='2' class="fontOptions">Lato</option>
+                        <option value='3' class="fontOptions">Modak</option>
+                        <option value='4' class="fontOptions">Lobster</option>
+                        <option value='5' class="fontOptions">Montserrat</option>
                       </select>
 
                       <input type="submit" name="saveOptions" value="Save" class="gradient saveButton">

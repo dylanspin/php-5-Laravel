@@ -28,6 +28,10 @@ Route::get('/profile/{user}', 'profileController@index')->name('profile.show');
 
 Auth::routes();
 
+Route::get('/bandPage/{user}', 'profileController@showBand')->name('profile.show');
+
+Auth::routes();
+
 Route::get('/message', 'MessageController@index')->name('message');
 
 Auth::routes();
@@ -43,6 +47,10 @@ Auth::routes();
 Route::post('/search','searchController@formSubmit')->name('search');//gets navBar input
 
 Auth::routes();
+
+Route::post('/message/accept','MessageController@Acceptinvite')->name('message');//accepts invite
+
+Route::post('/message/decline','MessageController@DeclineInvite')->name('message');//declines update
 
 Route::post('/band/Invite','BandController@invite')->name('band');//invites person
 

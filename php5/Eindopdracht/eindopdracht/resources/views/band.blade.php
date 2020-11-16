@@ -1,8 +1,14 @@
 @extends('layouts.app')
 
   @section('content')
-        @if ($has)
 
+        @if ($message)
+          <div class="Melding alert-success">
+              {{$message}}
+          </div>
+        @endguest
+
+        @if ($has)
         <!--Begin scherm van list van bands waar je lid van bent--->
             <div class="jumbotron first full-height" style="height:auto;" id='selectBand'>
                 <div class="text-center">
@@ -13,7 +19,7 @@
                             </div>
                             @if ($bands[$i][0][0] != null)
                                 @if (strlen($bands[$i][0][0]->bandName) > 1)
-                                    <img src="images/noUser.jpg" alt="Product" class="bandImage">
+                                    <img src="/images/noUser.jpg" alt="Product" class="bandImage">
                                 @else
                                     <img src="publicImages/images/Products/1603708349.jpeg" alt="Product" class="bandImage">
                                 @endif
@@ -44,8 +50,9 @@
                              <div onclick="openSettings(4)" class="backgroundColor setting">Products/services</div>
                              <div onclick="openSettings(5)" class="backgroundColor setting">Songs</div>
                              <div onclick="openSettings(6)" class="backgroundColor setting">Image's</div>
+                             <div onclick="openSettings(7)" class="backgroundColor setting">Videos</div>
                              <div onclick="goToSelect()" class="backgroundColor setting">Select Diffrent Band</div>
-                             <a href="{{ url('/bandPage') }}" class="backgroundColor setting">ViewPage</a>
+                             <a href="{{ url('/bandPage',Auth::user()->id) }}" class="backgroundColor setting" id='pageLink'>ViewPage</a>
                          </div>
                        </div>
                     </div>
@@ -55,9 +62,9 @@
                         </div>
                         <div class="OptionPage" id='O2'>
                             <h1 class="p-3 font-weight-bolder">Style Options</h1>
-                            <h3 class="pt-3 font-weight-bolder mb-3">Profile gradient colors :</h3>
                             <form class="settingsForm p-2 m-5" action="/band/setGradient" method="GET">
                                 @csrf
+                                <h3 class="pt-3 font-weight-bolder mb-3">Profile gradient colors :</h3>
                                 <input type="hidden" name="slot" value="" id='bandId'>
                                 @for ($b=0; $b < Count($Ids); $b++)
                                     <div class="holder" id="G{{$b}}" style="display:none">
@@ -70,6 +77,15 @@
                                         <div class="gradientBar gradient"id="gradientBar" style="background:linear-gradient(118deg, {{$gradients[$b][0] ?? ''}} 0%, {{$gradients[$b][1] ?? ''}} 100%); background-size: 300%; background-position: left;"></div>
                                     </div>
                                 @endfor
+                                <h3 class="pt-3 mt-5 font-weight-bolder mb-3">Profile font</h3>
+                                <select name='font' class="fontOptions">
+                                  <option value='0' class="fontOptions">Nunito</option>
+                                  <option value='1' class="fontOptions">Stencil</option>
+                                  <option value='2' class="fontOptions">Lato</option>
+                                  <option value='3' class="fontOptions">Modak</option>
+                                  <option value='4' class="fontOptions">Lobster</option>
+                                  <option value='5' class="fontOptions">Montserrat</option>
+                                </select>
                                 <input type="submit" name="saveOptions" value="Save" class="gradient saveButton">
                             </form>
                         </div>
@@ -83,14 +99,32 @@
                                                 {{$members[$i][$b]}}
                                             </div>
                                             <select name='font' class="fontOptions setPerm">
-                                                <option value='' class="fontOptions">Owner</option>
-                                                <option value='' class="fontOptions">Admin</option>
-                                                <option value='' class="fontOptions">Can invite</option>
-                                                <option value='' class="fontOptions">Member</option>
+                                                @if($perms[$i][$b] == 3)
+                                                    <option value='3' class="fontOptions" selected>Owner</option>
+                                                @else
+                                                    <option value='3' class="fontOptions">Owner</option>
+                                                @endguest
+                                                @if($perms[$i][$b] == 2)
+                                                    <option value='2' class="fontOptions" selected>Admin</option>
+                                                @else
+                                                    <option value='2' class="fontOptions">Admin</option>
+                                                @endguest
+                                                @if($perms[$i][$b] == 1)
+                                                    <option value='1' class="fontOptions" selected>Can invite</option>
+                                                @else
+                                                    <option value='1' class="fontOptions">Can invite</option>
+                                                @endguest
+                                                @if($perms[$i][$b] == 0)
+                                                    <option value='0' class="fontOptions" selected>Member</option>
+                                                @else
+                                                    <option value='0' class="fontOptions">Member</option>
+                                                @endguest
                                             </select>
-                                            <div class="setPerm kick">
-                                              Delete Member
-                                            </div>
+                                            @if($perms[$i][$myPerm[$i]] > 1)
+                                              <div class="setPerm kick">
+                                                Delete Member
+                                              </div>
+                                            @endguest
                                         </div>
                                     @endfor
                                 </div>
@@ -102,6 +136,19 @@
                                     <input type="submit" name="" value="Search" class="setPerm kick invite">
                                 </div>
                             </form>
+
+                            @for ($i = 0; $i < Count($Ids); $i++)
+                                <div class="holder" id="h{{$i}}" style="display:none">
+                                    @if($perms[$i][$myPerm[$i]] == 3)
+                                        <h6>You have to promote some to Owner to leave the band</h6>
+                                    @endguest
+                                    <form class="" action="/band/leave" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="bandId" value="{{$Ids[$i]}}">
+                                        <input type="submit" name="leave" value="Leave band" class="Leave">
+                                    </form>
+                                </div>
+                            @endfor
                         </div>
                         <div class="OptionPage" id='O4'>
                           <h1 class="sidebar-heading p-3 font-weight-bolder">Products/services Options</h1>
@@ -208,6 +255,9 @@
                         </div>
                         <div class="OptionPage" id='O6'>
                             <h1 class="p-3 font-weight-bolder">Image's</h1>
+                        </div>
+                        <div class="OptionPage" id='O7'>
+                            <h1 class="p-3 font-weight-bolder">Videos</h1>
                         </div>
                     </div>
                     <div class="col"></div>
