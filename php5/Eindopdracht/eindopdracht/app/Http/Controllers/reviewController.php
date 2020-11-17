@@ -59,9 +59,10 @@ class ReviewController extends Controller
             $this->UploadImage($req);
             $settings = new \App\profile;
             $settings -> where('id', $user->id)->update(['about' => $req['about'],'social' => $compresSocial]);
+            setcookie("test", "WerkkKkkk");//message send
             return back();
-
         }else{
+            setcookie("test2", "WerkkKkkk");
             return back();
         }
     }
@@ -94,7 +95,8 @@ class ReviewController extends Controller
     {
         if($req)
         {
-            $user = auth()->user();
+            $id = auth()->user()->id;
+            $information = \App\profile::findOrFail($id);
 
             $gradientArray = [$req['gradient1'], $req['gradient2']];
             $compresGradient = serialize($gradientArray);
@@ -103,11 +105,11 @@ class ReviewController extends Controller
             {
                 $font = $req['font'];
             }else{
-                $font = 0;
+                $font = $information->font;
             }
 
             $settings = new \App\profile;
-            $settings -> where('id', $user->id)->update(['gradient' => $compresGradient, 'font' => $font]);
+            $settings -> where('id', $id)->update(['gradient' => $compresGradient, 'font' => $font]);
 
             return back();
         }else{

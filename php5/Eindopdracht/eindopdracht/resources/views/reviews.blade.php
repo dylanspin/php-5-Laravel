@@ -7,7 +7,7 @@
         <a href="{{ url('/profile',$returnId)}}" class="nav-link Link2">Profile</a>
       </div>
         @for ($i = 0; $i <$amount; $i++)
-        {{$i}} <br>
+            {{$i}} <br>
         @endfor
     </div>
     @include('layouts.footer')

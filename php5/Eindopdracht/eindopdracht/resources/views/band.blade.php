@@ -47,22 +47,87 @@
                              <div onclick="openSettings(1)" class="backgroundColor setting">Band Profile</div>
                              <div onclick="openSettings(2)" class="backgroundColor setting">Style Options</div>
                              <div onclick="openSettings(3)" class="backgroundColor setting">Band Member</div>
-                             <div onclick="openSettings(4)" class="backgroundColor setting">Products/services</div>
-                             <div onclick="openSettings(5)" class="backgroundColor setting">Songs</div>
-                             <div onclick="openSettings(6)" class="backgroundColor setting">Image's</div>
-                             <div onclick="openSettings(7)" class="backgroundColor setting">Videos</div>
-                             <div onclick="goToSelect()" class="backgroundColor setting">Select Diffrent Band</div>
-                             <a href="{{ url('/bandPage',Auth::user()->id) }}" class="backgroundColor setting" id='pageLink'>ViewPage</a>
+                             @for ($i = 0; $i < Count($Ids); $i++)
+                                 <div class="holder" id="N{{$i}}" style="display:none;">
+                                     @if($perms[$i][$myPerm[$i]] > 1)
+                                         <div onclick="openSettings(4)" class="backgroundColor setting">Products/services</div>
+                                         <div onclick="openSettings(5)" class="backgroundColor setting">Songs</div>
+                                         <div onclick="openSettings(6)" class="backgroundColor setting">Image's</div>
+                                         <div onclick="openSettings(7)" class="backgroundColor setting">Videos</div>
+                                     @endguest
+                                     <div onclick="goToSelect()" class="backgroundColor setting">Select Diffrent Band</div>
+                                     <a href="{{ url('/bandPage',Auth::user()->id) }}" class="backgroundColor setting" id='pageLink'>ViewPage</a>
+                                 </div>
+                             @endfor
                          </div>
                        </div>
                     </div>
                     <div class="col col-lg-7">
                         <div class="OptionPage" id='O1' style="display:block;">
                             <h1 class="p-3 font-weight-bolder">Band Profile Options</h1>
+                            @for ($b=0; $b < Count($Ids); $b++)
+                                <div class="holder" id="S{{$b}}" style="display:none">
+                                    <form class="settingsForm p-2 m-5" action="/band/setting" method="POST" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="hidden" name="slot" value="{{$b}}">
+                                        <h3 class="pt-3 font-weight-bolder mb-4">Profile Picture </h3>
+                                        <div class="row">
+                                            <div class="col col-lg-2">
+                                                <input type="file" name="profileImage" class="mb-5 imgInput" value="" accept="image/*">
+                                            </div>
+                                            <div class="col ml-5 ">
+                                                <div class="currentImg rounded">
+                                                  @if(!Empty($info->image))
+                                                      <img src="publicImages/images/Profile/{{$info->image}}" alt="evenements" class="imgFull rounded">
+                                                  @else
+                                                      <img src="/images/noUser.jpg" alt="evenements" class="imgFull rounded">
+                                                  @endguest
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <h3 class="pt-3 font-weight-bolder mb-4">About </h3>
+                                        <textarea name="about" rows="8" cols="80">{{$profile[$b][0][0]->about ?? ' '}}</textarea>
+
+                                        <h3 class="pt-3 mt-5 font-weight-bolder mb-5">Other social media Links</h3>
+
+                                        <div class="Logolabel pb-2">
+                                            <div class="fa fa-instagram settingIcon"></div>
+                                        </div>
+                                        <input type="text" name="Instagram" value="{{$social[$b][0][0] ?? ''}}" placeholder="Instagram" class="settingInput"><br>
+
+                                        <div class="Logolabel pb-2">
+                                            <div class="fa fa-twitter settingIcon"></div>
+                                        </div>
+                                        <input type="text" name="Twitter" value="{{$social[$b][1][0] ?? ''}}" placeholder="Twitter" class="settingInput"><br>
+
+                                        <div class="Logolabel pb-2">
+                                            <div class="fa fa-facebook settingIcon"></div>
+                                        </div>
+                                        <input type="text" name="Facebook" value="{{$social[$b][2][0] ?? ''}}" placeholder="Facebook" class="settingInput"><br>
+
+                                        <div class="Logolabel pb-2">
+                                            <div class="fa fa-linkedin settingIcon"></div>
+                                        </div>
+                                        <input type="text" name="Linkedin" value="{{$social[$b][3][0] ?? ''}}" placeholder="Linkedin" class="settingInput"><br>
+
+                                        <div class="Logolabel pb-2">
+                                            <div class="fa fa-youtube-play settingIcon"></div>
+                                        </div>
+                                        <input type="text" name="Youtube" value="{{$social[$b][4][0] ?? ''}}" placeholder="Youtube" class="settingInput"><br>
+
+                                        <div class="Logolabel pb-2">
+                                            <div class="fa fa-music settingIcon"></div>
+                                        </div>
+                                        <input type="text" name="Custom" value="" placeholder="Custom" class="settingInput"><br>
+                                        <input type="submit" name="saveOptions" value="Save" class="gradient saveButton">
+                                    </form>
+                                </div>
+                            @endfor
                         </div>
                         <div class="OptionPage" id='O2'>
                             <h1 class="p-3 font-weight-bolder">Style Options</h1>
-                            <form class="settingsForm p-2 m-5" action="/band/setGradient" method="GET">
+                            <form class="settingsForm p-2 m-5" action="/band/setGradient" method="POST">
                                 @csrf
                                 <h3 class="pt-3 font-weight-bolder mb-3">Profile gradient colors :</h3>
                                 <input type="hidden" name="slot" value="" id='bandId'>
@@ -120,7 +185,7 @@
                                                     <option value='0' class="fontOptions">Member</option>
                                                 @endguest
                                             </select>
-                                            @if($perms[$i][$myPerm[$i]] > 1)
+                                            @if($perms[$i][$myPerm[$i]] > 1 && $b != $myPerm[$i])
                                               <div class="setPerm kick">
                                                 Delete Member
                                               </div>
@@ -139,12 +204,14 @@
 
                             @for ($i = 0; $i < Count($Ids); $i++)
                                 <div class="holder" id="h{{$i}}" style="display:none">
-                                    @if($perms[$i][$myPerm[$i]] == 3)
+                                    @if($perms[$i][$myPerm[$i]] == 3 && Count($perms[$i]) > 1)
                                         <h6>You have to promote some to Owner to leave the band</h6>
+                                    @elseif($perms[$i][$myPerm[$i]] == 3)
+                                        <h6>When you leave the band will be deleted</h6>
                                     @endguest
                                     <form class="" action="/band/leave" method="POST">
                                         @csrf
-                                        <input type="hidden" name="bandId" value="{{$Ids[$i]}}">
+                                        <input type="hidden" name="slot" value="{{$i}}">
                                         <input type="submit" name="leave" value="Leave band" class="Leave">
                                     </form>
                                 </div>

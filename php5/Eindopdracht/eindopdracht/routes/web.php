@@ -50,17 +50,23 @@ Auth::routes();
 
 Route::post('/message/accept','MessageController@Acceptinvite')->name('message');//accepts invite
 
-Route::post('/message/decline','MessageController@DeclineInvite')->name('message');//declines update
+Route::post('/message/decline','MessageController@DeclineInvite')->name('message');//declines invite
 
 Route::post('/band/Invite','BandController@invite')->name('band');//invites person
 
+Route::post('/band/setGradient','BandController@formSubmitStyle')->name('band');//sets band style
+
 Route::post('/band/create','BandController@createBand')->name('band');//creates new band
+
+Route::post('/bands/product','BandController@submitProduct')->name('band');
+
+Route::post('/band/leave','BandController@leaveBand')->name('band');
+
+// Route::post('/band/setting','BandController@SubmitSettings')->name('bandSetting');//sets band style
 
 Route::post('/review','ReviewController@formSubmit')->name('review');//creates new review
 
 Route::post('/settings/submit','ReviewController@formSubmitSettings')->name('settings');//gets form values profile info
-
-Route::post('/bands/product','BandController@submitProduct')->name('settings');
 
 Route::get('/settings/submit3','ReviewController@formSubmitStyle')->name('settings');//gets form values profile style
 

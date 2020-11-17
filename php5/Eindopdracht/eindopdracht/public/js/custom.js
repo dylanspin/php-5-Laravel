@@ -133,6 +133,8 @@ function setBand(int)
     document.getElementById('h'+int).style.display = "block";
     document.getElementById('P'+int).style.display = "block";
     document.getElementById('G'+int).style.display = "block";
+    document.getElementById('S'+int).style.display = "block";
+    document.getElementById('N'+int).style.display = "block";
 }
 
 function goToSelect()
@@ -142,6 +144,8 @@ function goToSelect()
     document.getElementById('h'+deselect).style.display = "none";
     document.getElementById('P'+deselect).style.display = "none";
     document.getElementById('G'+deselect).style.display = "none";
+    document.getElementById('S'+deselect).style.display = "none";
+    document.getElementById('N'+deselect).style.display = "none";
     document.getElementById('bandManger').style.display = "none";
     document.getElementById('selectBand').style.display = "block";
 }

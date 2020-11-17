@@ -26,9 +26,13 @@
                                 <input type="file" name="profileImage" class="mb-5 imgInput" value="" accept="image/*">
                             </div>
                             <div class="col ml-5 ">
-                                <div class="currentImg rounded">
-                                    <img src="publicImages/images/Profile/{{$info->image}}" alt="evenements" class="imgFull rounded">
-                                </div>
+                              <div class="currentImg rounded">
+                                  @if(!Empty($info->image))
+                                      <img src="publicImages/images/Profile/{{$info->image}}" alt="evenements" class="imgFull rounded">
+                                  @else
+                                      <img src="/images/noUser.jpg" alt="evenements" class="imgFull rounded">
+                                  @endguest
+                              </div>
                             </div>
                         </div>
 
@@ -67,12 +71,11 @@
                         </div>
                         <input type="text" name="Custom" value="" placeholder="Custom" class="settingInput"><br>
                         <input type="submit" name="saveOptions" value="Save" class="gradient saveButton">
-
                     </form>
                 </div>
                 <div class="OptionPage" id='O2'>
                     <h1 class="sidebar-heading p-3 font-weight-bolder">Safety Options</h1>
-                    <form class="settingsForm p-2 m-5" action="/settings/submit2" method="GET">
+                    <form class="settingsForm p-2 m-5" action="/settings/submit2" method="POST">
                         @csrf
                         <h3 class="mt-2 mb-5 font-weight-bolder">Profile protection : </h3>
                         <h5 class="pb-2">

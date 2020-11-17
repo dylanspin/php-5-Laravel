@@ -16,7 +16,7 @@ class BandController extends Controller
         $this->middleware('auth');
     }
 
-    private $messages = ["message send","cant invite your self","Person is already in the band"];
+    private $messages = ["message send","cant invite your self","Person is already in the band","Cant leave becouse your still the owner"];
 
     /**
      * Show the application dashboard.
@@ -138,6 +138,64 @@ class BandController extends Controller
         $review->save();
     }
 
+    public function leaveBand(Request $req)
+    {
+        if($req)
+        {
+            $id = auth()->user()->id;
+            $information = \App\profile::findOrFail($id);
+            $bandIds = unserialize($information->bands);
+            $slot = $req['slot'];
+            $bandId = $bandIds[$slot];
+            $bandInfo = \App\band::findOrFail($bandId);
+
+            $members = unserialize($bandInfo->members);
+            $perms = unserialize($bandInfo->memberPer);
+
+            $memberSlot = array_search($id,$members);
+
+            $canLeave = true;
+            if(Count($members) > 0)
+            {
+                $mySlot = array_search($id,$members);
+                if($perms[$mySlot] == 3)
+                {
+                    $canLeave = false;
+                    setcookie("message", 3);//cant leave becouse your still the owner
+                }
+            }
+            if($canLeave)
+            {
+                unset($bandIds[$slot]);
+                unset($members[$memberSlot]);
+                unset($perms[$memberSlot]);
+
+                if(empty($bandIds))
+                {
+                    $compressedBands = null;
+                }else{
+                    $compressedBands = serialize($bandIds);
+                }
+
+                if(empty($members))
+                {
+                    \App\band::where('id', $bandId)->delete();
+                    \App\bandprofile::where('id', $bandId)->delete();
+                }else{
+                    $compressedMembers = serialize($members);
+                    $compressedPerms = serialize($perms);
+
+                    $band = new \App\band;
+                    $band -> where('id',$bandId)->update(['members' => $compressedMembers,'memberPer' => $compressedPerms]);
+                }
+
+                $profile = new \App\profile;
+                $profile -> where('id',$id)->update(['bands' => $compressedBands]);
+            }
+        }
+        return back();
+    }
+
     public function submitProduct(Request $req)
     {
         if($req)
@@ -196,12 +254,102 @@ class BandController extends Controller
             $products->type = $selected;
             $products->idPoster = $set;
             $products->save();
+        }
+        return back();
+    }
+
+    public function SubmitSettings(Request $req)
+    {
+        if($req)
+        {
+            $id = auth()->user()->id;
+            $information = \App\profile::findOrFail($id);
+            $bandIds = unserialize($information->bands);
+            $slot = $req['slot'];
+            $bandId = $bandIds[$slot];
+
+            $socialLinksArray = [$req['Instagram'], $req['Twitter'], $req['Facebook'], $req['Linkedin'], $req['Youtube'], $req['Custom']];
+            $compresSocial = serialize($socialLinksArray);
+
+            $this->UploadImage($req);
+            $settings = new \App\bandprofile;
+            $settings -> where('id', $bandIds)->update(['about' => $req['about'],'social' => $compresSocial]);
+        }
+
+        return back();
+    }
+
+    private function UploadImage(Request $req)
+    {
+         $settings = new \App\bandprofile;
+         $id = auth()->user()->id;
+         $information = \App\bandprofile::findOrFail($id);
+
+         $req->validate([
+             'profileImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+         ]);
+
+         $destinationPath = 'publicImages/images/BandProfile/';
+         $file = $req->file('profileImage');
+         $file_name =  time().'.'.$req->file('profileImage')->extension();
+
+         $oldImage = $information->image;
+         if (file_exists($destinationPath.$oldImage))
+         {
+            unlink($destinationPath.$oldImage);
+         }
+         $file->move($destinationPath,$file_name);
+         $settings -> where('id', $id)->update(['image' => $file_name]);
+    }
+
+
+    public function formSubmitStyle(Request $req)
+    {
+        if($req)
+        {
+            $id = auth()->user()->id;
+            $bandslot = $req['slot'];
+            $information = \App\profile::findOrFail($id);
+            $bandIds = unserialize($information->bands);
+            $bandId = $bandIds[$bandslot];
+
+            $gradientArray = [$req['gradient1'], $req['gradient2']];
+            $compresGradient = serialize($gradientArray);
+
+            if($req['font'])
+            {
+                $font = $req['font'];
+            }else{
+                $information = \App\bandprofile::where('id',$bandId)->get();
+                $font = $information->font;
+            }
+
+            $settings = new \App\bandprofile;
+            $settings -> where('id', $bandId)->update(['gradient' => $compresGradient, 'font' => $font]);
 
             return back();
         }else{
             return back();
         }
     }
+
+    private function getSocial($bandProfile)
+    {
+        $socials = array();
+
+        for($i=0; $i<Count($bandProfile); $i++)
+        {
+            if(strlen($bandProfile[$i][0][0]->social) < 1){
+                $socialLinks = ["","","","","",""];
+            }else{
+                $socialLinks = unserialize($bandProfile[$i][0][0]->social);
+            }
+            array_push($socials,$socialLinks);
+        }
+
+        return $socials;
+    }
+
 
     private function getBandProducts($bandIDs)
     {
@@ -225,7 +373,6 @@ class BandController extends Controller
     private function getBandInfo($bandIDs)
     {
         $bandInformation = array();
-        // $bandInformation = \App\band::where('id',$bandIDs[0])->get();
 
         for($i=0; $i<Count($bandIDs); $i++)
         {
@@ -236,6 +383,7 @@ class BandController extends Controller
                 $bandInformation = [\App\band::where('id',$bandIDs[$i])->get()];
             }
         }
+
         return $bandInformation;
     }
 
@@ -297,7 +445,7 @@ class BandController extends Controller
             $slot = array_search($name,$bandMembers[$i]);
             array_push($myPerms,$slot);
         }
-        
+
         return $myPerms;
     }
 
@@ -331,7 +479,7 @@ class BandController extends Controller
                 if(strlen($information[0]->gradient) < 1){
                     $gradient = ["#780206","#061161"];
                 }else{
-                    $gradient = unserialize($information->gradient);
+                    $gradient = unserialize($information[0]->gradient);
                 }
                 array_push($bandGradients,$gradient);
             }else{
@@ -339,7 +487,7 @@ class BandController extends Controller
                 if(strlen($information[0]->gradient) < 1){
                     $gradient = ["#780206","#061161"];
                 }else{
-                    $gradient = unserialize($information->gradient);
+                    $gradient = unserialize($information[0]->gradient);
                 }
                 $bandGradients = [$gradient];
             }
@@ -350,9 +498,10 @@ class BandController extends Controller
 
     public function getMessage()
     {
-        if($_COOKIE["message"])
+        if(!empty($_COOKIE["message"]))
         {
-            $message = $messages[$_COOKIE["message"]];
+            $message = $this->messages[$_COOKIE["message"]];
+            setcookie("message", "", 1,"/band");
         }else{
             $message = null;
         }
@@ -375,6 +524,8 @@ class BandController extends Controller
             $products = $this->getBandProducts($bandIDs);
             $myPerms = $this->getMyPerms($members,Count($bandIDs));
             $hasBand = true;
+            // dd($bandProfile);
+            $socials = $this->getSocial($bandProfile);
         }else{
             $bandInformation = null;
             $hasBand = false;
@@ -385,11 +536,12 @@ class BandController extends Controller
             $bandProfile = null;
             $gradients = null;
             $myPerms = null;
+            $socials = null;
         }
 
         return view('band')->with('has',$hasBand)->with('bands',$bandInformation)->with('Ids',$bandIDs)->with('perms',$perms)
-        ->with('members',$members)->with('products',$products)->with('profile',$bandProfile)->with('gradients',$gradients)
-        ->with('message',$this->getMessage())->with('myPerm',$myPerms);
+        ->with('members',$members)->with('products',$products)->with('gradients',$gradients)
+        ->with('message',$this->getMessage())->with('myPerm',$myPerms)->with('social',$socials)->with('profile',$bandProfile);
     }
 
 }

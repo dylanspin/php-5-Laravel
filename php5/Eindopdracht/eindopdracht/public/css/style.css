@@ -912,11 +912,22 @@ textarea{
   height: 100px;
   overflow: hidden;
   color: #171717;
-  transition: 0.3s;
+  transition: 0.8s;
   text-align: center;
   font-size: 40px;
   font-weight: 600;
+  animation: slideup 2s  ease 1.5s forwards;
 }
+
+@keyframes slideup {
+  0% {top: 0px;}
+  75% {top: 0px;}
+  100% {
+    top: -200px;
+    display: none;
+  }
+}
+
 .Leave{
   position: relative;
   background: #FA1616;
