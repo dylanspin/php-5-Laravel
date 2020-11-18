@@ -18,7 +18,7 @@
             <div class="col col-lg-7">
                 <div class="OptionPage" id='O1' style="display:block;">
                     <h1 class="p-3 font-weight-bolder">Profile Options</h1>
-                    <form class="settingsForm p-2 m-5" action="/settings/submit" method="POST" enctype="multipart/form-data">
+                    <form class="settingsForm p-2 m-5" action="/settings/send" method="POST" enctype="multipart/form-data">
                         @csrf
                         <h3 class="pt-3 font-weight-bolder mb-4">Profile Picture </h3>
                         <div class="row">

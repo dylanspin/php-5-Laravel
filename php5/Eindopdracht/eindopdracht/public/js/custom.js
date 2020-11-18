@@ -4,6 +4,7 @@ var formBool = false;//review form
 var standard = "fa fa-star starButton"; //star buttons
 var types = ["Hour","Set","Discus"];
 var selected = [];
+var letters = ["H","h","P","G","S","N","V"];
 
 function writeReview()
 {
@@ -123,29 +124,34 @@ function showProduct(int)
     document.getElementById('setAbout').innerHTML = document.getElementById('aboutCard'+int).innerHTML;
 }
 
+
+function enableDisable(active,int)
+{
+    // letters
+    for(var i=0; i<letters.length; i++)
+    {
+        if(active)
+        {
+            document.getElementById(letters[i]+int).style.display = "block";
+        }else{
+            document.getElementById(letters[i]+int).style.display = "none";
+        }
+    }
+}
+
 function setBand(int)
 {
     document.getElementById('bandId').value = int;
     document.getElementById('setBand').value = int;
     document.getElementById('bandManger').style.display = "block";
     document.getElementById('selectBand').style.display = "none";
-    document.getElementById('H'+int).style.display = "block";
-    document.getElementById('h'+int).style.display = "block";
-    document.getElementById('P'+int).style.display = "block";
-    document.getElementById('G'+int).style.display = "block";
-    document.getElementById('S'+int).style.display = "block";
-    document.getElementById('N'+int).style.display = "block";
+    enableDisable(true,int);
 }
 
 function goToSelect()
 {
     var deselect = document.getElementById('bandId').value;
-    document.getElementById('H'+deselect).style.display = "none";
-    document.getElementById('h'+deselect).style.display = "none";
-    document.getElementById('P'+deselect).style.display = "none";
-    document.getElementById('G'+deselect).style.display = "none";
-    document.getElementById('S'+deselect).style.display = "none";
-    document.getElementById('N'+deselect).style.display = "none";
+    enableDisable(false,deselect);
     document.getElementById('bandManger').style.display = "none";
     document.getElementById('selectBand').style.display = "block";
 }

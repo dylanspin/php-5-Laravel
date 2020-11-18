@@ -52,10 +52,8 @@
                                      @if($perms[$i][$myPerm[$i]] > 1)
                                          <div onclick="openSettings(4)" class="backgroundColor setting">Products/services</div>
                                          <div onclick="openSettings(5)" class="backgroundColor setting">Songs</div>
-                                         <div onclick="openSettings(6)" class="backgroundColor setting">Image's</div>
-                                         <div onclick="openSettings(7)" class="backgroundColor setting">Videos</div>
                                      @endguest
-                                     <div onclick="goToSelect()" class="backgroundColor setting">Select Diffrent Band</div>
+                                     <div onclick="goToSelect()" class="backgroundColor setting">Select Different Band</div>
                                      <a href="{{ url('/bandPage',Auth::user()->id) }}" class="backgroundColor setting" id='pageLink'>ViewPage</a>
                                  </div>
                              @endfor
@@ -94,27 +92,27 @@
                                         <div class="Logolabel pb-2">
                                             <div class="fa fa-instagram settingIcon"></div>
                                         </div>
-                                        <input type="text" name="Instagram" value="{{$social[$b][0][0] ?? ''}}" placeholder="Instagram" class="settingInput"><br>
+                                        <input type="text" name="Instagram" value="{{$social[$b][0] ?? ''}}" placeholder="Instagram" class="settingInput"><br>
 
                                         <div class="Logolabel pb-2">
                                             <div class="fa fa-twitter settingIcon"></div>
                                         </div>
-                                        <input type="text" name="Twitter" value="{{$social[$b][1][0] ?? ''}}" placeholder="Twitter" class="settingInput"><br>
+                                        <input type="text" name="Twitter" value="{{$social[$b][1] ?? ''}}" placeholder="Twitter" class="settingInput"><br>
 
                                         <div class="Logolabel pb-2">
                                             <div class="fa fa-facebook settingIcon"></div>
                                         </div>
-                                        <input type="text" name="Facebook" value="{{$social[$b][2][0] ?? ''}}" placeholder="Facebook" class="settingInput"><br>
+                                        <input type="text" name="Facebook" value="{{$social[$b][2] ?? ''}}" placeholder="Facebook" class="settingInput"><br>
 
                                         <div class="Logolabel pb-2">
                                             <div class="fa fa-linkedin settingIcon"></div>
                                         </div>
-                                        <input type="text" name="Linkedin" value="{{$social[$b][3][0] ?? ''}}" placeholder="Linkedin" class="settingInput"><br>
+                                        <input type="text" name="Linkedin" value="{{$social[$b][3] ?? ''}}" placeholder="Linkedin" class="settingInput"><br>
 
                                         <div class="Logolabel pb-2">
                                             <div class="fa fa-youtube-play settingIcon"></div>
                                         </div>
-                                        <input type="text" name="Youtube" value="{{$social[$b][4][0] ?? ''}}" placeholder="Youtube" class="settingInput"><br>
+                                        <input type="text" name="Youtube" value="{{$social[$b][4] ?? ''}}" placeholder="Youtube" class="settingInput"><br>
 
                                         <div class="Logolabel pb-2">
                                             <div class="fa fa-music settingIcon"></div>
@@ -186,9 +184,14 @@
                                                 @endguest
                                             </select>
                                             @if($perms[$i][$myPerm[$i]] > 1 && $b != $myPerm[$i])
-                                              <div class="setPerm kick">
-                                                Delete Member
-                                              </div>
+                                                <form class="declineFor" action="/band/kick" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="slot" value="{{$i}}">
+                                                    <input type="hidden" name="member" value="{{$b}}">
+                                                    <button class="kickm kick" type="submit">
+                                                      Delete Member
+                                                    </button>
+                                                </form>
                                             @endguest
                                         </div>
                                     @endfor
@@ -317,14 +320,23 @@
                               </div>
                           </div>
                         </div>
-                        <div class="OptionPage" id='O5'>
-                            <h1 class="p-3 font-weight-bolder">Songs</h1>
-                        </div>
-                        <div class="OptionPage" id='O6'>
-                            <h1 class="p-3 font-weight-bolder">Image's</h1>
-                        </div>
-                        <div class="OptionPage" id='O7'>
+                        <div class="OptionPage pb-5" id='O7'>
                             <h1 class="p-3 font-weight-bolder">Videos</h1>
+                            @for ($i=0; $i < Count($Ids); $i++)
+                                <div class="holder mb-5" id="V{{$i}}" style="display:none">
+                                    @for ($b=0; $b < 3; $b++)
+                                        <div class="Video mb-5">
+                                          <form class="" action="/band/vids" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="slot" value="{{$i}}">
+                                            <input type="hidden" name="aSlot" value="{{$b}}">
+                                            <input type="text" name="vidLink" value="{{$vids[$i][$b]}}" class="addVideo" placeholder="Video Link">
+                                            <input type="submit" class="submit kick" value="Upload Video">
+                                          </form>
+                                        </div>
+                                    @endfor
+                                </div>
+                            @endfor
                         </div>
                     </div>
                     <div class="col"></div>

@@ -33,12 +33,7 @@
                           </div>
                           <div class="color md-4 pr-5">
                               <h4>
-                                  Jobs Done : {{$total ?? '0'}}
-                              </h4>
-                          </div>
-                          <div class="color md-4 pr-5">
-                              <h4>
-                                  Reliability : {{$reli ?? ''}}%
+                                  Band Members: {{$total ?? '0'}}
                               </h4>
                           </div>
                       </div>

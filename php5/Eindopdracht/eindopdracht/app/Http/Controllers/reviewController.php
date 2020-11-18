@@ -51,43 +51,43 @@ class ReviewController extends Controller
     {
         if($req)
         {
-            $user = auth()->user();
+            $id = auth()->user()->id;
 
+            $about = $req['about'];
             $socialLinksArray = [$req['Instagram'], $req['Twitter'], $req['Facebook'], $req['Linkedin'], $req['Youtube'], $req['Custom']];
             $compresSocial = serialize($socialLinksArray);
 
-            $this->UploadImage($req);
             $settings = new \App\profile;
-            $settings -> where('id', $user->id)->update(['about' => $req['about'],'social' => $compresSocial]);
-            setcookie("test", "WerkkKkkk");//message send
-            return back();
-        }else{
-            setcookie("test2", "WerkkKkkk");
-            return back();
+            $settings -> where('id', $id)->update(['about' => $about,'social' => $compresSocial]);
+            $this->UploadImage($req,$id);
         }
+        
+        return back();
     }
 
-    private function UploadImage(Request $req)
+    private function UploadImage(Request $req,$id)
     {
          $settings = new \App\profile;
-         $id = auth()->user()->id;
          $information = \App\profile::findOrFail($id);
 
-         $req->validate([
-             'profileImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-         ]);
-
-         $destinationPath = 'publicImages/images/Profile/';
-         $file = $req->file('profileImage');
-         $file_name =  time().'.'.$req->file('profileImage')->extension();
-
-         $oldImage = $information->image;
-         if (file_exists($destinationPath.$oldImage))
+         if($information->image != $req['profileImage'])
          {
-            unlink($destinationPath.$oldImage);
+             $req->validate([
+                 'profileImage' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+             ]);
+
+             $destinationPath = 'publicImages/images/Profile/';
+             $file = $req->file('profileImage');
+             $file_name =  time().'.'.$req->file('profileImage')->extension();
+
+             $oldImage = $information->image;
+             if (file_exists($destinationPath.$oldImage))
+             {
+                unlink($destinationPath.$oldImage);
+             }
+             $file->move($destinationPath,$file_name);
+             $settings -> where('id', $id)->update(['image' => $file_name]);
          }
-         $file->move($destinationPath,$file_name);
-         $settings -> where('id', $id)->update(['image' => $file_name]);
     }
 
 

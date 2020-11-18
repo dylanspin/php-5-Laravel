@@ -20,6 +20,7 @@ class CreatesReviewsBandProfiles extends Migration
             $table->text('gradient');
             $table->smallInteger('font');
             $table->mediumText('social');
+            $table->mediumText('vids');
             $table->longText('songTexts');
             $table->timestamps();
         });

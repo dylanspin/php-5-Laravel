@@ -62,11 +62,14 @@ Route::post('/bands/product','BandController@submitProduct')->name('band');
 
 Route::post('/band/leave','BandController@leaveBand')->name('band');
 
-// Route::post('/band/setting','BandController@SubmitSettings')->name('bandSetting');//sets band style
+Route::post('/band/setting','BandController@SubmitSettings')->name('band');//sets band style
+
+Route::post('/band/vids','BandController@SubmitVids')->name('band');//sets band vids
+Route::post('/band/kick','BandController@kickMember')->name('band');//sets band vids
 
 Route::post('/review','ReviewController@formSubmit')->name('review');//creates new review
 
-Route::post('/settings/submit','ReviewController@formSubmitSettings')->name('settings');//gets form values profile info
+Route::post('/settings/send','ReviewController@formSubmitSettings')->name('review');//gets form values profile info
 
 Route::get('/settings/submit3','ReviewController@formSubmitStyle')->name('settings');//gets form values profile style
 

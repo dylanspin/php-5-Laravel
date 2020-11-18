@@ -138,6 +138,53 @@ class BandController extends Controller
         $review->save();
     }
 
+
+    private function leave($id,$bandId) ///moet nog gemaakt worden dat dit ook kan gebruik worden bij de kick functie
+    {
+        $bandInfo = \App\band::findOrFail($bandId);
+
+        $members = unserialize($bandInfo->members);
+        $perms = unserialize($bandInfo->memberPer);
+        $memberSlot = array_search($id,$members);
+        $canLeave = true;
+        if(Count($members) > 0)
+        {
+            $mySlot = array_search($id,$members);
+            if($perms[$mySlot] == 3)
+            {
+                $canLeave = false;
+                setcookie("message", 3);//cant leave becouse your still the owner
+            }
+        }
+        if($canLeave)
+        {
+            unset($bandIds[$slot]);
+            unset($members[$memberSlot]);
+            unset($perms[$memberSlot]);
+
+            if(empty($bandIds))
+            {
+                $compressedBands = null;
+            }else{
+                $compressedBands = serialize($bandIds);
+            }
+
+            if(empty($members))
+            {
+                \App\band::where('id', $bandId)->delete();
+                \App\bandprofile::where('id', $bandId)->delete();
+            }else{
+                $compressedMembers = serialize($members);
+                $compressedPerms = serialize($perms);
+
+                $band = new \App\band;
+                $band -> where('id',$bandId)->update(['members' => $compressedMembers,'memberPer' => $compressedPerms]);
+            }
+
+            $profile = new \App\profile;
+            $profile -> where('id',$id)->update(['bands' => $compressedBands]);
+        }
+    }
     public function leaveBand(Request $req)
     {
         if($req)
@@ -271,18 +318,17 @@ class BandController extends Controller
             $socialLinksArray = [$req['Instagram'], $req['Twitter'], $req['Facebook'], $req['Linkedin'], $req['Youtube'], $req['Custom']];
             $compresSocial = serialize($socialLinksArray);
 
-            $this->UploadImage($req);
             $settings = new \App\bandprofile;
-            $settings -> where('id', $bandIds)->update(['about' => $req['about'],'social' => $compresSocial]);
+            $settings -> where('id', $bandId)->update(['about' => $req['about'],'social' => $compresSocial]);
+            $this->UploadImage($req,$bandId);
         }
 
         return back();
     }
 
-    private function UploadImage(Request $req)
+    private function UploadImage(Request $req,$id)
     {
          $settings = new \App\bandprofile;
-         $id = auth()->user()->id;
          $information = \App\bandprofile::findOrFail($id);
 
          $req->validate([
@@ -326,11 +372,46 @@ class BandController extends Controller
 
             $settings = new \App\bandprofile;
             $settings -> where('id', $bandId)->update(['gradient' => $compresGradient, 'font' => $font]);
-
-            return back();
-        }else{
-            return back();
         }
+
+        return back();
+    }
+
+    public function SubmitVids(Request $req)
+    {
+        if($req)
+        {
+            $id = auth()->user()->id;///////////////////////// moet function worden
+            $bandslot = $req['slot'];
+            $information = \App\profile::findOrFail($id);
+            $bandIds = unserialize($information->bands);
+            $bandId = $bandIds[$bandslot];
+            $bandInfo = \App\bandprofile::where('id',$bandId)->get();
+            $arraySlot = $req['aSlot'];
+
+            $current = $bandInfo[0]->vids;
+            if(strlen($current) < 1){
+                $current = ["","",""];
+            }else{
+                $current = unserialize($current);
+            }
+            $current[$arraySlot] = $req['vidLink'];
+            $compressedVids = serialize($current);
+
+            $settings = new \App\bandprofile;
+            $settings -> where('id', $bandId)->update(['vids' => $compressedVids]);
+        }
+
+        return back();
+    }
+
+    public function kickMember(Request $req)
+    {
+        if($req)
+        {
+
+        }
+        return back();
     }
 
     private function getSocial($bandProfile)
@@ -350,6 +431,22 @@ class BandController extends Controller
         return $socials;
     }
 
+    private function getVids($bandProfile)
+    {
+        $vids = array();
+
+        for($i=0; $i<Count($bandProfile); $i++)
+        {
+            if(strlen($bandProfile[$i][0][0]->vids) < 1){
+                $vidArray = ["","",""];
+            }else{
+                $vidArray = unserialize($bandProfile[$i][0][0]->vids);
+            }
+            array_push($vids,$vidArray);
+        }
+
+        return $vids;
+    }
 
     private function getBandProducts($bandIDs)
     {
@@ -526,6 +623,7 @@ class BandController extends Controller
             $hasBand = true;
             // dd($bandProfile);
             $socials = $this->getSocial($bandProfile);
+            $vids = $this->getVids($bandProfile);
         }else{
             $bandInformation = null;
             $hasBand = false;
@@ -537,10 +635,11 @@ class BandController extends Controller
             $gradients = null;
             $myPerms = null;
             $socials = null;
+            $vids = null;
         }
 
         return view('band')->with('has',$hasBand)->with('bands',$bandInformation)->with('Ids',$bandIDs)->with('perms',$perms)
-        ->with('members',$members)->with('products',$products)->with('gradients',$gradients)
+        ->with('members',$members)->with('products',$products)->with('gradients',$gradients)->with('vids',$vids)
         ->with('message',$this->getMessage())->with('myPerm',$myPerms)->with('social',$socials)->with('profile',$bandProfile);
     }
 

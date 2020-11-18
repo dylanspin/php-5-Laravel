@@ -803,13 +803,23 @@ textarea{
   display: inline-block;
 }
 
+.kickm{
+  position: relative;
+  font-size: 25px;
+  left: 475px;
+  top: -35px;
+  box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);
+  display: inline-block;
+}
+
 .kick{
   background: #171717;
-  left: 140px;
+  /* left: 140px; */
   padding: 2px 10px;
   width: 200px;
   color: white;
   border: none;
+  transition: 0.3s;
 }
 .inviteInput{
   position: relative;
@@ -993,4 +1003,28 @@ textarea{
 .declineForm{
   position: relative;
   display: inline-block;
+}
+.Video{
+  position: relative;
+  width: 750px;
+  height: 400px;
+  border-radius: 10px;
+  background: #161616;
+  box-shadow: inset 0px 0px 10px rgba(0,0,0,0.5);
+}
+.addVideo{
+  position: absolute;
+  left: 20%;
+  top: 35%;
+  border: none;
+  font-size: 40px;
+  border-radius: 5px;
+}
+.submit{
+  position: absolute;
+  font-size: 30px;
+  bottom: 20px;
+  left: 2%;
+  width: 300px;
+  background: #191919;
 }
