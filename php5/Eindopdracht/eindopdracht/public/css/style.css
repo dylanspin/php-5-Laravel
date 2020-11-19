@@ -1028,3 +1028,11 @@ textarea{
   width: 300px;
   background: #191919;
 }
+.formHolder{
+  position: relative;
+  top: -45px;
+}
+.permForm{
+  position: relative;
+  left: 35%;
+}

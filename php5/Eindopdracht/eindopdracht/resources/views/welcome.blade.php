@@ -71,7 +71,7 @@
                 <div class="row pt-5 pl">
                     <div class="column md-3 p-3">
                         <div class="imgVak">
-                            <img src="/images/e1.jpg" alt="evenements" class="imgFull">
+                            <img src="/images/noUser.jpg" alt="evenements" class="imgFull">
                         </div>
                     </div>
                     <div class="column md-3 p-3">

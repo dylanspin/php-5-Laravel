@@ -65,7 +65,10 @@ Route::post('/band/leave','BandController@leaveBand')->name('band');
 Route::post('/band/setting','BandController@SubmitSettings')->name('band');//sets band style
 
 Route::post('/band/vids','BandController@SubmitVids')->name('band');//sets band vids
+
 Route::post('/band/kick','BandController@kickMember')->name('band');//sets band vids
+
+Route::post('/band/promote','BandController@promote')->name('band');//promote's member
 
 Route::post('/review','ReviewController@formSubmit')->name('review');//creates new review
 

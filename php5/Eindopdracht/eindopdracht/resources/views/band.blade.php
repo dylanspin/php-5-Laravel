@@ -75,8 +75,8 @@
                                             </div>
                                             <div class="col ml-5 ">
                                                 <div class="currentImg rounded">
-                                                  @if(!Empty($info->image))
-                                                      <img src="publicImages/images/Profile/{{$info->image}}" alt="evenements" class="imgFull rounded">
+                                                  @if(!Empty($profile[$b][0][0]->image))
+                                                      <img src="publicImages/images/BandProfile/{{$profile[$b][0][0]->image}}" alt="evenements" class="imgFull rounded">
                                                   @else
                                                       <img src="/images/noUser.jpg" alt="evenements" class="imgFull rounded">
                                                   @endguest
@@ -161,38 +161,47 @@
                                             <div class="memberName gradient">
                                                 {{$members[$i][$b]}}
                                             </div>
-                                            <select name='font' class="fontOptions setPerm">
-                                                @if($perms[$i][$b] == 3)
-                                                    <option value='3' class="fontOptions" selected>Owner</option>
-                                                @else
-                                                    <option value='3' class="fontOptions">Owner</option>
-                                                @endguest
-                                                @if($perms[$i][$b] == 2)
-                                                    <option value='2' class="fontOptions" selected>Admin</option>
-                                                @else
-                                                    <option value='2' class="fontOptions">Admin</option>
-                                                @endguest
-                                                @if($perms[$i][$b] == 1)
-                                                    <option value='1' class="fontOptions" selected>Can invite</option>
-                                                @else
-                                                    <option value='1' class="fontOptions">Can invite</option>
-                                                @endguest
-                                                @if($perms[$i][$b] == 0)
-                                                    <option value='0' class="fontOptions" selected>Member</option>
-                                                @else
-                                                    <option value='0' class="fontOptions">Member</option>
-                                                @endguest
-                                            </select>
-                                            @if($perms[$i][$myPerm[$i]] > 1 && $b != $myPerm[$i])
-                                                <form class="declineFor" action="/band/kick" method="POST">
+                                            <div class="formHolder">
+                                                <form class="permForm" action="/band/promote" method="POST">
                                                     @csrf
                                                     <input type="hidden" name="slot" value="{{$i}}">
                                                     <input type="hidden" name="member" value="{{$b}}">
-                                                    <button class="kickm kick" type="submit">
-                                                      Delete Member
-                                                    </button>
+                                                    @if($b != $myPerm[$i] && $perms[$i][$myPerm[$i]] > 1)
+                                                        <select name='perms' class="fontOptions setPerm" onchange="this.form.submit()">
+                                                            @if($perms[$i][$b] == 3)
+                                                                <option value='3' class="fontOptions" selected>Owner</option>
+                                                            @else
+                                                                <option value='3' class="fontOptions">Owner</option>
+                                                            @endguest
+                                                            @if($perms[$i][$b] == 2)
+                                                                <option value='2' class="fontOptions" selected>Admin</option>
+                                                            @else
+                                                                <option value='2' class="fontOptions">Admin</option>
+                                                            @endguest
+                                                            @if($perms[$i][$b] == 1)
+                                                                <option value='1' class="fontOptions" selected>Can invite</option>
+                                                            @else
+                                                                <option value='1' class="fontOptions">Can invite</option>
+                                                            @endguest
+                                                            @if($perms[$i][$b] == 0)
+                                                                <option value='0' class="fontOptions" selected>Member</option>
+                                                            @else
+                                                                <option value='0' class="fontOptions">Member</option>
+                                                            @endguest
+                                                        </select>
+                                                    @endguest
                                                 </form>
-                                            @endguest
+                                                @if($perms[$i][$myPerm[$i]] > 1 && $b != $myPerm[$i])
+                                                    <form class="declineFor" action="/band/kick" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="slot" value="{{$i}}">
+                                                        <input type="hidden" name="member" value="{{$b}}">
+                                                        <button class="kickm kick" type="submit">
+                                                          Delete Member
+                                                        </button>
+                                                    </form>
+                                                @endguest
+                                            </div>
                                         </div>
                                     @endfor
                                 </div>
@@ -357,9 +366,6 @@
             </div>
             <div class="jumbotron" style="background:#191919">
                 latest bands created
-            </div>
-            <div class="jumbotron" style="background:#191919">
-                most popular bands
             </div>
           </div>
         @endif

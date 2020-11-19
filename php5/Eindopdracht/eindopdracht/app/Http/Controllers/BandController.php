@@ -16,7 +16,8 @@ class BandController extends Controller
         $this->middleware('auth');
     }
 
-    private $messages = ["message send","cant invite your self","Person is already in the band","Cant leave becouse your still the owner"];
+    private $messages = ["message send","cant invite your self","Person is already in the band","Cant leave becouse your still the owner",
+                          "You dont have to permision to invite people to this band","You dont have to permision to promote"];
 
     /**
      * Show the application dashboard.
@@ -80,74 +81,81 @@ class BandController extends Controller
             $bandId = $req['bandId'];
             $bandInformation = \App\band::where('id',$bandId)->get();
             $list = $bandInformation[0]->members;
-            if(strlen($list) < 1){
-                $notIn = true;
-            }else{
-                $list = unserialize($list);
-                if(Count($list) > 0)
-                {
-                    if(in_array($idInvite, $list))
-                    {
-                        $notIn = false;
-                    }else{
-                        $notIn = true;
-                    }
-                }else{
-                    if($list[0] != $idInvite)
-                    {
-                        $notIn = false;
-                    }else{
-                        $notIn = true;
-                    }
-                }
-            }
-
-            if($notIn)
+            $perms = unserialize($bandInformation[0]->memberPer);
+            $list = unserialize($list);
+            $mySlot = array_search($sendId,$list);
+            if($perms[$mySlot] > 0)
             {
-                if($sendId != $idInvite)
-                {
-                    $message = new \App\message;
-                    $message->type = 0;
-                    $message->bandId = $bandId;
-                    $message->sendId = $sendId;
-                    $message->recieve = $idInvite;
-                    $message->save();
-                    setcookie("message", 0);//message send
+                if(empty($list)){
+                    $notIn = true;
                 }else{
-                    setcookie("message", 1);//cant invite your self
+                    if(Count($list) > 0)
+                    {
+                        if(in_array($idInvite, $list))
+                        {
+                            $notIn = false;
+                        }else{
+                            $notIn = true;
+                        }
+                    }else{
+                        if($list[0] != $idInvite)
+                        {
+                            $notIn = false;
+                        }else{
+                            $notIn = true;
+                        }
+                    }
+                }
+                if($notIn)
+                {
+                    if($sendId != $idInvite)
+                    {
+                        $message = new \App\message;
+                        $message->type = 0;
+                        $message->bandId = $bandId;
+                        $message->sendId = $sendId;
+                        $message->recieve = $idInvite;
+                        $message->save();
+                        setcookie("message", 0);//message send
+                    }else{
+                        setcookie("message", 1);//cant invite your self
+                    }
+                }else{
+                    setcookie("message", 2);//Person is already in the band
                 }
             }else{
-                setcookie("message", 2);//Person is already in the band
+                setcookie("message", 4);//No permision to invite
             }
-            return $this->index();
-        }else{
-            $this->index();
         }
+        return $this->index();
     }
 
     private function createBandProfile($setID)
     {
-        $review = new \App\bandprofile;
-        $review->about = "No user information";
-        $review->image = "";
-        $review->social = "";
-        $review->gradient = "";
-        $review->font = 0;
-        $review->id = $setID;
-        $review->songTexts = "";
-        $review->save();
+        $profile = new \App\bandprofile;
+        $profile->about = "No user information";
+        $profile->image = "";
+        $profile->social = "";
+        $profile->gradient = "";
+        $profile->font = 0;
+        $profile->id = $setID;
+        $profile->songTexts = "";
+        $profile->vids = "";
+        $profile->save();
     }
 
 
-    private function leave($id,$bandId) ///moet nog gemaakt worden dat dit ook kan gebruik worden bij de kick functie
+    private function leave($id,$bandId)
     {
+        $information = \App\profile::findOrFail($id);
+        $bandIds = unserialize($information->bands);
         $bandInfo = \App\band::findOrFail($bandId);
-
         $members = unserialize($bandInfo->members);
         $perms = unserialize($bandInfo->memberPer);
         $memberSlot = array_search($id,$members);
+        $slot = array_search($bandId,$bandIds);
         $canLeave = true;
-        if(Count($members) > 0)
+        if(Count($members) > 1)
         {
             $mySlot = array_search($id,$members);
             if($perms[$mySlot] == 3)
@@ -161,6 +169,11 @@ class BandController extends Controller
             unset($bandIds[$slot]);
             unset($members[$memberSlot]);
             unset($perms[$memberSlot]);
+
+            // resetArray
+            $bandIds = $this->resetArray($bandIds);
+            $members = $this->resetArray($members);
+            $perms = $this->resetArray($perms);
 
             if(empty($bandIds))
             {
@@ -185,6 +198,7 @@ class BandController extends Controller
             $profile -> where('id',$id)->update(['bands' => $compressedBands]);
         }
     }
+
     public function leaveBand(Request $req)
     {
         if($req)
@@ -194,51 +208,7 @@ class BandController extends Controller
             $bandIds = unserialize($information->bands);
             $slot = $req['slot'];
             $bandId = $bandIds[$slot];
-            $bandInfo = \App\band::findOrFail($bandId);
-
-            $members = unserialize($bandInfo->members);
-            $perms = unserialize($bandInfo->memberPer);
-
-            $memberSlot = array_search($id,$members);
-
-            $canLeave = true;
-            if(Count($members) > 0)
-            {
-                $mySlot = array_search($id,$members);
-                if($perms[$mySlot] == 3)
-                {
-                    $canLeave = false;
-                    setcookie("message", 3);//cant leave becouse your still the owner
-                }
-            }
-            if($canLeave)
-            {
-                unset($bandIds[$slot]);
-                unset($members[$memberSlot]);
-                unset($perms[$memberSlot]);
-
-                if(empty($bandIds))
-                {
-                    $compressedBands = null;
-                }else{
-                    $compressedBands = serialize($bandIds);
-                }
-
-                if(empty($members))
-                {
-                    \App\band::where('id', $bandId)->delete();
-                    \App\bandprofile::where('id', $bandId)->delete();
-                }else{
-                    $compressedMembers = serialize($members);
-                    $compressedPerms = serialize($perms);
-
-                    $band = new \App\band;
-                    $band -> where('id',$bandId)->update(['members' => $compressedMembers,'memberPer' => $compressedPerms]);
-                }
-
-                $profile = new \App\profile;
-                $profile -> where('id',$id)->update(['bands' => $compressedBands]);
-            }
+            $this->leave($id,$bandId);
         }
         return back();
     }
@@ -381,7 +351,7 @@ class BandController extends Controller
     {
         if($req)
         {
-            $id = auth()->user()->id;///////////////////////// moet function worden
+            $id = auth()->user()->id;
             $bandslot = $req['slot'];
             $information = \App\profile::findOrFail($id);
             $bandIds = unserialize($information->bands);
@@ -405,11 +375,80 @@ class BandController extends Controller
         return back();
     }
 
+
+    public function resetArray($array)
+    {
+        $newArray = array();
+
+        for($i=0; $i<=Count($array); $i++)
+        {
+            if(array_key_exists($i, $array))
+            {
+                if(!empty($newArray))
+                {
+                    array_push($newArray,$array[$i]);
+                }else{
+                    $newArray[0] = $array[$i];
+                }
+            }
+        }
+
+        return $newArray;
+    }
+
+    public function promote(Request $req)
+    {
+        if($req)
+        {
+            $id = auth()->user()->id;
+            $information = \App\profile::findOrFail($id);
+            $slot = $req['slot'];
+            $bandMember = $req['member'];
+            $newPerm = $req['perms'];
+            $bandIds = unserialize($information->bands);
+            $bandId = $bandIds[$slot];
+            $bandInfo = \App\band::where('id',$bandId)->get();
+            $members = unserialize($bandInfo[0]->members);
+            $SetSlot = array_search($bandMember,$members);
+            $mySlot = array_search($id,$members);
+            $perms = unserialize($bandInfo[0]->memberPer);
+            $myPerm = $perms[$mySlot];
+
+            if($myPerm > 1)
+            {
+                if($newPerm == 3)
+                {
+                    $perms[$SetSlot] = $newPerm;
+                    $perms[$mySlot] = 2;
+                }else{
+                    $perms[$SetSlot] = $newPerm;
+                }
+
+                $compressedPerms = serialize($perms);
+                $band = new \App\band;
+                $band -> where('id',$bandId)->update(['memberPer' => $compressedPerms]);
+            }else{
+                setcookie("message", 5);//No permision
+            }
+        }
+
+        return back();
+    }
+
     public function kickMember(Request $req)
     {
         if($req)
         {
-
+            $id = auth()->user()->id;
+            $information = \App\profile::findOrFail($id);
+            $bandIds = unserialize($information->bands);
+            $slot = $req['slot'];
+            $bandMember = $req['member'];
+            $bandId = $bandIds[$slot];
+            $bandInfo = \App\band::where('id',$bandId)->get();
+            $members = unserialize($bandInfo[0]->members);
+            $memberId = $members[$bandMember];
+            $this->leave($memberId,$bandId);
         }
         return back();
     }
@@ -605,6 +644,7 @@ class BandController extends Controller
 
         return $message;
     }
+
 
     public function index()
     {
