@@ -17,18 +17,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::post('/search','searchController@formSubmit')->name('search');//gets navBar input
+
+Route::post('/welcome/search','searchController@welcomeSearch')->name('search');//gets welcome input
+
+Route::get('/search/welcome','searchController@welcome')->name('search');
+
+Route::get('/profile/{user}', 'profileController@index')->name('profile.show');
+
+Route::get('/bandPage/{user}', 'profileController@showBand')->name('profile.show');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
-
-Route::get('/profile/{user}', 'profileController@index')->name('profile.show');
-
-Auth::routes();
-
-Route::get('/bandPage/{user}', 'profileController@showBand')->name('profile.show');
 
 Auth::routes();
 
@@ -41,10 +44,6 @@ Route::get('/settings', 'SettingsController@index')->name('settings');
 Auth::routes();
 
 Route::get('/band','BandController@index')->name('band');
-
-Auth::routes();
-
-Route::post('/search','searchController@formSubmit')->name('search');//gets navBar input
 
 Auth::routes();
 
@@ -71,6 +70,8 @@ Route::post('/band/kick','BandController@kickMember')->name('band');//sets band 
 Route::post('/band/promote','BandController@promote')->name('band');//promote's member
 
 Route::post('/review','ReviewController@formSubmit')->name('review');//creates new review
+
+Route::post('/settings/vids','ReviewController@uploadVid')->name('review');//creates new review
 
 Route::post('/settings/send','ReviewController@formSubmitSettings')->name('review');//gets form values profile info
 

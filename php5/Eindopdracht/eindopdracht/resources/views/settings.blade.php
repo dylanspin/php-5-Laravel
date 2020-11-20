@@ -12,6 +12,7 @@
                      <div onclick="openSettings(3)" class="backgroundColor setting">Style Options</div>
                      <div onclick="openSettings(4)" class="backgroundColor setting">Privacy</div>
                      <div onclick="openSettings(5)" class="backgroundColor setting">Products/services</div>
+                     <div onclick="openSettings(6)" class="backgroundColor setting">Video's</div>
                  </div>
                </div>
             </div>
@@ -218,6 +219,19 @@
                             </form>
                         </div>
                     </div>
+                </div>
+                <div class="OptionPage pb-5" id='O6'>
+                    <h1 class="p-3 font-weight-bolder">Videos</h1>
+                    @for ($b=0; $b < 3; $b++)
+                        <div class="Video mb-5">
+                          <form class="" action="/settings/vids" method="POST">
+                            @csrf
+                            <input type="hidden" name="aSlot" value="{{$b}}">
+                            <input type="text" name="vidLink" value="{{$vids[$b] ?? ''}}" class="addVideo" placeholder="Video Link">
+                            <input type="submit" class="submit kick" value="Upload Video">
+                          </form>
+                        </div>
+                    @endfor
                 </div>
             </div>
             <div class="col"></div><!--Spacer-->

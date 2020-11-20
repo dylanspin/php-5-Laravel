@@ -47,6 +47,18 @@ class SettingsController extends Controller
         return $gradient;
     }
 
+    private function getVideos($information)
+    {
+        if(!Empty($information->vids))
+        {
+            $vids = unserialize($information->vids);
+        }else{
+            $vids = null;
+        }
+
+        return $vids;
+    }
+
     public function index()//task bar load
     {
         $id = auth()->user()->id;
@@ -54,6 +66,6 @@ class SettingsController extends Controller
         $information = \App\profile::findOrFail($id);
         $about = $information->about;
         return view('settings')->with('social',$this->getSocial())->with('about',$about)->with('gradient',$this->getGradient())
-        ->with('info',$information)->with('products',$products);
+        ->with('info',$information)->with('products',$products)->with('vids',$this->getVideos($information));
     }
 }

@@ -16,26 +16,35 @@
                           @endfor
                       </div>
                       <div class="profileImage" style="display:inline-block;">
-                          @if (strlen($information->image) > 0)
-                              <img src="/publicImages/images/Profile/{{$information->image}}" alt="evenements" class="imgFull rounded">
+                          @if ($isband)
+                              @if(!Empty($information->image))
+                                  <img src="publicImages/images/BandProfile/{{$information->image}}" class="bandImage">
+                              @else
+                                  <img src="/images/noUser.jpg" alt="evenements" class="imgFull rounded">
+                              @endguest
                           @else
-                              <img src="/images/noUser.jpg" alt="evenements" class="imgFull rounded">
+                              @if (!Empty($information->image))
+                                  <img src="/publicImages/images/Profile/{{$information->image}}" alt="evenements" class="imgFull rounded">
+                              @else
+                                  <img src="/images/noUser.jpg" alt="evenements" class="imgFull rounded">
+                              @endguest
                           @endguest
                       </div>
                   </div>
                   <div class="col md-8 pr-5">
-                      <h1 class="profileName">{{$user->name}}</h1>
+                      @if ($isband)
+                          <h1 class="profileName">{{$user->bandName}}</h1>
+                      @else
+                          <h1 class="profileName">{{$user->name}}</h1>
+                      @endguest
                       <div class="row mb-5 profileScore">
-                          <div class="color md-4 pr-5 ">
-                              <h4>
-                                  Followers : 2Mil
-                              </h4>
-                          </div>
-                          <div class="color md-4 pr-5">
-                              <h4>
-                                  Band Members: {{$total ?? '0'}}
-                              </h4>
-                          </div>
+                          @if($isband)
+                              <div class="color md-4 pr-5">
+                                  <h4>
+                                      Band Members: {{Count($members) ?? '0'}}
+                                  </h4>
+                              </div>
+                          @endguest
                       </div>
                       <h5 class="ProfileAbout text-left">
                           {{$information->about ?? 'No information'}}
@@ -50,8 +59,8 @@
           @if($isband)
               <div style="text-align:center">
                   <h1 class="font-weight-bold mb-5">Services </h1>
-                  @if($productAmount > 0)
-                      @for ($i = 0; $i < $productAmount; $i++)
+                  @if(!Empty($products))
+                      @for ($i = 0; $i < Count($products); $i++)
                           <div class="col col-lg-3 cardss">
                               <div class="card box-shadow productC" onclick="showProduct({{$i}})">
                                   <div class="card-header profileGradient" style="background:linear-gradient(118deg, {{$gradient[0] ?? ''}} 0%, {{$gradient[1] ?? ''}} 100%); background-size: 300%; background-position: left;">
@@ -104,12 +113,18 @@
                   <h1 class="font-weight-bold">Band Members</h1>
 
                   <div style="text-align:center">
-                      <a class="selectBand memberCard" href="{{url('/profile',3)}}">
-                          <div class="bandNaam">
-                              Dylan Spin
-                          </div>
-                          <img src="/images/noUser.jpg" class="bandImage">
-                      </a>
+                      @for ($i = 0; $i < Count($members); $i++)
+                          <a class="selectBand memberCard" href="{{url('/profile',$members[$i]->id)}}">
+                              <div class="bandNaam">
+                                  {{$names[$i] ?? 'No name'}}
+                              </div>
+                              @if(!Empty($members[$i]->image))
+                                  <img src="/publicImages/images/Profile/{{$members[$i]->image}}" class="bandImage">
+                              @else
+                                  <img src="/images/noUser.jpg" class="bandImage">
+                              @endguest
+                          </a>
+                      @endfor
                   </div>
               </div>
               <div class="bar moreMT"></div>
@@ -118,11 +133,19 @@
           <div class="jumbotron" style="background-color:#171717;">
               <div class="container">
                   <h1 class="font-weight-bold">Video's</h1>
-                  <h2 class="mt-5">No video's yet</h2>
+                  @if(!Empty($vids))
+                      @for ($i = 0; $i < Count($vids); $i++)
+                          @if(strlen($vids[$i]) > 5)
+                              <iframe width="820" height="415" class="ProfileVideo m-4"
+                                  src="{{$vids[$i]}}">
+                              </iframe>
+                          @endguest
+                      @endfor
+                  @else
+                      <h2 class="mt-5">No video's yet</h2>
+                  @endguest
                   <!--hier moet nog een function komen die checkt als er een video links is of meerdere en die dan de youtube vids laat zien--->
-                  <!-- <iframe width="820" height="415" class="ProfileVideo m-4"
-                      src="https://www.youtube.com/embed/WKuaujIHBT4">
-                  </iframe> -->
+
 
               </div>
           </div>
@@ -173,7 +196,7 @@
               <div class="row">
                   <div class="col">
                     <h2 class="font-weight-bold">Reviews</h2>
-                    <h5 class="pt-2 grayText">{{$review}}</h5>
+                    <h5 class="pt-2 grayText">{{$review ?? ''}}</h5>
                     <div class="rating pt-3"><!--Moet nog met php gedaan worden moet een score uit reken van 5 sterren-->
                         @for ($i = 0; $i < 5; $i++)
                             <i class="fa fa-star iconStar small" aria-hidden="true"></i>
@@ -182,7 +205,7 @@
                   </div>
                   <div class="col pr-5 mr-5">
                       <div class="well well-sm text-center">
-                          <h1 class="font-weight-bold">{{$score}}</h1>
+                          <h1 class="font-weight-bold">{{$score ?? '0'}}</h1>
                           <div class="rating"><!--Moet nog met php gedaan worden moet een score uit reken van 5 sterren-->
                               @for ($i = 0; $i < $score; $i++)
                                   <i class="fa fa-star iconStar" aria-hidden="true"></i>
@@ -192,7 +215,7 @@
                               @endfor
                           </div>
                           <div>
-                              <span class="glyphicon glyphicon-user"></span>{{$total}} total
+                              <span class="glyphicon glyphicon-user"></span>{{$total ?? ''}} total
                           </div>
                       </div>
                   </div>

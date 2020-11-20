@@ -35,9 +35,10 @@
                             This is the place to meet and hire bands/musicians
                         </p>
                     </main>
-                    <div class="links">
-                        <a href="https://github.com/dylanspin">GitHub</a>
-                    </div>
+                      <form class="links" action="/welcome/search" method="POST">
+                          @csrf
+                          <input class="mainSearch" type="text" name="Search" placeholder="Search" aria-label="Search">
+                    </form>
                 </div>
             </div>
         </div>

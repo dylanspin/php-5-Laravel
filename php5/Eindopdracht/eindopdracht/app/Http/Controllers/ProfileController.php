@@ -13,7 +13,7 @@ class ProfileController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -53,9 +53,14 @@ class ProfileController extends Controller
         }
     }
 
-    private function getGradient($id)
+    private function getGradient($id,$isProfile)
     {
-        $information = \App\profile::findOrFail($id);
+        if($isProfile)
+        {
+            $information = \App\profile::findOrFail($id);
+        }else{
+            $information = \App\bandprofile::findOrFail($id);
+        }
         if(strlen($information->gradient) < 1){
             $gradient = ["#780206","#061161"];
         }else{
@@ -64,9 +69,14 @@ class ProfileController extends Controller
         return $gradient;
     }
 
-    private function returnSocials($id)
+    private function returnSocials($id,$isProfile)
     {
-        $information = \App\profile::findOrFail($id);
+        if($isProfile)
+        {
+            $information = \App\profile::findOrFail($id);
+        }else{
+            $information = \App\bandprofile::findOrFail($id);
+        }
 
         if(strlen($information->social) < 1){
             $socialLinks = ["","","","","",""];
@@ -88,6 +98,34 @@ class ProfileController extends Controller
         return $products;
     }
 
+    private function returnMembers($information)
+    {
+        $memberInfo = array();
+        $membersArray = unserialize($information->members);
+
+        for($i=0; $i<Count($membersArray); $i++)
+        {
+            $information = \App\profile::findOrFail($membersArray[$i]);
+            array_push($memberInfo,$information);
+        }
+
+        return $memberInfo;
+    }
+
+    private function returnNames($information)
+    {
+        $memberInfo = array();
+        $membersArray = unserialize($information->members);
+
+        for($i=0; $i<Count($membersArray); $i++)
+        {
+            $information = \App\User::findOrFail($membersArray[$i]);
+            array_push($memberInfo,$information->name);
+        }
+
+        return $memberInfo;
+    }
+
     public function index($id)
     {
         $products = \App\bandproduct::where('idPoster',$id)->get();
@@ -95,38 +133,36 @@ class ProfileController extends Controller
         $information = \App\profile::findOrFail($id);
 
         $total = $information->completed + $information->failed;
-        if($total * $information->completed != 0)
-        {
-            $reli = round(100 / $total * $information->completed);
-        }else{
-            $reli = 0;
-        }
         $user = \App\User::findOrFail($id);
+        if(!Empty($information->vids))
+        {
+            $vids = unserialize($information->vids);
+        }else{
+            $vids = null;
+        }
+
         return view('profile')->withDetails($user)->with('information',$information)->with('user',$user)->with('total',$total)
-        ->with('reli',$reli)->with('review',$this->returnRandomReview($id))->with('score',$this->returnScore($id))
-        ->with('total',$this->returnTotal($id))->with('social',$this->returnSocials($id))->with('icons',$this->icons)
-        ->with('gradient',$this->getGradient($id))->with('products',$products)->with('productAmount',$productLength)
-        ->with('isband',false);
+        ->with('review',null)->with('score',$this->returnScore($id))->with('vids',$vids)
+        ->with('social',$this->returnSocials($id,true))->with('icons',$this->icons)
+        ->with('gradient',$this->getGradient($id,true))->with('products',$products)->with('isband',false);
     }
 
     public function showBand($id)//deze moet aangepast worden dat die band dingen laat zien
     {
         $products = \App\bandproduct::where('idPoster',$id)->get();
-        $productLength = Count($products);
-        $information = \App\profile::findOrFail($id);
-
-        $total = $information->completed + $information->failed;
-        if($total * $information->completed != 0)
+        $information = \App\bandprofile::findOrFail($id);
+        $total = Count(\App\review::where('idUserPage',$id)->get());
+        $user = \App\band::findOrFail($id);
+        if(!Empty($information->vids))
         {
-            $reli = round(100 / $total * $information->completed);
+            $vids = unserialize($information->vids);
         }else{
-            $reli = 0;
+            $vids = null;
         }
-        $user = \App\User::findOrFail($id);
-        return view('profile')->withDetails($user)->with('information',$information)->with('user',$user)->with('total',$total)
-        ->with('reli',$reli)->with('review',$this->returnRandomReview($id))->with('score',$this->returnScore($id))
-        ->with('total',$this->returnTotal($id))->with('social',$this->returnSocials($id))->with('icons',$this->icons)
-        ->with('gradient',$this->getGradient($id))->with('products',$products)
-        ->with('productAmount',$productLength)->with('isband',true);
+
+        return view('profile')->with('information',$information)->with('social',$this->returnSocials($id,false))->with('user',$user)
+        ->with('isband',true)->with('review',$this->returnRandomReview($id))->with('score',$this->returnScore($id))
+        ->with('gradient',$this->getGradient($id,false))->with('members',$this->returnMembers($user))->with('names',$this->returnNames($user))
+        ->with('total',$total)->with('vids',$vids);
     }
 }

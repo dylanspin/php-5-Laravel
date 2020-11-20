@@ -31,9 +31,6 @@
                         <a href="#!" class="grayText">Who are we</a>
                     </li>
                     <li>
-                        <a href="#!" class="grayText">Collab</a>
-                    </li>
-                    <li>
                         <a href="#!" class="grayText">Information</a>
                     </li>
                     <li>

@@ -61,7 +61,7 @@ class ReviewController extends Controller
             $settings -> where('id', $id)->update(['about' => $about,'social' => $compresSocial]);
             $this->UploadImage($req,$id);
         }
-        
+
         return back();
     }
 
@@ -90,6 +90,28 @@ class ReviewController extends Controller
          }
     }
 
+    public function uploadVid(Request $req)
+    {
+        if($req)
+        {
+            $id = auth()->user()->id;
+            $information = \App\profile::findOrFail($id);
+            $arraySlot = $req['aSlot'];
+            $current = $information->vids;
+            if(strlen($current) < 1){
+                $current = ["","",""];
+            }else{
+                $current = unserialize($current);
+            }
+            $current[$arraySlot] = $req['vidLink'];
+            $compressedVids = serialize($current);
+
+            $settings = new \App\profile;
+            $settings -> where('id', $id)->update(['vids' => $compressedVids]);
+        }
+
+        return back();
+    }
 
     public function formSubmitStyle(Request $req)
     {

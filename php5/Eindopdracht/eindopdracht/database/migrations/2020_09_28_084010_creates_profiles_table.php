@@ -22,6 +22,7 @@ class CreatesProfilesTable extends Migration
             $table->smallInteger('font');
             $table->mediumText('social');
             $table->text('bands');
+            $table->mediumText('vids');
             $table->timestamps();
         });
     }

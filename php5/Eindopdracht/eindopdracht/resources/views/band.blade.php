@@ -51,10 +51,10 @@
                                  <div class="holder" id="N{{$i}}" style="display:none;">
                                      @if($perms[$i][$myPerm[$i]] > 1)
                                          <div onclick="openSettings(4)" class="backgroundColor setting">Products/services</div>
-                                         <div onclick="openSettings(5)" class="backgroundColor setting">Songs</div>
+                                         <div onclick="openSettings(7)" class="backgroundColor setting">Video's</div>
                                      @endguest
                                      <div onclick="goToSelect()" class="backgroundColor setting">Select Different Band</div>
-                                     <a href="{{ url('/bandPage',Auth::user()->id) }}" class="backgroundColor setting" id='pageLink'>ViewPage</a>
+                                     <a href="{{ url('/bandPage',$bands[$i][0][0]->id) }}" class="backgroundColor setting" id='pageLink'>ViewPage</a>
                                  </div>
                              @endfor
                          </div>
@@ -189,6 +189,18 @@
                                                                 <option value='0' class="fontOptions">Member</option>
                                                             @endguest
                                                         </select>
+                                                    @else
+                                                      <h2 class="pt-3 pl-5">
+                                                          @if($perms[$i][$b] == 3)
+                                                              Owner
+                                                          @elseif($perms[$i][$b] == 2)
+                                                              Admin
+                                                          @elseif($perms[$i][$b] == 1)
+                                                              Can invite
+                                                          @elseif($perms[$i][$b] == 0)
+                                                              Member
+                                                          @endguest
+                                                      </h2>
                                                     @endguest
                                                 </form>
                                                 @if($perms[$i][$myPerm[$i]] > 1 && $b != $myPerm[$i])
@@ -339,7 +351,7 @@
                                             @csrf
                                             <input type="hidden" name="slot" value="{{$i}}">
                                             <input type="hidden" name="aSlot" value="{{$b}}">
-                                            <input type="text" name="vidLink" value="{{$vids[$i][$b]}}" class="addVideo" placeholder="Video Link">
+                                            <input type="text" name="vidLink" value="{{$vids[$i][$b] ?? ''}}" class="addVideo" placeholder="Video Link">
                                             <input type="submit" class="submit kick" value="Upload Video">
                                           </form>
                                         </div>

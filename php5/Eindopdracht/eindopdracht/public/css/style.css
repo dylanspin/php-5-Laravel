@@ -1036,3 +1036,9 @@ textarea{
   position: relative;
   left: 35%;
 }
+.mainSearch{
+  position: relative;
+  top: 50px;
+  width: 600px;
+  font-size: 25px;
+}

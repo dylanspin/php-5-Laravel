@@ -14,7 +14,7 @@ class SearchController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -91,27 +91,51 @@ class SearchController extends Controller
         return $bandProfile;
     }
 
-    public function formSubmit(Request $req)
+    private function search(Request $req,$welcome)
     {
         if($req)
         {
-            $bandIds = $this->getBandIds();
-            if($bandIds != null)
+            if($welcome)
             {
-                $bandInfo = $this->getBandInfo($bandIds);
+                $bandIds = $this->getBandIds();
+                if($bandIds != null)
+                {
+                    $bandInfo = $this->getBandInfo($bandIds);
+                }else{
+                    $bandInfo = null;
+                }
             }else{
+                $bandIds = null;
                 $bandInfo = null;
             }
             $search = $req->input('Search');
             $results = \App\User::where('name', 'like', $search .'%')->get();
             $bandResults = \App\band::where('bandName', 'like', $search .'%')->get();
             $bandProfile = $this->getBandProfile($bandResults);
+
             $about = $this->searchResults($results);
-            
+
             return view('search')->withDetails($search)->with('search',$search)->with('results',$results)->with('profile',$bandProfile)
-            ->with('info',$about)->with('bandId',$bandIds)->with('bandInfo',$bandInfo)->with('bandResults',$bandResults);
+            ->with('info',$about)->with('bandId',$bandIds)->with('bandInfo',$bandInfo)->with('bandResults',$bandResults)->with('welcome',$welcome);
         }else{
             return view('search')->with('amount',0);
         }
+    }
+
+    public function formSubmit(Request $req)
+    {
+          $this->middleware('auth');
+
+          return $this->search($req,true);
+    }
+
+    public function welcomeSearch(Request $req)
+    {
+          return $this->search($req,false);
+    }
+
+    public function welcome()
+    {
+        return view('welcome');
     }
 }

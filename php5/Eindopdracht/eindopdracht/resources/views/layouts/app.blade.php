@@ -50,9 +50,15 @@
       <!-- #131313; -->
         <nav class="navbar navbar-expand-md shadow-sm" style="background:inherit; position:absolute; width:100%;">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/home') }}">
-                    <img src="/images/LogoWhite.png" alt="" style="height : 40px;">
-                </a>
+                @if (Route::has('register'))
+                  <a class="navbar-brand" href="{{ url('/home') }}">
+                      <img src="/images/LogoWhite.png" alt="" style="height : 40px;">
+                  </a>
+                @else
+                  <a class="navbar-brand" href="{{url('/search/welcome')}}">
+                      <img src="/images/LogoWhite.png" alt="" style="height : 40px;">
+                  </a>
+                @endguest
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
